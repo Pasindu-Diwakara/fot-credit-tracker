@@ -1147,12 +1147,24 @@ drawMesh();
 
 
 // ─── THEME ───────────────────────────────────────────────────────────────────
-let isDark = false;
+let isDark = localStorage.getItem('fot_theme_v1') !== 'light';
+if (isDark) {
+  document.documentElement.setAttribute('data-theme', 'dark');
+}
+
 function toggleTheme() {
   isDark = !isDark;
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : '');
-  document.getElementById('themeLabel').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+  localStorage.setItem('fot_theme_v1', isDark ? 'dark' : 'light');
+  const label = document.getElementById('themeLabel');
+  if (label) label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
 }
+
+// Ensure label is correct on load
+window.addEventListener('DOMContentLoaded', () => {
+  const label = document.getElementById('themeLabel');
+  if (label) label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+});
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 function gradeKey(dept, code) { return `${dept}_${code.replace(/\s/g, '_')}`; }

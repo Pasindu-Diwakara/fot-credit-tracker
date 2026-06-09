@@ -514,6 +514,11 @@
     </div>
   </header>
 
+  <div class="dept-section" style="margin-top: 32px;">
+    <div class="section-label">Select Department</div>
+    <div class="dept-tabs" id="deptTabs"></div>
+  </div>
+
   <div class="career-section" id="careerSection">
     <div class="career-section-header" id="careerHeader">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
@@ -528,34 +533,7 @@
 <script>
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
-const CAREER_PATHS = {
-  ICT: [
-    { id: 'se', title: 'Software Engineer', desc: 'Design, develop, and maintain software applications and systems.', keywords: ['Program', 'Web', 'Software', 'Data', 'Structure', 'Algorithm'], maxAffinity: 6 },
-    { id: 'ne', title: 'Network Engineer', desc: 'Design and manage local and wide area networking infrastructure.', keywords: ['Network', 'Comm', 'Security', 'System', 'Admin'], maxAffinity: 5 },
-    { id: 'ds', title: 'Data Analyst / Scientist', desc: 'Analyze data to extract insights using math and machine learning.', keywords: ['Math', 'Stat', 'Data', 'Machine', 'AI', 'Analysis'], maxAffinity: 6 },
-    { id: 'it', title: 'IT Systems Admin', desc: 'Maintain and operate computing environments and hardware.', keywords: ['Hardware', 'System', 'OS', 'Operat', 'Database'], maxAffinity: 5 },
-    { id: 'ui', title: 'UI/UX Designer', desc: 'Design user interfaces and improve digital user experiences.', keywords: ['Human', 'Interact', 'Web', 'Multimedia', 'Design', 'Interface'], maxAffinity: 4 }
-  ],
-  BPT: [
-    { id: 'bq', title: 'Quality Assurance Analyst', desc: 'Ensure bio-products meet strict quality and safety standards.', keywords: ['Quality', 'Safety', 'Analyt', 'Microbiol'], maxAffinity: 4 },
-    { id: 'be', title: 'Bioprocess Engineer', desc: 'Design and operate equipment for biological manufacturing.', keywords: ['Bioprocess', 'Bioreactor', 'Operation', 'Design'], maxAffinity: 4 },
-    { id: 'mr', title: 'Molecular Researcher', desc: 'Research genetic and molecular systems in laboratories.', keywords: ['Genetics', 'Molecular', 'Biology', 'Cell', 'Tissue'], maxAffinity: 5 }
-  ],
-  FDT: [
-    { id: 'fs', title: 'Food Safety Officer', desc: 'Ensure food manufacturing complies with health standards.', keywords: ['Safety', 'Quality', 'Hygiene', 'Microbio'], maxAffinity: 4 },
-    { id: 'pd', title: 'Product Developer', desc: 'Create new food products and improve existing formulations.', keywords: ['Develop', 'Process', 'Chemistry', 'Nutri'], maxAffinity: 4 }
-  ],
-  EET: [
-    { id: 'ae', title: 'Automation Engineer', desc: 'Design and implement automated manufacturing systems.', keywords: ['Automat', 'Control', 'PLC', 'System'], maxAffinity: 4 },
-    { id: 'ee', title: 'Embedded Systems Dev', desc: 'Program microcontrollers and embedded devices.', keywords: ['Embed', 'Micro', 'Program', 'Electronic'], maxAffinity: 4 },
-    { id: 'pe', title: 'Power Engineer', desc: 'Manage electrical power generation and distribution.', keywords: ['Power', 'Electric', 'Machine', 'Circuit'], maxAffinity: 4 }
-  ],
-  MAT: [
-    { id: 'ma', title: 'Materials Analyst', desc: 'Test and analyze properties of different materials.', keywords: ['Analy', 'Test', 'Prop', 'Character'], maxAffinity: 4 },
-    { id: 'pe', title: 'Polymer Engineer', desc: 'Design and develop polymer-based products and processes.', keywords: ['Polymer', 'Plast', 'Chem', 'Process'], maxAffinity: 4 }
-  ]
-};
-
+// Old CAREER_PATHS removed.
 const GRADE_MAP = {
   'A+': 4.0, 'A': 4.0, 'A-': 3.7,
   'B+': 3.3, 'B': 3.0, 'B-': 2.7,
@@ -1111,28 +1089,119 @@ function drawMesh() {
 }
 drawMesh();
 
-// Expanded Data!
-CAREER_PATHS.ICT.push(
-  { id: 'db', title: 'Database Administrator', desc: 'Secure, maintain, and optimize massive databases.', keywords: ['Data', 'Database', 'Admin', 'Manage'], maxAffinity: 4, demand: 82, trend: '+12%' },
-  { id: 'pm', title: 'IT Project Manager', desc: 'Lead tech projects from conception to deployment.', keywords: ['Project', 'Manage', 'Software', 'System'], maxAffinity: 4, demand: 75, trend: '+8%' },
-  { id: 'cs', title: 'Cyber Security Analyst', desc: 'Protect networks and systems from cyber threats.', keywords: ['Security', 'Network', 'Protect', 'Data'], maxAffinity: 4, demand: 95, trend: '+35%' }
-);
-CAREER_PATHS.BPT.push(
-  { id: 'ra', title: 'Regulatory Affairs Spec', desc: 'Ensure bio-manufacturing complies with laws.', keywords: ['Legal', 'Quality', 'Safety', 'Ethics'], maxAffinity: 3, demand: 78, trend: '+10%' },
-  { id: 'pt', title: 'Plant Tissue Culturist', desc: 'Grow and maintain plant cultures for agriculture.', keywords: ['Plant', 'Tissue', 'Culture', 'Bio'], maxAffinity: 4, demand: 65, trend: '+5%' }
-);
-CAREER_PATHS.FDT.push(
-  { id: 'nt', title: 'Nutrition Technologist', desc: 'Develop healthy and nutritious food items.', keywords: ['Nutri', 'Food', 'Develop', 'Health'], maxAffinity: 4, demand: 80, trend: '+15%' },
-  { id: 'qa', title: 'Food Quality Auditor', desc: 'Inspect food processing facilities for safety.', keywords: ['Safety', 'Quality', 'Audit', 'Process'], maxAffinity: 4, demand: 72, trend: '+7%' }
-);
-CAREER_PATHS.EET.push(
-  { id: 'ce', title: 'Control Systems Eng', desc: 'Design systems that control machinery.', keywords: ['Control', 'System', 'Automat', 'Circuit'], maxAffinity: 4, demand: 85, trend: '+18%' },
-  { id: 're', title: 'Robotics Engineer', desc: 'Build and program industrial robots.', keywords: ['Robot', 'Automat', 'Program', 'System'], maxAffinity: 4, demand: 92, trend: '+28%' }
-);
-CAREER_PATHS.MAT.push(
-  { id: 'mn', title: 'Nanotechnologist', desc: 'Manipulate matter on an atomic scale.', keywords: ['Nano', 'Mater', 'Prop', 'Physic'], maxAffinity: 4, demand: 88, trend: '+22%' },
-  { id: 'me', title: 'Metallurgical Engineer', desc: 'Extract and process metals for manufacturing.', keywords: ['Metal', 'Process', 'Mater', 'Extract'], maxAffinity: 4, demand: 68, trend: '+4%' }
-);
+// ─── MASSIVE JOB DATABASE ──────────────────────────────────────────────────
+const CAREER_PATHS = {
+  ICT: [
+    { id: 'ict1', title: 'Software Engineer', desc: 'Design, develop, and maintain software applications and systems.', keywords: ['Program', 'Web', 'Software', 'Data', 'Structure', 'Algorithm'], maxAffinity: 6, demand: 92, trend: '+22%' },
+    { id: 'ict2', title: 'Network Engineer', desc: 'Design and manage local and wide area networking infrastructure.', keywords: ['Network', 'Comm', 'Security', 'System', 'Admin'], maxAffinity: 5, demand: 85, trend: '+12%' },
+    { id: 'ict3', title: 'Data Scientist', desc: 'Analyze data to extract insights using math and machine learning.', keywords: ['Math', 'Stat', 'Data', 'Machine', 'AI', 'Analysis'], maxAffinity: 6, demand: 95, trend: '+35%' },
+    { id: 'ict4', title: 'IT Systems Admin', desc: 'Maintain and operate computing environments and hardware.', keywords: ['Hardware', 'System', 'OS', 'Operat', 'Database'], maxAffinity: 5, demand: 75, trend: '+5%' },
+    { id: 'ict5', title: 'UI/UX Designer', desc: 'Design user interfaces and improve digital user experiences.', keywords: ['Human', 'Interact', 'Web', 'Multimedia', 'Design', 'Interface'], maxAffinity: 4, demand: 82, trend: '+15%' },
+    { id: 'ict6', title: 'Database Administrator', desc: 'Secure, maintain, and optimize massive databases.', keywords: ['Data', 'Database', 'Admin', 'Manage'], maxAffinity: 4, demand: 80, trend: '+9%' },
+    { id: 'ict7', title: 'IT Project Manager', desc: 'Lead tech projects from conception to deployment.', keywords: ['Project', 'Manage', 'Software', 'System'], maxAffinity: 4, demand: 78, trend: '+11%' },
+    { id: 'ict8', title: 'Cyber Security Analyst', desc: 'Protect networks and systems from cyber threats.', keywords: ['Security', 'Network', 'Protect', 'Data'], maxAffinity: 4, demand: 98, trend: '+32%' },
+    { id: 'ict9', title: 'Cloud Architect', desc: 'Design and deploy scalable cloud-based infrastructure.', keywords: ['Network', 'System', 'Data', 'Web', 'Software'], maxAffinity: 5, demand: 94, trend: '+28%' },
+    { id: 'ict10', title: 'Systems Analyst', desc: 'Analyze and improve complex computer systems.', keywords: ['System', 'Software', 'Design', 'Manage', 'Analysis'], maxAffinity: 5, demand: 81, trend: '+8%' },
+    { id: 'ict11', title: 'Machine Learning Engineer', desc: 'Build highly advanced AI and ML algorithms.', keywords: ['AI', 'Machine', 'Algorithm', 'Math', 'Data', 'Program'], maxAffinity: 6, demand: 99, trend: '+40%' },
+    { id: 'ict12', title: 'DevOps Engineer', desc: 'Bridge development and operations for software delivery.', keywords: ['Software', 'System', 'Network', 'Project', 'Program'], maxAffinity: 5, demand: 93, trend: '+25%' },
+    { id: 'ict13', title: 'Mobile App Developer', desc: 'Create applications for mobile platforms.', keywords: ['Mobile', 'App', 'Program', 'Software', 'Design'], maxAffinity: 5, demand: 87, trend: '+18%' },
+    { id: 'ict14', title: 'IT Consultant', desc: 'Provide expert technical advice to organizations.', keywords: ['System', 'Manage', 'Project', 'Comm', 'Information'], maxAffinity: 5, demand: 76, trend: '+7%' },
+    { id: 'ict15', title: 'Penetration Tester', desc: 'Perform ethical hacking to secure systems.', keywords: ['Security', 'Network', 'System', 'Software', 'Program'], maxAffinity: 5, demand: 90, trend: '+20%' },
+    { id: 'ict16', title: 'Game Developer', desc: 'Develop mechanics and engines for video games.', keywords: ['Game', 'Program', 'Math', 'Multimedia', 'Graphics'], maxAffinity: 5, demand: 84, trend: '+14%' },
+    { id: 'ict17', title: 'Technical Writer', desc: 'Create technical manuals and documentation.', keywords: ['Comm', 'Write', 'Information', 'System'], maxAffinity: 4, demand: 70, trend: '+4%' },
+    { id: 'ict18', title: 'Blockchain Developer', desc: 'Develop decentralized ledgers and smart contracts.', keywords: ['Program', 'Security', 'Data', 'Algorithm'], maxAffinity: 4, demand: 86, trend: '+19%' },
+    { id: 'ict19', title: 'Computer Vision Engineer', desc: 'Build AI that can interpret visual information.', keywords: ['Image', 'Graphics', 'AI', 'Machine', 'Math'], maxAffinity: 5, demand: 91, trend: '+26%' },
+    { id: 'ict20', title: 'IT Support Specialist', desc: 'Provide hardware and software assistance to users.', keywords: ['Hardware', 'System', 'Comm', 'OS'], maxAffinity: 4, demand: 72, trend: '+3%' }
+  ],
+  BPT: [
+    { id: 'bpt1', title: 'Quality Assurance Analyst', desc: 'Ensure bio-products meet strict quality standards.', keywords: ['Quality', 'Safety', 'Analyt', 'Microbiol'], maxAffinity: 4, demand: 82, trend: '+12%' },
+    { id: 'bpt2', title: 'Bioprocess Engineer', desc: 'Design equipment for biological manufacturing.', keywords: ['Bioprocess', 'Bioreactor', 'Operation', 'Design'], maxAffinity: 4, demand: 88, trend: '+18%' },
+    { id: 'bpt3', title: 'Molecular Researcher', desc: 'Research genetic and molecular systems.', keywords: ['Genetics', 'Molecular', 'Biology', 'Cell', 'Tissue'], maxAffinity: 5, demand: 75, trend: '+8%' },
+    { id: 'bpt4', title: 'Regulatory Affairs Spec', desc: 'Ensure bio-manufacturing complies with laws.', keywords: ['Legal', 'Quality', 'Safety', 'Ethics'], maxAffinity: 3, demand: 80, trend: '+14%' },
+    { id: 'bpt5', title: 'Plant Tissue Culturist', desc: 'Maintain plant cultures for agriculture.', keywords: ['Plant', 'Tissue', 'Culture', 'Bio'], maxAffinity: 4, demand: 68, trend: '+5%' },
+    { id: 'bpt6', title: 'Biomedical Scientist', desc: 'Investigate human diseases and treatments.', keywords: ['Immunology', 'Molecular', 'Disease', 'Cell'], maxAffinity: 4, demand: 90, trend: '+22%' },
+    { id: 'bpt7', title: 'Fermentation Technologist', desc: 'Manage large-scale fermentation for bio-products.', keywords: ['Bioreactor', 'Microbio', 'Process', 'Scale'], maxAffinity: 4, demand: 85, trend: '+16%' },
+    { id: 'bpt8', title: 'Clinical Data Analyst', desc: 'Analyze biological data for clinical trials.', keywords: ['Bioinformatics', 'Data', 'Statistics', 'Clinical'], maxAffinity: 4, demand: 92, trend: '+28%' },
+    { id: 'bpt9', title: 'Environmental Consultant', desc: 'Assess and mitigate environmental bio-risks.', keywords: ['Waste', 'Pollution', 'Environment', 'Ecology'], maxAffinity: 3, demand: 72, trend: '+7%' },
+    { id: 'bpt10', title: 'Geneticist', desc: 'Study inheritance and variation of traits.', keywords: ['Genetics', 'Molecular', 'Biology', 'Evolution'], maxAffinity: 4, demand: 84, trend: '+15%' },
+    { id: 'bpt11', title: 'Biochemist', desc: 'Analyze the chemical principles of living things.', keywords: ['Chemistry', 'Molecular', 'Cell', 'Bio'], maxAffinity: 4, demand: 78, trend: '+9%' },
+    { id: 'bpt12', title: 'Forensic Scientist', desc: 'Analyze biological evidence for legal investigations.', keywords: ['Analyt', 'Molecular', 'Genetics', 'Chemistry'], maxAffinity: 4, demand: 70, trend: '+4%' },
+    { id: 'bpt13', title: 'Pharmacologist', desc: 'Develop new drugs and study their effects.', keywords: ['Pharm', 'Medical', 'Chemistry', 'Biology'], maxAffinity: 4, demand: 89, trend: '+20%' },
+    { id: 'bpt14', title: 'Bioinformatician', desc: 'Develop tools to analyze biological data.', keywords: ['Bioinformatics', 'Data', 'Program', 'Math'], maxAffinity: 4, demand: 95, trend: '+35%' },
+    { id: 'bpt15', title: 'Microbiologist', desc: 'Study microscopic organisms and their applications.', keywords: ['Microbio', 'Cell', 'Culture', 'Bio'], maxAffinity: 4, demand: 81, trend: '+11%' },
+    { id: 'bpt16', title: 'Toxicologist', desc: 'Study the safety and adverse effects of chemicals.', keywords: ['Safety', 'Chemistry', 'Quality', 'Environment'], maxAffinity: 4, demand: 76, trend: '+8%' },
+    { id: 'bpt17', title: 'Healthcare Scientist', desc: 'Support clinical diagnosis and treatment.', keywords: ['Clinical', 'Immunology', 'Disease', 'Cell'], maxAffinity: 4, demand: 83, trend: '+13%' },
+    { id: 'bpt18', title: 'Cell Culture Technician', desc: 'Grow and maintain cell lines in laboratories.', keywords: ['Cell', 'Culture', 'Tissue', 'Microbio'], maxAffinity: 4, demand: 74, trend: '+6%' },
+    { id: 'bpt19', title: 'Biomanufacturing Specialist', desc: 'Oversee the production of biological materials.', keywords: ['Bioprocess', 'Manufacture', 'Process', 'Scale'], maxAffinity: 4, demand: 86, trend: '+17%' },
+    { id: 'bpt20', title: 'Epidemiologist', desc: 'Investigate the causes and spread of diseases.', keywords: ['Disease', 'Data', 'Stat', 'Microbio'], maxAffinity: 4, demand: 94, trend: '+26%' }
+  ],
+  FDT: [
+    { id: 'fdt1', title: 'Food Safety Officer', desc: 'Ensure food manufacturing complies with health standards.', keywords: ['Safety', 'Quality', 'Hygiene', 'Microbio'], maxAffinity: 4, demand: 85, trend: '+14%' },
+    { id: 'fdt2', title: 'Product Developer', desc: 'Create new food products and improve formulations.', keywords: ['Develop', 'Process', 'Chemistry', 'Nutri'], maxAffinity: 4, demand: 88, trend: '+18%' },
+    { id: 'fdt3', title: 'Nutrition Technologist', desc: 'Develop healthy and nutritious food items.', keywords: ['Nutri', 'Food', 'Develop', 'Health'], maxAffinity: 4, demand: 90, trend: '+20%' },
+    { id: 'fdt4', title: 'Food Quality Auditor', desc: 'Inspect food processing facilities for safety.', keywords: ['Safety', 'Quality', 'Audit', 'Process'], maxAffinity: 4, demand: 78, trend: '+10%' },
+    { id: 'fdt5', title: 'Flavor Chemist', desc: 'Create and analyze complex food flavors.', keywords: ['Chemistry', 'Flavor', 'Analyt', 'Sensory'], maxAffinity: 4, demand: 72, trend: '+8%' },
+    { id: 'fdt6', title: 'Supply Chain Manager', desc: 'Manage agricultural logistics and distribution.', keywords: ['Agriculture', 'Logistics', 'Manage', 'Supply'], maxAffinity: 3, demand: 86, trend: '+15%' },
+    { id: 'fdt7', title: 'Packaging Engineer', desc: 'Design sustainable packaging for perishables.', keywords: ['Packaging', 'Material', 'Design', 'Sustain'], maxAffinity: 3, demand: 82, trend: '+12%' },
+    { id: 'fdt8', title: 'R&D Food Scientist', desc: 'Lead research into novel food technologies.', keywords: ['Research', 'Develop', 'Tech', 'Food'], maxAffinity: 4, demand: 92, trend: '+22%' },
+    { id: 'fdt9', title: 'Food Inspector', desc: 'Examine raw and processed foods for safety.', keywords: ['Inspect', 'Safety', 'Quality', 'Hygiene'], maxAffinity: 4, demand: 74, trend: '+6%' },
+    { id: 'fdt10', title: 'QC Supervisor', desc: 'Oversee daily quality control operations.', keywords: ['Quality', 'Control', 'Manage', 'Process'], maxAffinity: 4, demand: 80, trend: '+11%' },
+    { id: 'fdt11', title: 'Sensory Scientist', desc: 'Evaluate the taste, smell, and texture of food.', keywords: ['Sensory', 'Analyt', 'Test', 'Food'], maxAffinity: 4, demand: 75, trend: '+9%' },
+    { id: 'fdt12', title: 'Food Microbiologist', desc: 'Study microbes that cause foodborne illness.', keywords: ['Microbio', 'Safety', 'Hygiene', 'Food'], maxAffinity: 4, demand: 84, trend: '+16%' },
+    { id: 'fdt13', title: 'Process Engineer (Food)', desc: 'Optimize food manufacturing and production lines.', keywords: ['Process', 'Manufacture', 'Design', 'Optimiz'], maxAffinity: 4, demand: 89, trend: '+19%' },
+    { id: 'fdt14', title: 'Dairy Technologist', desc: 'Specialize in milk and dairy product manufacturing.', keywords: ['Dairy', 'Process', 'Microbio', 'Quality'], maxAffinity: 4, demand: 76, trend: '+7%' },
+    { id: 'fdt15', title: 'Bakery Technologist', desc: 'Develop baked goods and grain-based products.', keywords: ['Bake', 'Grain', 'Process', 'Develop'], maxAffinity: 4, demand: 70, trend: '+5%' },
+    { id: 'fdt16', title: 'Meat Scientist', desc: 'Improve the processing and safety of meat products.', keywords: ['Meat', 'Safety', 'Process', 'Quality'], maxAffinity: 4, demand: 72, trend: '+6%' },
+    { id: 'fdt17', title: 'Beverage Formulator', desc: 'Design new drinks, from juices to functional beverages.', keywords: ['Beverage', 'Develop', 'Chemistry', 'Flavor'], maxAffinity: 4, demand: 81, trend: '+13%' },
+    { id: 'fdt18', title: 'Compliance Specialist', desc: 'Ensure products meet FDA and global regulations.', keywords: ['Regulat', 'Legal', 'Safety', 'Standard'], maxAffinity: 4, demand: 83, trend: '+14%' },
+    { id: 'fdt19', title: 'Culinary Technologist', desc: 'Bridge the gap between culinary arts and food science.', keywords: ['Culinary', 'Develop', 'Sensory', 'Food'], maxAffinity: 4, demand: 77, trend: '+10%' },
+    { id: 'fdt20', title: 'Post-Harvest Tech', desc: 'Manage the storage and preservation of crops.', keywords: ['Harvest', 'Agriculture', 'Storage', 'Preserv'], maxAffinity: 4, demand: 79, trend: '+11%' }
+  ],
+  EET: [
+    { id: 'eet1', title: 'Automation Engineer', desc: 'Design and implement automated manufacturing systems.', keywords: ['Automat', 'Control', 'PLC', 'System'], maxAffinity: 4, demand: 90, trend: '+20%' },
+    { id: 'eet2', title: 'Embedded Systems Dev', desc: 'Program microcontrollers and embedded devices.', keywords: ['Embed', 'Micro', 'Program', 'Electronic'], maxAffinity: 4, demand: 88, trend: '+18%' },
+    { id: 'eet3', title: 'Power Engineer', desc: 'Manage electrical power generation and distribution.', keywords: ['Power', 'Electric', 'Machine', 'Circuit'], maxAffinity: 4, demand: 82, trend: '+12%' },
+    { id: 'eet4', title: 'Control Systems Eng', desc: 'Design systems that control complex machinery.', keywords: ['Control', 'System', 'Automat', 'Circuit'], maxAffinity: 4, demand: 86, trend: '+16%' },
+    { id: 'eet5', title: 'Robotics Engineer', desc: 'Build and program industrial robots.', keywords: ['Robot', 'Automat', 'Program', 'System'], maxAffinity: 4, demand: 95, trend: '+30%' },
+    { id: 'eet6', title: 'Renewable Energy Spec', desc: 'Design and deploy solar/wind power systems.', keywords: ['Power', 'Energy', 'Renew', 'Solar'], maxAffinity: 4, demand: 98, trend: '+40%' },
+    { id: 'eet7', title: 'IoT Solutions Architect', desc: 'Design connected smart devices and sensors.', keywords: ['IoT', 'Sensor', 'Embed', 'Connect'], maxAffinity: 4, demand: 92, trend: '+28%' },
+    { id: 'eet8', title: 'Telecom Network Eng', desc: 'Maintain communications infrastructure.', keywords: ['Telecom', 'Signal', 'Network', 'Comm'], maxAffinity: 4, demand: 78, trend: '+8%' },
+    { id: 'eet9', title: 'Hardware Design Eng', desc: 'Design advanced PCBs and electronic hardware.', keywords: ['Hardware', 'PCB', 'Design', 'Circuit'], maxAffinity: 4, demand: 85, trend: '+15%' },
+    { id: 'eet10', title: 'Electrical Project Mgr', desc: 'Oversee electrical engineering projects.', keywords: ['Project', 'Manage', 'Electric', 'System'], maxAffinity: 4, demand: 80, trend: '+10%' },
+    { id: 'eet11', title: 'Instrumentation Eng', desc: 'Design measuring instruments for industrial systems.', keywords: ['Instrument', 'Measure', 'Sensor', 'Control'], maxAffinity: 4, demand: 84, trend: '+14%' },
+    { id: 'eet12', title: 'Broadcast Engineer', desc: 'Maintain equipment for radio and TV broadcasting.', keywords: ['Broadcast', 'Signal', 'Telecom', 'Comm'], maxAffinity: 4, demand: 65, trend: '+2%' },
+    { id: 'eet13', title: 'Mechatronics Engineer', desc: 'Combine mechanical, electrical, and computer engineering.', keywords: ['Mech', 'Electric', 'Robot', 'System'], maxAffinity: 4, demand: 94, trend: '+25%' },
+    { id: 'eet14', title: 'PCB Designer', desc: 'Layout complex printed circuit boards.', keywords: ['PCB', 'Design', 'Circuit', 'Hardware'], maxAffinity: 4, demand: 81, trend: '+11%' },
+    { id: 'eet15', title: 'FPGA Engineer', desc: 'Program Field Programmable Gate Arrays.', keywords: ['FPGA', 'Hardware', 'Program', 'Logic'], maxAffinity: 4, demand: 87, trend: '+17%' },
+    { id: 'eet16', title: 'Audio/Visual Engineer', desc: 'Design professional A/V systems and acoustics.', keywords: ['Audio', 'Visual', 'Signal', 'System'], maxAffinity: 4, demand: 70, trend: '+5%' },
+    { id: 'eet17', title: 'Power Systems Analyst', desc: 'Analyze and optimize large power grids.', keywords: ['Power', 'Grid', 'Analyt', 'System'], maxAffinity: 4, demand: 83, trend: '+13%' },
+    { id: 'eet18', title: 'Smart Grid Engineer', desc: 'Modernize electrical grids with IoT and data.', keywords: ['Grid', 'Smart', 'IoT', 'Power'], maxAffinity: 4, demand: 96, trend: '+35%' },
+    { id: 'eet19', title: 'Electronics Test Eng', desc: 'Ensure hardware meets quality and functional standards.', keywords: ['Test', 'Quality', 'Electronic', 'Circuit'], maxAffinity: 4, demand: 79, trend: '+9%' },
+    { id: 'eet20', title: 'Motor Controls Spec', desc: 'Design drives and controllers for electric motors.', keywords: ['Motor', 'Drive', 'Control', 'Power'], maxAffinity: 4, demand: 77, trend: '+7%' }
+  ],
+  MAT: [
+    { id: 'mat1', title: 'Materials Analyst', desc: 'Test and analyze properties of different materials.', keywords: ['Analy', 'Test', 'Prop', 'Character'], maxAffinity: 4, demand: 82, trend: '+12%' },
+    { id: 'mat2', title: 'Polymer Engineer', desc: 'Design and develop polymer-based products.', keywords: ['Polymer', 'Plast', 'Chem', 'Process'], maxAffinity: 4, demand: 85, trend: '+15%' },
+    { id: 'mat3', title: 'Nanotechnologist', desc: 'Manipulate matter on an atomic scale.', keywords: ['Nano', 'Mater', 'Prop', 'Physic'], maxAffinity: 4, demand: 90, trend: '+24%' },
+    { id: 'mat4', title: 'Metallurgical Engineer', desc: 'Extract and process metals for manufacturing.', keywords: ['Metal', 'Process', 'Mater', 'Extract'], maxAffinity: 4, demand: 75, trend: '+6%' },
+    { id: 'mat5', title: 'Ceramics Engineer', desc: 'Develop high-performance ceramic components.', keywords: ['Ceramic', 'Process', 'Material', 'Thermal'], maxAffinity: 4, demand: 78, trend: '+9%' },
+    { id: 'mat6', title: 'Biomaterials Scientist', desc: 'Design materials for medical implants.', keywords: ['Bio', 'Material', 'Medical', 'Implant'], maxAffinity: 3, demand: 92, trend: '+28%' },
+    { id: 'mat7', title: 'Corrosion Engineer', desc: 'Prevent material degradation in harsh environments.', keywords: ['Corrosion', 'Degrad', 'Protect', 'Chemistry'], maxAffinity: 3, demand: 80, trend: '+11%' },
+    { id: 'mat8', title: 'Composites Mfg Eng', desc: 'Build lightweight, strong composite materials.', keywords: ['Composite', 'Manufacture', 'Polymer', 'Strength'], maxAffinity: 4, demand: 88, trend: '+18%' },
+    { id: 'mat9', title: 'Welding Engineer', desc: 'Develop advanced welding and joining processes.', keywords: ['Weld', 'Join', 'Metal', 'Process'], maxAffinity: 4, demand: 70, trend: '+4%' },
+    { id: 'mat10', title: 'QC Metallurgist', desc: 'Ensure metal products meet structural standards.', keywords: ['Quality', 'Control', 'Metal', 'Test'], maxAffinity: 4, demand: 74, trend: '+5%' },
+    { id: 'mat11', title: 'Foundry Engineer', desc: 'Optimize metal casting and foundry operations.', keywords: ['Cast', 'Metal', 'Process', 'Manufacture'], maxAffinity: 4, demand: 65, trend: '+2%' },
+    { id: 'mat12', title: 'Adhesives Chemist', desc: 'Formulate industrial glues and protective coatings.', keywords: ['Adhesive', 'Coat', 'Polymer', 'Chem'], maxAffinity: 4, demand: 81, trend: '+13%' },
+    { id: 'mat13', title: 'Failure Analysis Eng', desc: 'Investigate why materials break or fail.', keywords: ['Fail', 'Analy', 'Fracture', 'Test'], maxAffinity: 4, demand: 86, trend: '+16%' },
+    { id: 'mat14', title: 'Materials R&D Sci', desc: 'Discover completely new material compositions.', keywords: ['Research', 'Develop', 'Discover', 'Mater'], maxAffinity: 4, demand: 89, trend: '+20%' },
+    { id: 'mat15', title: 'Textiles Technologist', desc: 'Develop advanced synthetic and natural fabrics.', keywords: ['Textile', 'Fabric', 'Polymer', 'Process'], maxAffinity: 4, demand: 72, trend: '+7%' },
+    { id: 'mat16', title: 'Geotechnical Engineer', desc: 'Analyze earth materials for construction.', keywords: ['Earth', 'Soil', 'Rock', 'Civil'], maxAffinity: 4, demand: 84, trend: '+14%' },
+    { id: 'mat17', title: 'Semiconductor Eng', desc: 'Process silicon and materials for microchips.', keywords: ['Semiconductor', 'Silicon', 'Process', 'Electronic'], maxAffinity: 4, demand: 98, trend: '+35%' },
+    { id: 'mat18', title: 'Smart Materials Dev', desc: 'Create materials that respond to stimuli.', keywords: ['Smart', 'Shape', 'Memory', 'Mater'], maxAffinity: 4, demand: 94, trend: '+30%' },
+    { id: 'mat19', title: 'Refractory Engineer', desc: 'Design materials for extreme heat environments.', keywords: ['Refractory', 'Heat', 'Thermal', 'Ceramic'], maxAffinity: 4, demand: 76, trend: '+8%' },
+    { id: 'mat20', title: 'Extrusion Specialist', desc: 'Optimize the extrusion of plastics and metals.', keywords: ['Extrusion', 'Polymer', 'Metal', 'Process'], maxAffinity: 4, demand: 77, trend: '+9%' }
+  ]
+};
 
 // Add demand to existing ones
 CAREER_PATHS.ICT.forEach(p => { if(!p.demand) { p.demand = 85 + Math.random()*10; p.trend = '+'+Math.floor(Math.random()*20+5)+'%'; }});
@@ -1233,12 +1302,27 @@ function renderAdvancedCareers() {
 renderAdvancedCareers();
 
 // ─── THEME ───────────────────────────────────────────────────────────────────
-let isDark = false;
+let isDark = localStorage.getItem('fot_theme_v1') !== 'light';
+if (isDark) {
+  document.documentElement.setAttribute('data-theme', 'dark');
+}
+
 function toggleTheme() {
   isDark = !isDark;
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : '');
-  document.getElementById('themeLabel').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+  localStorage.setItem('fot_theme_v1', isDark ? 'dark' : 'light');
+  const label = document.getElementById('themeLabel');
+  if (label) label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
 }
+
+// Ensure label is correct on load
+document.addEventListener('DOMContentLoaded', () => {
+  renderDeptTabs();
+  renderAdvancedCareers();
+  
+  const label = document.getElementById('themeLabel');
+  if (label) label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+});
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 function gradeKey(dept, code) { return `${dept}_${code.replace(/\s/g, '_')}`; }
@@ -1286,6 +1370,7 @@ function gpaClass(gpa) {
 // ─── RENDER ──────────────────────────────────────────────────────────────────
 function renderDeptTabs() {
   const el = document.getElementById('deptTabs');
+  if(!el) return;
   el.innerHTML = Object.values(DEPARTMENTS).map(d =>
     `<button class="dept-tab ${d.name === currentDept ? 'active' : ''}" onclick="switchDept('${d.name}')">${d.fullName}</button>`
   ).join('');
@@ -1424,8 +1509,7 @@ function switchDept(d) {
   currentDept = d;
   localStorage.setItem('fot_dept_v1', d);
   renderDeptTabs();
-  renderSummary();
-  renderCourses();
+  renderAdvancedCareers();
 }
 
 function downloadPDF() {
