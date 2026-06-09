@@ -460,6 +460,20 @@
     flex-shrink: 0;
   }
 
+  /* Career Insights */
+  .career-section { margin: 40px 0; display: none; }
+  .career-section-header { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .career-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .career-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; box-shadow: var(--card-shadow); transition: transform 0.2s, box-shadow 0.2s; }
+  .career-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px var(--accent-glow); border-color: var(--accent); }
+  .career-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-glow); color: var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .career-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .career-desc { font-size: 13px; color: var(--text3); margin-bottom: 20px; line-height: 1.5; min-height: 40px; }
+  .career-progress-wrap { background: var(--surface3); height: 6px; border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
+  .career-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0%; transition: width 0.8s; }
+  .career-match { display: flex; justify-content: space-between; font-size: 12px; font-weight: 500; color: var(--text2); }
+  .career-match span { color: var(--accent); font-weight: 600; }
+
   /* Responsive */
   @media (max-width: 600px) {
     h1 { font-size: 20px; }
@@ -541,6 +555,14 @@
     </div>
   </div>
 
+  <div class="career-section" id="careerSection">
+    <div class="career-section-header">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      Recommended Career Paths
+    </div>
+    <div class="career-grid" id="careerGrid"></div>
+  </div>
+
   <div class="progress-section">
     <div class="progress-title">Credit Progress</div>
     <div class="progress-grid" id="progressGrid"></div>
@@ -578,6 +600,34 @@
 
 <script>
 // ─── DATA ───────────────────────────────────────────────────────────────────
+
+const CAREER_PATHS = {
+  ICT: [
+    { id: 'se', title: 'Software Engineer', desc: 'Design, develop, and maintain software applications and systems.', keywords: ['Program', 'Web', 'Software', 'Data', 'Structure', 'Algorithm'], maxAffinity: 6 },
+    { id: 'ne', title: 'Network Engineer', desc: 'Design and manage local and wide area networking infrastructure.', keywords: ['Network', 'Comm', 'Security', 'System', 'Admin'], maxAffinity: 5 },
+    { id: 'ds', title: 'Data Analyst / Scientist', desc: 'Analyze data to extract insights using math and machine learning.', keywords: ['Math', 'Stat', 'Data', 'Machine', 'AI', 'Analysis'], maxAffinity: 6 },
+    { id: 'it', title: 'IT Systems Admin', desc: 'Maintain and operate computing environments and hardware.', keywords: ['Hardware', 'System', 'OS', 'Operat', 'Database'], maxAffinity: 5 },
+    { id: 'ui', title: 'UI/UX Designer', desc: 'Design user interfaces and improve digital user experiences.', keywords: ['Human', 'Interact', 'Web', 'Multimedia', 'Design', 'Interface'], maxAffinity: 4 }
+  ],
+  BPT: [
+    { id: 'bq', title: 'Quality Assurance Analyst', desc: 'Ensure bio-products meet strict quality and safety standards.', keywords: ['Quality', 'Safety', 'Analyt', 'Microbiol'], maxAffinity: 4 },
+    { id: 'be', title: 'Bioprocess Engineer', desc: 'Design and operate equipment for biological manufacturing.', keywords: ['Bioprocess', 'Bioreactor', 'Operation', 'Design'], maxAffinity: 4 },
+    { id: 'mr', title: 'Molecular Researcher', desc: 'Research genetic and molecular systems in laboratories.', keywords: ['Genetics', 'Molecular', 'Biology', 'Cell', 'Tissue'], maxAffinity: 5 }
+  ],
+  FDT: [
+    { id: 'fs', title: 'Food Safety Officer', desc: 'Ensure food manufacturing complies with health standards.', keywords: ['Safety', 'Quality', 'Hygiene', 'Microbio'], maxAffinity: 4 },
+    { id: 'pd', title: 'Product Developer', desc: 'Create new food products and improve existing formulations.', keywords: ['Develop', 'Process', 'Chemistry', 'Nutri'], maxAffinity: 4 }
+  ],
+  EET: [
+    { id: 'ae', title: 'Automation Engineer', desc: 'Design and implement automated manufacturing systems.', keywords: ['Automat', 'Control', 'PLC', 'System'], maxAffinity: 4 },
+    { id: 'ee', title: 'Embedded Systems Dev', desc: 'Program microcontrollers and embedded devices.', keywords: ['Embed', 'Micro', 'Program', 'Electronic'], maxAffinity: 4 },
+    { id: 'pe', title: 'Power Engineer', desc: 'Manage electrical power generation and distribution.', keywords: ['Power', 'Electric', 'Machine', 'Circuit'], maxAffinity: 4 }
+  ],
+  MAT: [
+    { id: 'ma', title: 'Materials Analyst', desc: 'Test and analyze properties of different materials.', keywords: ['Analy', 'Test', 'Prop', 'Character'], maxAffinity: 4 },
+    { id: 'pe', title: 'Polymer Engineer', desc: 'Design and develop polymer-based products and processes.', keywords: ['Polymer', 'Plast', 'Chem', 'Process'], maxAffinity: 4 }
+  ]
+};
 
 const GRADE_MAP = {
   'A+': 4.0, 'A': 4.0, 'A-': 3.7,
@@ -1236,6 +1286,8 @@ function renderSummary() {
       <div class="progress-nums"><span>Have: ${c.total}</span><span>${need > 0 ? 'Need ~'+need+' more' : 'Target reached'}</span></div>
     </div>
   `;
+  
+  renderCareerPaths();
 }
 
 function renderCourses() {
@@ -1307,6 +1359,73 @@ function renderCourses() {
     html += `</div></div></div>`;
   }
   document.getElementById('courseContainer').innerHTML = html;
+}
+
+function renderCareerPaths() {
+  const container = document.getElementById('careerGrid');
+  const section = document.getElementById('careerSection');
+  
+  const paths = CAREER_PATHS[currentDept] || [];
+  if (paths.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+  
+  const data = DEPARTMENTS[currentDept];
+  const gradedCourseTitles = [];
+  
+  for (const yr of data.years) {
+    for (const sem of yr.sems) {
+      for (const c of sem.courses) {
+        if (grades[gradeKey(currentDept, c.code)] && grades[gradeKey(currentDept, c.code)] !== '') {
+          gradedCourseTitles.push(c.title.toLowerCase());
+        }
+      }
+    }
+  }
+  
+  if (gradedCourseTitles.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+  
+  section.style.display = 'block';
+  
+  const scoredPaths = paths.map(p => {
+    let matches = 0;
+    for (const kw of p.keywords) {
+      const lowerKw = kw.toLowerCase();
+      if (gradedCourseTitles.some(title => title.includes(lowerKw))) {
+        matches++;
+      }
+    }
+    const affinity = Math.min((matches / p.maxAffinity) * 100, 100);
+    return { ...p, affinity, matches };
+  });
+  
+  scoredPaths.sort((a, b) => b.affinity - a.affinity);
+  const topPaths = scoredPaths.slice(0, 3);
+  
+  let html = '';
+  topPaths.forEach(p => {
+    html += `
+      <div class="career-card">
+        <div class="career-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <div class="career-title">${p.title}</div>
+        <div class="career-desc">${p.desc}</div>
+        <div class="career-progress-wrap">
+          <div class="career-progress-fill" style="width: ${p.affinity}%"></div>
+        </div>
+        <div class="career-match">
+          Path Affinity <span>${Math.round(p.affinity)}% Match</span>
+        </div>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
 }
 
 function setGrade(key, val, el) {
