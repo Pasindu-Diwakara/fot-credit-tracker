@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Faculty of Technology — Rajarata University</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
   :root {
     --bg: #f0f2f8;
@@ -465,50 +466,76 @@
     .course-row { grid-template-columns: 1fr 40px 110px; gap: 6px; padding: 8px 12px; }
   }
 
-  /* Print / PDF Styles */
-  @media print {
-    @page { margin: 15mm; }
-    body, html { background: #fff !important; color: #000 !important; cursor: auto !important; }
-    .theme-btn, .dept-section, #mesh-canvas, .bottom-bar, .year-toggle, .legend { display: none !important; }
-    .app-wrap { max-width: 100%; padding: 0; margin: 0; }
-    
-    .gpa-big { background: none !important; -webkit-text-fill-color: #000 !important; color: #000 !important; }
-    .stat-val, .progress-title, .sem-title, .gpa-class { color: #000 !important; }
-    
-    .sem-card, .stat-card, .gpa-display, .progress-section, .grade-ref { 
-      box-shadow: none !important;
-      border: 1px solid #ccc !important;
-      break-inside: avoid;
-      background: #fff !important;
-      margin-bottom: 16px;
-    }
-    
-    .sem-head { background: #f9f9f9 !important; border-bottom: 1px solid #ccc !important; }
-    .course-row { border-bottom: 1px solid #eee !important; break-inside: avoid; }
-    .course-title-text { color: #111 !important; }
-    .course-code, .credit-chip { color: #555 !important; }
-    
-    select.grade-select { 
-      appearance: none; -webkit-appearance: none; 
-      border: none !important; 
-      background: none !important;
-      font-weight: 700; 
-      color: #000 !important;
-      text-align: right;
-      padding: 0;
-    }
-    select.grade-select:not(.graded) { opacity: 0.3; }
-    
-    .badge { 
-      border: 1px solid #888 !important; 
-      background: #fff !important; 
-      color: #333 !important; 
-    }
-    .gpa-bar-fill, .prog-bar-fill { 
-      background: #000 !important; 
-      -webkit-print-color-adjust: exact; 
-      print-color-adjust: exact; 
-    }
+  /* Premium PDF Template Styles */
+  #pdf-template-wrapper {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+  }
+  #pdf-template {
+    width: 800px;
+    background: #ffffff;
+    color: #111111;
+    font-family: 'Inter', sans-serif;
+    padding: 50px 60px;
+    box-sizing: border-box;
+  }
+  .pdf-header {
+    text-align: center;
+    border-bottom: 3px solid #ea580c;
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+  }
+  .pdf-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    color: #0f1123;
+    margin: 0 0 6px 0;
+  }
+  .pdf-header h2 {
+    font-size: 17px;
+    color: #ea580c;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .pdf-header p {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+  }
+  .pdf-summary {
+    display: flex;
+    justify-content: space-around;
+    background: #f7f8fc;
+    border: 1px solid #dde1f0;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 36px;
+  }
+  .pdf-stat { text-align: center; }
+  .pdf-stat-val { font-size: 28px; font-weight: 700; color: #ea580c; font-family: 'Space Grotesk', sans-serif; }
+  .pdf-stat-label { font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 6px; font-weight: 600; }
+  .pdf-table {
+    width: 100%; border-collapse: collapse; margin-bottom: 36px;
+  }
+  .pdf-table th {
+    background: #ea580c; color: #ffffff; text-align: left;
+    padding: 12px 16px; font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .pdf-table td {
+    padding: 14px 16px; border-bottom: 1px solid #eee; font-size: 14px; color: #333;
+  }
+  .pdf-table tr:nth-child(even) { background: #fafafa; }
+  .pdf-col-code { width: 15%; font-weight: 600; color: #4a5080; font-family: 'JetBrains Mono', monospace; font-size: 12px !important; }
+  .pdf-col-title { width: 55%; color: #111; font-weight: 500; }
+  .pdf-col-cred { width: 15%; text-align: center; }
+  .pdf-col-grade { width: 15%; text-align: center; font-weight: 700; color: #ea580c; }
+  .pdf-footer {
+    text-align: center; font-size: 11px; color: #888;
+    margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px;
   }
 </style>
 </head>
@@ -615,6 +642,47 @@
     </div>
   </div>
 
+</div>
+
+<!-- Hidden PDF Template -->
+<div id="pdf-template-wrapper">
+  <div id="pdf-template">
+    <div class="pdf-header">
+      <h1>Rajarata University of Sri Lanka</h1>
+      <h2>Faculty of Technology</h2>
+      <p>Academic Transcript Preview — <span id="pdf-dept-name"></span></p>
+    </div>
+    <div class="pdf-summary">
+      <div class="pdf-stat">
+        <div class="pdf-stat-val" id="pdf-gpa">--</div>
+        <div class="pdf-stat-label">Overall GPA</div>
+      </div>
+      <div class="pdf-stat">
+        <div class="pdf-stat-val" id="pdf-class">--</div>
+        <div class="pdf-stat-label">Classification</div>
+      </div>
+      <div class="pdf-stat">
+        <div class="pdf-stat-val" id="pdf-credits">0</div>
+        <div class="pdf-stat-label">Graded Credits</div>
+      </div>
+    </div>
+    <table class="pdf-table">
+      <thead>
+        <tr>
+          <th class="pdf-col-code">Code</th>
+          <th class="pdf-col-title">Course Title</th>
+          <th class="pdf-col-cred">Credits</th>
+          <th class="pdf-col-grade">Grade</th>
+        </tr>
+      </thead>
+      <tbody id="pdf-table-body">
+        <!-- Dynamic Rows -->
+      </tbody>
+    </table>
+    <div class="pdf-footer">
+      Generated by FOT Credit Tracker • Unofficial Document
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1371,15 +1439,53 @@ function switchDept(d) {
 
 function downloadPDF() {
   const data = DEPARTMENTS[currentDept];
-  for (const yr of data.years) {
-    const yKey = `${currentDept}_${yr.year}`;
-    collapsedYears[yKey] = false; // expand all years
-  }
-  renderCourses();
+  const { gpa, gradedCredits } = calcGPA(currentDept);
   
-  setTimeout(() => {
-    window.print();
-  }, 150);
+  // Populate Header & Summary
+  document.getElementById('pdf-dept-name').textContent = data.fullName;
+  document.getElementById('pdf-gpa').textContent = gpa !== null ? gpa.toFixed(2) : '—';
+  document.getElementById('pdf-class').textContent = gpaClass(gpa);
+  document.getElementById('pdf-credits').textContent = gradedCredits;
+  
+  // Populate Table (only graded courses)
+  let rowsHtml = '';
+  for (const yr of data.years) {
+    for (const sem of yr.sems) {
+      for (const c of sem.courses) {
+        if (c.flag === 'NONGPA') continue;
+        const key = gradeKey(currentDept, c.code);
+        const g = grades[key];
+        if (g && g !== '') {
+          rowsHtml += `
+            <tr>
+              <td class="pdf-col-code">${c.code}</td>
+              <td class="pdf-col-title">${c.title}</td>
+              <td class="pdf-col-cred">${c.credits}</td>
+              <td class="pdf-col-grade">${g}</td>
+            </tr>
+          `;
+        }
+      }
+    }
+  }
+  
+  if (rowsHtml === '') {
+    rowsHtml = `<tr><td colspan="4" style="text-align:center; padding:30px; color:#888;">No graded courses yet.</td></tr>`;
+  }
+  
+  document.getElementById('pdf-table-body').innerHTML = rowsHtml;
+  
+  // Generate PDF
+  const element = document.getElementById('pdf-template');
+  const opt = {
+    margin:       10,
+    filename:     `Academic_Report_${currentDept}.pdf`,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2, useCORS: true },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+  
+  html2pdf().set(opt).from(element).save();
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
