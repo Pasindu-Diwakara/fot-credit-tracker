@@ -805,12 +805,12 @@
           <span class="widget-title">Rate Your Experience</span>
         </div>
         <div class="rating-display">
-          <span class="rating-big-number">4.8</span>
+          <span class="rating-big-number" id="avgRatingDisplay">0.0</span>
           <div class="rating-stars-col">
-            <div class="stars-row">
-              <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-half ph-star"></i>
+            <div class="stars-row" id="avgStarsDisplay">
+              <i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i>
             </div>
-            <span class="rating-subtext">Based on user reviews</span>
+            <span class="rating-subtext" id="reviewCountDisplay">No reviews yet</span>
           </div>
         </div>
       </div>
@@ -1754,6 +1754,16 @@ function downloadPDF() {
 // Interactive Stars Logic
 const stars = document.querySelectorAll('#interactiveStars i');
 let currentRating = 0;
+let baseReviewCount = 0;
+let baseTotalRating = 0;
+
+// Load previous user rating if it exists
+const storedUserRating = localStorage.getItem('fot_user_rating');
+if (storedUserRating) {
+  currentRating = parseInt(storedUserRating);
+  updateStarsUI(currentRating);
+  updateOverallRating(currentRating, false); // false means don't increment base count twice
+}
 
 stars.forEach(star => {
   star.addEventListener('mouseenter', () => {
@@ -1765,11 +1775,58 @@ stars.forEach(star => {
   });
   
   star.addEventListener('click', () => {
-    currentRating = star.getAttribute('data-rating');
+    const newRating = parseInt(star.getAttribute('data-rating'));
+    const isUpdate = !!storedUserRating || currentRating > 0;
+    currentRating = newRating;
+    
     updateStarsUI(currentRating);
-    alert(`Thank you for rating ${currentRating} stars!`);
+    updateOverallRating(currentRating, !isUpdate);
+    
+    localStorage.setItem('fot_user_rating', currentRating);
   });
 });
+
+function updateOverallRating(userRating, isNewReview) {
+  let totalReviews = baseReviewCount;
+  let totalRatingSum = baseTotalRating;
+  
+  const savedRating = localStorage.getItem('fot_user_rating');
+  
+  if (savedRating || !isNewReview) {
+    totalReviews = baseReviewCount + 1;
+    const oldRatingToSubtract = savedRating ? parseInt(savedRating) : 0;
+    totalRatingSum = baseTotalRating + userRating; 
+  } else if (isNewReview) {
+    totalReviews = baseReviewCount + 1;
+    totalRatingSum = baseTotalRating + userRating;
+  }
+  
+  const newAvg = totalReviews > 0 ? (totalRatingSum / totalReviews).toFixed(1) : "0.0";
+  
+  document.getElementById('avgRatingDisplay').innerText = newAvg;
+  
+  if (totalReviews === 0) {
+    document.getElementById('reviewCountDisplay').innerText = 'No reviews yet';
+  } else if (totalReviews === 1) {
+    document.getElementById('reviewCountDisplay').innerText = 'Based on 1 review';
+  } else {
+    document.getElementById('reviewCountDisplay').innerText = `Based on ${totalReviews} reviews`;
+  }
+
+  // Update visual average stars
+  const avgStarsContainer = document.getElementById('avgStarsDisplay');
+  avgStarsContainer.innerHTML = '';
+  const avgNumber = parseFloat(newAvg);
+  for (let i = 1; i <= 5; i++) {
+    if (avgNumber >= i) {
+      avgStarsContainer.innerHTML += '<i class="ph-fill ph-star"></i>';
+    } else if (avgNumber >= i - 0.5) {
+      avgStarsContainer.innerHTML += '<i class="ph-half ph-star"></i>';
+    } else {
+      avgStarsContainer.innerHTML += '<i class="ph ph-star"></i>';
+    }
+  }
+}
 
 function updateStarsUI(rating) {
   stars.forEach(s => {
