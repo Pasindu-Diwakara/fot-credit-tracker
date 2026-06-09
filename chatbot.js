@@ -33,9 +33,7 @@
       right: 30px;
       width: 350px;
       height: 500px;
-      background: var(--bg-card);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: var(--surface);
       border: 1px solid var(--border-color);
       border-radius: 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.4);
@@ -154,8 +152,7 @@
     .setup-screen {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: var(--bg-card);
-      backdrop-filter: blur(12px);
+      background: var(--surface);
       z-index: 10;
       display: flex;
       flex-direction: column;
@@ -236,7 +233,7 @@
         <div class="setup-desc">Please enter your free Google Gemini API Key to enable the AI assistant. Your key is stored securely in your browser.</div>
         <input type="password" class="setup-input" id="chat-api-key" placeholder="AIzaSy...">
         <button class="setup-btn" id="chat-save-key">Save & Start</button>
-        <button class="chat-close" id="setup-close" style="margin-top: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; padding: 10px;">Cancel</button>
+        <button class="chat-close" id="setup-close" style="margin-top: 15px; background: rgba(0,0,0,0.05); border-radius: 8px; padding: 10px; border: 1px solid var(--border-color);">Cancel</button>
       </div>
 
       <div class="chat-header">
@@ -306,12 +303,16 @@
   });
 
   setupCloseBtn.addEventListener('click', () => {
-    modal.classList.remove('open');
+    setupScreen.classList.add('hidden');
   });
 
   settingsBtn.addEventListener('click', () => {
-    apiKeyInput.value = localStorage.getItem('fot_gemini_key') || '';
-    setupScreen.classList.remove('hidden');
+    if (!setupScreen.classList.contains('hidden')) {
+      setupScreen.classList.add('hidden');
+    } else {
+      apiKeyInput.value = localStorage.getItem('fot_gemini_key') || '';
+      setupScreen.classList.remove('hidden');
+    }
   });
 
   saveKeyBtn.addEventListener('click', () => {
@@ -322,10 +323,18 @@
     }
   });
 
+  function formatText(text) {
+    let html = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    html = html.replace(/\n/g, '<br>');
+    return html;
+  }
+
   function addMessage(text, sender) {
     const msg = document.createElement('div');
     msg.className = `chat-message ${sender}`;
-    msg.textContent = text;
+    msg.innerHTML = formatText(text);
     chatBody.appendChild(msg);
     chatBody.scrollTop = chatBody.scrollHeight;
   }
