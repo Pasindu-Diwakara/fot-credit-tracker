@@ -469,15 +469,15 @@
   /* Premium PDF Template Styles */
   #pdf-template-wrapper {
     position: absolute;
+    top: -9999px;
     left: -9999px;
-    top: 0;
   }
   #pdf-template {
-    width: 800px;
+    width: 760px;
     background: #ffffff;
     color: #111111;
     font-family: 'Inter', sans-serif;
-    padding: 50px 60px;
+    padding: 30px 40px;
     box-sizing: border-box;
   }
   .pdf-header {
@@ -520,19 +520,24 @@
   .pdf-table {
     width: 100%; border-collapse: collapse; margin-bottom: 36px;
   }
+  .pdf-table th, .pdf-table td {
+    border: 1px solid #dde1f0;
+    padding: 12px 16px;
+  }
   .pdf-table th {
-    background: #ea580c; color: #ffffff; text-align: left;
-    padding: 12px 16px; font-size: 13px; font-weight: 600;
+    background: #ea580c; color: #ffffff;
+    font-size: 13px; font-weight: 600;
     text-transform: uppercase; letter-spacing: 0.05em;
+    border-color: #d04b06;
   }
   .pdf-table td {
-    padding: 14px 16px; border-bottom: 1px solid #eee; font-size: 14px; color: #333;
+    font-size: 14px; color: #333; background: #ffffff;
   }
-  .pdf-table tr:nth-child(even) { background: #fafafa; }
-  .pdf-col-code { width: 15%; font-weight: 600; color: #4a5080; font-family: 'JetBrains Mono', monospace; font-size: 12px !important; }
-  .pdf-col-title { width: 55%; color: #111; font-weight: 500; }
-  .pdf-col-cred { width: 15%; text-align: center; }
-  .pdf-col-grade { width: 15%; text-align: center; font-weight: 700; color: #ea580c; }
+  .pdf-table tr:nth-child(even) td { background: #fafafa; }
+  .pdf-col-code { width: 16%; font-weight: 600; color: #4a5080; font-family: 'JetBrains Mono', monospace; font-size: 12px !important; text-align: left !important; }
+  .pdf-col-title { width: 54%; color: #111; font-weight: 500; text-align: left !important; }
+  .pdf-col-cred { width: 15%; text-align: center !important; }
+  .pdf-col-grade { width: 15%; text-align: center !important; font-weight: 700; color: #ea580c; }
   .pdf-footer {
     text-align: center; font-size: 11px; color: #888;
     margin-top: 50px; border-top: 1px solid #eee; padding-top: 20px;
@@ -1443,8 +1448,8 @@ function downloadPDF() {
   
   // Populate Header & Summary
   document.getElementById('pdf-dept-name').textContent = data.fullName;
-  document.getElementById('pdf-gpa').textContent = gpa !== null ? gpa.toFixed(2) : '—';
-  document.getElementById('pdf-class').textContent = gpaClass(gpa);
+  document.getElementById('pdf-gpa').textContent = gpa !== null ? gpa.toFixed(2) : 'N/A';
+  document.getElementById('pdf-class').textContent = gpaClass(gpa) || 'No grades entered';
   document.getElementById('pdf-credits').textContent = gradedCredits;
   
   // Populate Table (only graded courses)
@@ -1475,7 +1480,7 @@ function downloadPDF() {
   
   document.getElementById('pdf-table-body').innerHTML = rowsHtml;
   
-  // Generate PDF
+  // Generate PDF and open preview
   const element = document.getElementById('pdf-template');
   const opt = {
     margin:       10,
@@ -1485,7 +1490,16 @@ function downloadPDF() {
     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
   
-  html2pdf().set(opt).from(element).save();
+  const pdfWindow = window.open('', '_blank');
+  if (pdfWindow) {
+    pdfWindow.document.write('<div style="font-family:sans-serif; text-align:center; margin-top:50px;">Generating your PDF preview...</div>');
+    html2pdf().set(opt).from(element).output('blob').then(function(blob) {
+      const url = URL.createObjectURL(blob);
+      pdfWindow.location.href = url;
+    });
+  } else {
+    alert('Please allow pop-ups to preview the PDF.');
+  }
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
