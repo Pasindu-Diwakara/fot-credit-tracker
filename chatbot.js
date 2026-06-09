@@ -153,55 +153,7 @@
       cursor: not-allowed;
       transform: none;
     }
-    .setup-screen {
-      position: absolute;
-      top: 65px; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 30px;
-      text-align: center;
-      transition: opacity 0.3s;
-    }
-    .setup-screen.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .setup-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: var(--accent);
-    }
-    .setup-desc {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-    .setup-input {
-      width: 100%;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--border-color);
-      padding: 12px;
-      border-radius: 8px;
-      color: var(--text-main);
-      margin-bottom: 15px;
-      font-family: monospace;
-    }
-    .setup-btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-    }
+
     .typing-indicator {
       display: flex;
       gap: 4px;
@@ -234,13 +186,6 @@
   const container = document.createElement('div');
   container.innerHTML = `
     <div id="chatbot-modal">
-      <div class="setup-screen" id="chat-setup">
-        <div class="setup-title">FOT AI</div>
-        <div class="setup-desc">Please enter your free Google Gemini API Key to enable the AI assistant. Your key is stored securely in your browser.</div>
-        <input type="password" class="setup-input" id="chat-api-key" placeholder="AIzaSy...">
-        <button class="setup-btn" id="chat-save-key">Save & Start</button>
-        <button class="chat-close" id="setup-close" style="margin-top: 15px; background: rgba(0,0,0,0.05); border-radius: 8px; padding: 10px; border: 1px solid var(--border-color);">Cancel</button>
-      </div>
 
       <div class="chat-header">
         <div class="chat-header-left">
@@ -276,48 +221,22 @@
   const fab = document.getElementById('chatbot-fab');
   const modal = document.getElementById('chatbot-modal');
   const closeBtn = document.getElementById('chat-close-btn');
-  const setupScreen = document.getElementById('chat-setup');
-  const saveKeyBtn = document.getElementById('chat-save-key');
-  const setupCloseBtn = document.getElementById('setup-close');
-  const apiKeyInput = document.getElementById('chat-api-key');
   const sendBtn = document.getElementById('chat-send-btn');
   const chatInput = document.getElementById('chat-input');
   const chatBody = document.getElementById('chat-body');
 
   let messageHistory = [];
 
-  function checkSetup() {
-    const key = localStorage.getItem('fot_gemini_key') || 'AIzaSyDDggVUyVWFW_T_L-WdhuCvWXKYMSzkTvQ';
-    if (!key) {
-      setupScreen.classList.remove('hidden');
-    } else {
-      setupScreen.classList.add('hidden');
-    }
-  }
-
   fab.addEventListener('click', () => {
     if (modal.classList.contains('open')) {
       modal.classList.remove('open');
     } else {
       modal.classList.add('open');
-      checkSetup();
     }
   });
 
   closeBtn.addEventListener('click', () => {
     modal.classList.remove('open');
-  });
-
-  setupCloseBtn.addEventListener('click', () => {
-    setupScreen.classList.add('hidden');
-  });
-
-  saveKeyBtn.addEventListener('click', () => {
-    const key = apiKeyInput.value.trim();
-    if (key) {
-      localStorage.setItem('fot_gemini_key', key);
-      setupScreen.classList.add('hidden');
-    }
   });
 
   function formatText(text) {
@@ -354,11 +273,7 @@
     const text = chatInput.value.trim();
     if (!text) return;
     
-    const key = localStorage.getItem('fot_gemini_key') || 'AIzaSyDDggVUyVWFW_T_L-WdhuCvWXKYMSzkTvQ';
-    if (!key) {
-      setupScreen.classList.remove('hidden');
-      return;
-    }
+    const key = 'AQ.Ab8RN6ImDIF4CLMhBtcJ1oTu8BePUgdeHiHyzn5Kthk4h7rlvQ';
 
     // Add user msg to UI and History
     addMessage(text, 'user');
@@ -404,6 +319,9 @@
       });
 
       if (!response.ok) {
+        if (response.status === 429) {
+          throw new Error('RateLimit');
+        }
         throw new Error('API Error: ' + response.statusText);
       }
 
@@ -416,7 +334,11 @@
 
     } catch (e) {
       removeTyping();
-      addMessage("I'm sorry, there was an error connecting to the AI. Please check your API key in settings.", 'ai');
+      let errorMsg = "I'm having trouble connecting to the AI. Your API key might be invalid or expired.";
+      if (e.message === 'RateLimit') {
+        errorMsg = "You've reached the free API rate limit. Please wait about a minute and try sending your message again!";
+      }
+      addMessage(errorMsg, 'ai');
       messageHistory.pop(); // remove the user message from history if it failed
     }
 
