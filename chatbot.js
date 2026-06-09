@@ -5,7 +5,7 @@
     #chatbot-fab {
       position: fixed;
       bottom: 30px;
-      left: 30px;
+      right: 30px;
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -30,7 +30,7 @@
     #chatbot-modal {
       position: fixed;
       bottom: 110px;
-      left: 30px;
+      right: 30px;
       width: 350px;
       height: 500px;
       background: var(--bg-card);
@@ -47,7 +47,7 @@
       pointer-events: none;
       transform: translateY(20px) scale(0.95);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      transform-origin: bottom left;
+      transform-origin: bottom right;
     }
     #chatbot-modal.open {
       opacity: 1;
