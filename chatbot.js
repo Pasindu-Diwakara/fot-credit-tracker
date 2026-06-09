@@ -5,7 +5,7 @@
     #chatbot-fab {
       position: fixed;
       bottom: 30px;
-      right: 30px;
+      left: 30px;
       width: 60px;
       height: 60px;
       border-radius: 50%;
@@ -30,7 +30,7 @@
     #chatbot-modal {
       position: fixed;
       bottom: 110px;
-      right: 30px;
+      left: 30px;
       width: 350px;
       height: 500px;
       background: var(--bg-card);
@@ -47,7 +47,7 @@
       pointer-events: none;
       transform: translateY(20px) scale(0.95);
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      transform-origin: bottom right;
+      transform-origin: bottom left;
     }
     #chatbot-modal.open {
       opacity: 1;
@@ -232,7 +232,7 @@
   container.innerHTML = `
     <div id="chatbot-modal">
       <div class="setup-screen" id="chat-setup">
-        <div class="setup-title">AI Career Assistant</div>
+        <div class="setup-title">FOT AI</div>
         <div class="setup-desc">Please enter your free Google Gemini API Key to enable the AI assistant. Your key is stored securely in your browser.</div>
         <input type="password" class="setup-input" id="chat-api-key" placeholder="AIzaSy...">
         <button class="setup-btn" id="chat-save-key">Save & Start</button>
@@ -242,7 +242,7 @@
       <div class="chat-header">
         <div class="chat-header-left">
           <svg class="chat-header-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7v1a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-1H4a1 1 0 0 1-1-1v-1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"></path><path d="M9 13v2"></path><path d="M15 13v2"></path></svg>
-          AI Assistant
+          FOT AI
         </div>
         <div>
           <button class="chat-settings" id="chat-settings-btn" title="API Settings">
@@ -255,7 +255,7 @@
       </div>
 
       <div class="chat-body" id="chat-body">
-        <div class="chat-message ai">Hi! I'm your AI Academic Advisor. I can analyze your entered grades and suggest career paths or answer questions about your major. How can I help?</div>
+        <div class="chat-message ai">Hi! I'm FOT AI. I can analyze your entered grades and suggest career paths or answer questions about your major. How can I help?</div>
       </div>
 
       <div class="chat-input-area">
@@ -288,7 +288,7 @@
   let messageHistory = [];
 
   function checkSetup() {
-    const key = localStorage.getItem('fot_gemini_key');
+    const key = localStorage.getItem('fot_gemini_key') || 'AIzaSyDDggVUyVWFW_T_L-WdhuCvWXKYMSzkTvQ';
     if (!key) {
       setupScreen.classList.remove('hidden');
     } else {
@@ -348,7 +348,7 @@
     const text = chatInput.value.trim();
     if (!text) return;
     
-    const key = localStorage.getItem('fot_gemini_key');
+    const key = localStorage.getItem('fot_gemini_key') || 'AIzaSyDDggVUyVWFW_T_L-WdhuCvWXKYMSzkTvQ';
     if (!key) {
       setupScreen.classList.remove('hidden');
       return;
@@ -365,7 +365,23 @@
     let grades = {};
     try { grades = JSON.parse(gradesRaw); } catch(e){}
     
-    const contextStr = \`The user is a student in the \${dept} department. Their current academic grades are: \${JSON.stringify(grades)}. Respond concisely and directly.\`;
+    const deptInfo = window.DEPARTMENTS ? window.DEPARTMENTS[dept] : null;
+    let coursesStr = "";
+    if (deptInfo) {
+      coursesStr = "Courses available: " + deptInfo.years.map(y => y.sems.map(s => s.courses.map(c => `${c.code}: ${c.title}`).join(", ")).join("; ")).join(" | ");
+    }
+    
+    let careersContext = "";
+    try {
+      const res = await fetch('careers.html');
+      const htmlText = await res.text();
+      const match = htmlText.match(/const CAREER_PATHS = (\{[\s\S]*?\n\});/);
+      if (match) {
+        careersContext = "Career Paths data: " + match[0];
+      }
+    } catch(e) {}
+
+    const contextStr = `The user is a student in the ${dept} department. Their current academic grades are: ${JSON.stringify(grades)}. ${coursesStr} ${careersContext} Respond concisely and directly.`;
 
     messageHistory.push({ role: 'user', parts: [{ text: text }] });
 
