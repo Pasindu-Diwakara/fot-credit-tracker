@@ -324,7 +324,7 @@
 
   function addMessage(text, sender) {
     const msg = document.createElement('div');
-    msg.className = \`chat-message \${sender}\`;
+    msg.className = `chat-message ${sender}`;
     msg.textContent = text;
     chatBody.appendChild(msg);
     chatBody.scrollTop = chatBody.scrollHeight;
@@ -388,7 +388,7 @@
     addTyping();
 
     try {
-      const response = await fetch(\`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=\${key}\`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
