@@ -33,7 +33,9 @@
       right: 30px;
       width: 350px;
       height: 500px;
-      background: var(--surface);
+      background: rgba(15, 17, 35, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border-color);
       border-radius: 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.4);
@@ -54,12 +56,14 @@
     }
     .chat-header {
       padding: 20px;
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
       border-bottom: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-weight: 600;
+      position: relative;
+      z-index: 20;
     }
     .chat-header-left {
       display: flex;
@@ -151,8 +155,10 @@
     }
     .setup-screen {
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: var(--surface);
+      top: 65px; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 10;
       display: flex;
       flex-direction: column;
@@ -242,9 +248,6 @@
           FOT AI
         </div>
         <div>
-          <button class="chat-settings" id="chat-settings-btn" title="API Settings">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-          </button>
           <button class="chat-close" id="chat-close-btn">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
           </button>
@@ -273,7 +276,6 @@
   const fab = document.getElementById('chatbot-fab');
   const modal = document.getElementById('chatbot-modal');
   const closeBtn = document.getElementById('chat-close-btn');
-  const settingsBtn = document.getElementById('chat-settings-btn');
   const setupScreen = document.getElementById('chat-setup');
   const saveKeyBtn = document.getElementById('chat-save-key');
   const setupCloseBtn = document.getElementById('setup-close');
@@ -294,8 +296,12 @@
   }
 
   fab.addEventListener('click', () => {
-    modal.classList.add('open');
-    checkSetup();
+    if (modal.classList.contains('open')) {
+      modal.classList.remove('open');
+    } else {
+      modal.classList.add('open');
+      checkSetup();
+    }
   });
 
   closeBtn.addEventListener('click', () => {
@@ -304,15 +310,6 @@
 
   setupCloseBtn.addEventListener('click', () => {
     setupScreen.classList.add('hidden');
-  });
-
-  settingsBtn.addEventListener('click', () => {
-    if (!setupScreen.classList.contains('hidden')) {
-      setupScreen.classList.add('hidden');
-    } else {
-      apiKeyInput.value = localStorage.getItem('fot_gemini_key') || '';
-      setupScreen.classList.remove('hidden');
-    }
   });
 
   saveKeyBtn.addEventListener('click', () => {
