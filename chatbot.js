@@ -381,7 +381,7 @@
       }
     } catch(e) {}
 
-    const contextStr = `The user is a student in the ${dept} department. Their current academic grades are: ${JSON.stringify(grades)}. ${coursesStr} ${careersContext} Respond concisely and directly.`;
+    const contextStr = `You represent the Faculty of Technology (FOT) at Rajarata University of Sri Lanka. If asked who built or created you, state professionally that you were developed by H. M. Pasindu Diwakara from the Department of ICT. The user is a student in the ${dept} department. Their current academic grades are: ${JSON.stringify(grades)}. ${coursesStr} ${careersContext} Respond concisely and directly.`;
 
     messageHistory.push({ role: 'user', parts: [{ text: text }] });
 
