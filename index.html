@@ -1355,7 +1355,7 @@ function downloadPDF() {
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(11);
   doc.setTextColor(80, 80, 80);
-  doc.text(`Official Academic Transcript — ${data.fullName}`, pageWidth / 2, 38, { align: 'center' });
+  doc.text(`Academic Transcript Preview — ${data.fullName}`, pageWidth / 2, 38, { align: 'center' });
   
   doc.setDrawColor(220, 225, 240);
   doc.line(14, 44, pageWidth - 14, 44);
@@ -1443,7 +1443,7 @@ function downloadPDF() {
   const pdfUrl = URL.createObjectURL(pdfOutput);
   const pdfWindow = window.open('', '_blank');
   if (pdfWindow) {
-    pdfWindow.document.write('<div style="font-family:sans-serif; text-align:center; margin-top:50px;">Generating your Official Transcript preview...</div>');
+    pdfWindow.document.write('<div style="font-family:sans-serif; text-align:center; margin-top:50px;">Generating your Academic Transcript preview...</div>');
     pdfWindow.location.href = pdfUrl;
   } else {
     alert('Please allow pop-ups to preview the PDF.');
