@@ -331,8 +331,12 @@
   fab.addEventListener('click', () => modal.classList.toggle('open'));
   closeBtn.addEventListener('click', () => modal.classList.remove('open'));
 
-  function formatText(text) {
-    let html = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  function formatText(text, isUser) {
+    let html = text;
+    // Only escape HTML for user messages to prevent XSS. AI messages contain safe SVGs.
+    if (isUser) {
+      html = html.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
     html = html.replace(/\n/g, '<br>');
@@ -342,7 +346,7 @@
   function addMessage(text, sender) {
     const msg = document.createElement('div');
     msg.className = `chat-message ${sender}`;
-    msg.innerHTML = formatText(text);
+    msg.innerHTML = formatText(text, sender === 'user');
     chatBody.appendChild(msg);
     chatBody.scrollTop = chatBody.scrollHeight;
   }
