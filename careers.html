@@ -134,26 +134,101 @@
     font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--text3); font-weight: 500; margin-bottom: 12px;
   }
-  .dept-tabs {
-    display: flex; flex-wrap: wrap; gap: 8px;
-  }
-  .dept-tab {
-    padding: 9px 18px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-size: 13px; font-weight: 500;
-    color: var(--text2);
+  /* Custom Dropdown */
+  .custom-select {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
     font-family: 'Inter', sans-serif;
-    transition: all 0.2s;
-    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    user-select: none;
   }
-  .dept-tab:hover { border-color: var(--accent); color: var(--accent); }
-  .dept-tab.active {
-    background: var(--accent);
+
+  .select-selected {
+    padding: 12px 40px 12px 16px;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5080' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+  }
+
+  .custom-select.open .select-selected {
     border-color: var(--accent);
-    color: #fff;
-    box-shadow: 0 4px 14px var(--accent-glow);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+  }
+
+  .select-items {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    z-index: 99;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s;
+  }
+
+  .custom-select.open .select-items {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .custom-option {
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    border-bottom: 1px solid var(--border);
+    pointer-events: auto !important;
+  }
+  
+  .custom-option:last-child {
+    border-bottom: none;
+  }
+
+  .custom-option:hover {
+    background: rgba(234, 88, 12, 0.15);
+    color: var(--accent);
+  }
+  
+  .custom-option.selected {
+    color: var(--accent);
+    font-weight: 600;
+    background: rgba(234, 88, 12, 0.05);
+  }
+
+  .select-items {
+    pointer-events: auto !important;
+  }
+
+  [data-theme="dark"] .select-selected,
+  [data-theme="dark"] .select-items {
+    background-color: rgba(15, 17, 35, 0.4);
+  }
+  
+  [data-theme="dark"] .select-selected {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239099c8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  }
+  
+  [data-theme="dark"] .select-items {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
   }
 
   /* Summary bar */
@@ -1368,10 +1443,47 @@ function gpaClass(gpa) {
 function renderDeptTabs() {
   const el = document.getElementById('deptTabs');
   if(!el) return;
-  el.innerHTML = Object.values(DEPARTMENTS).map(d =>
-    `<button class="dept-tab ${d.name === currentDept ? 'active' : ''}" onclick="switchDept('${d.name}')">${d.fullName}</button>`
-  ).join('');
+  
+  let optionsHtml = '';
+  let selectedText = '';
+  
+  Object.values(DEPARTMENTS).forEach(d => {
+    if (d.name === currentDept) selectedText = d.fullName;
+    optionsHtml += `<div class="custom-option ${d.name === currentDept ? 'selected' : ''}" data-dept="${d.name}">${d.fullName}</div>`;
+  });
+
+  el.innerHTML = `
+    <div class="custom-select" id="deptCustomSelect">
+      <div class="select-selected" id="deptSelectTrigger">${selectedText}</div>
+      <div class="select-items" id="deptSelectItems">
+        ${optionsHtml}
+      </div>
+    </div>
+  `;
+
+  // Toggle dropdown on trigger click
+  document.getElementById('deptSelectTrigger').addEventListener('click', function(e) {
+    e.stopPropagation();
+    document.getElementById('deptCustomSelect').classList.toggle('open');
+  });
+
+  // Handle option clicks
+  document.querySelectorAll('#deptSelectItems .custom-option').forEach(function(opt) {
+    opt.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const dept = this.getAttribute('data-dept');
+      switchDept(dept);
+    });
+  });
 }
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  const select = document.querySelector('.custom-select');
+  if (select && !select.contains(e.target)) {
+    select.classList.remove('open');
+  }
+});
 
 function renderSummary() {
   const c = calcCredits(currentDept);
@@ -1486,7 +1598,10 @@ function renderCourses() {
     }
     html += `</div></div></div>`;
   }
-  document.getElementById('courseContainer').innerHTML = html;
+  const courseContainer = document.getElementById('courseContainer');
+  if (courseContainer) {
+    courseContainer.innerHTML = html;
+  }
 }
 
 function setGrade(key, val, el) {
@@ -1632,9 +1747,7 @@ function downloadPDF() {
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-renderDeptTabs();
-renderSummary();
-renderCourses();
+// (Page initialization is handled in DOMContentLoaded)
 </script>
 <script src="chatbot.js"></script>
 </body>

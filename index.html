@@ -1,1547 +1,2323 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Faculty of Technology — Rajarata University</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23ea580c'/></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@phosphor-icons/web"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-<style>
-  :root {
-    --bg: #f0f2f8;
-    --surface: #ffffff;
-    --surface2: #f7f8fc;
-    --surface3: #eef0f8;
-    --border: #dde1f0;
-    --text: #0f1123;
-    --text2: #4a5080;
-    --text3: #8890b5;
-    --accent: #ea580c;
-    --accent2: #f97316;
-    --accent-glow: rgba(234,88,12,0.18);
-    --green: #059669;
-    --amber: #d97706;
-    --red: #dc2626;
-    --card-shadow: 0 2px 16px rgba(234,88,12,0.07);
-    --mesh-color: rgba(234,88,12,0.13);
-    --mesh-glow: rgba(234,88,12,0.55);
-    --cursor-color: #ea580c;
-  }
-  [data-theme="dark"] {
-    --bg: #07090f;
-    --surface: #0e1120;
-    --surface2: #131628;
-    --surface3: #1a1f35;
-    --border: #222745;
-    --text: #e8eaf8;
-    --text2: #9099c8;
-    --text3: #4a5280;
-    --accent: #fb923c;
-    --accent2: #fdba74;
-    --accent-glow: rgba(251,146,60,0.15);
-    --green: #34d399;
-    --amber: #fbbf24;
-    --red: #f87171;
-    --card-shadow: 0 2px 24px rgba(0,0,0,0.4);
-    --mesh-color: rgba(251,146,60,0.09);
-    --mesh-glow: rgba(251,146,60,0.5);
-    --cursor-color: #fb923c;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty of Technology — Rajarata University</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23ea580c'/></svg>">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    :root {
+      --bg: #f0f2f8;
+      --surface: #ffffff;
+      --surface2: #f7f8fc;
+      --surface3: #eef0f8;
+      --border: #dde1f0;
+      --text: #0f1123;
+      --text2: #4a5080;
+      --text3: #8890b5;
+      --accent: #ea580c;
+      --accent2: #f97316;
+      --accent-glow: rgba(234, 88, 12, 0.18);
+      --green: #059669;
+      --amber: #d97706;
+      --red: #dc2626;
+      --card-shadow: 0 2px 16px rgba(234, 88, 12, 0.07);
+      --mesh-color: rgba(234, 88, 12, 0.13);
+      --mesh-glow: rgba(234, 88, 12, 0.55);
+      --cursor-color: #ea580c;
+    }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    [data-theme="dark"] {
+      --bg: #07090f;
+      --surface: #0e1120;
+      --surface2: #131628;
+      --surface3: #1a1f35;
+      --border: #222745;
+      --text: #e8eaf8;
+      --text2: #9099c8;
+      --text3: #4a5280;
+      --accent: #fb923c;
+      --accent2: #fdba74;
+      --accent-glow: rgba(251, 146, 60, 0.15);
+      --green: #34d399;
+      --amber: #fbbf24;
+      --red: #f87171;
+      --card-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+      --mesh-color: rgba(251, 146, 60, 0.09);
+      --mesh-glow: rgba(251, 146, 60, 0.5);
+      --cursor-color: #fb923c;
+    }
 
-  /* Standard Orange Cursor */
-  *, html, body {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%23ea580c' d='M5 3l13 11h-5l3.5 7-3 1.5-3.5-7-4.5 4.5V3z'/%3E%3C/svg%3E") 4 2, default;
-    caret-color: var(--accent);
-  }
-  button, select, input, label, .dept-tab, .year-header, .theme-btn, [onclick], .legend-item, a {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23ea580c' d='M11 2C10.4 2 10 2.4 10 3V11L7.7 9.8C7.3 9.6 6.8 9.7 6.6 10.1C6.4 10.5 6.5 11 6.9 11.2L11 13.3V18C11 19.1 11.9 20 13 20H17C18.1 20 19 19.1 19 18V9C19 8.4 18.6 8 18 8C17.4 8 17 8.4 17 9V11H16V7C16 6.4 15.6 6 15 6C14.4 6 14 6.4 14 7V11H13V3C13 2.4 12.6 2 12 2H11Z'/%3E%3C/svg%3E") 12 2, pointer !important;
-  }
-  button *, .theme-btn *, [onclick] * { pointer-events: none; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    transition: background 0.3s, color 0.3s;
-    overflow-x: hidden;
-  }
+    /* Standard Orange Cursor */
+    *,
+    html,
+    body {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24'%3E%3Cpath fill='%23ea580c' d='M5 3l13 11h-5l3.5 7-3 1.5-3.5-7-4.5 4.5V3z'/%3E%3C/svg%3E") 4 2, default;
+      caret-color: var(--accent);
+    }
 
-  /* Mesh background */
-  #mesh-canvas {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 1;
-  }
+    button,
+    select,
+    input,
+    label,
+    .dept-tab,
+    .year-header,
+    .theme-btn,
+    [onclick],
+    .legend-item,
+    a {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23ea580c' d='M11 2C10.4 2 10 2.4 10 3V11L7.7 9.8C7.3 9.6 6.8 9.7 6.6 10.1C6.4 10.5 6.5 11 6.9 11.2L11 13.3V18C11 19.1 11.9 20 13 20H17C18.1 20 19 19.1 19 18V9C19 8.4 18.6 8 18 8C17.4 8 17 8.4 17 9V11H16V7C16 6.4 15.6 6 15 6C14.4 6 14 6.4 14 7V11H13V3C13 2.4 12.6 2 12 2H11Z'/%3E%3C/svg%3E") 12 2, pointer !important;
+    }
 
-  /* Layout */
-  .app-wrap {
-    position: relative; z-index: 1;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px 60px;
-  }
+    button *,
+    .theme-btn *,
+    [onclick] * {
+      pointer-events: none;
+    }
 
-  /* Header */
-  header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 28px 0 24px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 36px;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .header-left { display: flex; flex-direction: column; gap: 3px; }
-  .uni-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent); font-weight: 500;
-  }
-  h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 26px; font-weight: 700;
-    color: var(--text);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-  }
-  h1 span { color: var(--accent); }
-  .header-right { display: flex; align-items: center; gap: 12px; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  /* Theme toggle */
-  .theme-btn {
-    display: flex; align-items: center; gap: 7px;
-    padding: 8px 16px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-size: 13px; font-weight: 500;
-    color: var(--text2);
-    font-family: 'Inter', sans-serif;
-    transition: all 0.2s;
-  }
-  .theme-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
 
-  .primary-btn {
-    display: flex; align-items: center; gap: 7px;
-    padding: 8px 16px;
-    background: var(--accent);
-    border: 1px solid var(--accent);
-    border-radius: 8px;
-    font-size: 13px; font-weight: 600;
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.2s;
-    box-shadow: 0 4px 14px var(--accent-glow);
-  }
-  [data-theme="dark"] .primary-btn {
-    color: #07090f;
-  }
-  .primary-btn:hover {
-    background: var(--accent2);
-    border-color: var(--accent2);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px var(--accent-glow);
-  }
+    /* Mesh background */
+    #mesh-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 1;
+    }
 
-  /* Department selector */
-  .dept-section { margin-bottom: 32px; }
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--text3); font-weight: 500; margin-bottom: 12px;
-  }
-  .dept-tabs {
-    display: flex; flex-wrap: wrap; gap: 8px;
-  }
-  .dept-tab {
-    padding: 9px 18px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-size: 13px; font-weight: 500;
-    color: var(--text2);
-    font-family: 'Inter', sans-serif;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .dept-tab:hover { border-color: var(--accent); color: var(--accent); }
-  .dept-tab.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-    box-shadow: 0 4px 14px var(--accent-glow);
-  }
+    /* Layout */
+    .app-wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+    }
 
-  /* Summary bar */
-  .summary-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    margin-bottom: 32px;
-  }
-  .stat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px 20px;
-    box-shadow: var(--card-shadow);
-    transition: all 0.2s;
-  }
-  .stat-card:hover { border-color: var(--accent); transform: translateY(-1px); }
-  .stat-label {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--text3); margin-bottom: 8px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .stat-val {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 28px; font-weight: 700;
-    color: var(--text); line-height: 1;
-  }
-  .stat-val.green { color: var(--green); }
-  .stat-val.amber { color: var(--amber); }
-  .stat-val.accent { color: var(--accent); }
-  .stat-sub {
-    font-size: 12px; color: var(--text3); margin-top: 4px;
-  }
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 36px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
 
-  /* GPA bar */
-  .gpa-display {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px 26px;
-    margin-bottom: 32px;
-    box-shadow: var(--card-shadow);
-    display: flex; align-items: center; gap: 28px;
-    flex-wrap: wrap;
-  }
-  .gpa-big {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 56px; font-weight: 700;
-    line-height: 1;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-    min-width: 120px;
-  }
-  .gpa-info { flex: 1; min-width: 200px; }
-  .gpa-class {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 18px; font-weight: 600; color: var(--text);
-    margin-bottom: 6px;
-  }
-  .gpa-bar-wrap {
-    height: 8px; background: var(--surface3); border-radius: 4px; overflow: hidden;
-    margin-bottom: 6px;
-  }
-  .gpa-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    border-radius: 4px;
-    transition: width 0.5s cubic-bezier(.4,0,.2,1);
-  }
-  .gpa-hint { font-size: 12px; color: var(--text3); }
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
 
-  /* Year sections */
-  .year-section { margin-bottom: 28px; }
-  .year-header {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    user-select: none;
-  }
-  .year-badge {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 13px; font-weight: 700;
-    background: var(--surface3);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 4px 12px;
-    color: var(--text2);
-    white-space: nowrap;
-  }
-  .year-line { flex: 1; height: 1px; background: var(--border); }
-  .year-credits {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; color: var(--text3);
-    white-space: nowrap;
-  }
-  .year-toggle {
-    width: 22px; height: 22px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 5px;
-    font-size: 11px; color: var(--text3);
-    transition: all 0.2s;
-    flex-shrink: 0;
-  }
-  .year-header:hover .year-toggle { border-color: var(--accent); color: var(--accent); }
+    .uni-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
 
-  /* Semester grid */
-  .sem-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 14px;
-  }
-  .sem-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--card-shadow);
-    transition: border-color 0.2s;
-  }
-  .sem-card:hover { border-color: var(--accent); }
-  .sem-head {
-    padding: 12px 18px;
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .sem-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 13px; font-weight: 600; color: var(--text);
-  }
-  .sem-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; color: var(--text3);
-  }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
 
-  /* Course rows */
-  .course-list { padding: 8px 0; }
-  .course-row {
-    display: grid;
-    grid-template-columns: 1fr 52px 130px;
-    gap: 8px;
-    align-items: center;
-    padding: 8px 18px;
-    border-bottom: 1px solid var(--surface3);
-    transition: background 0.15s;
-  }
-  .course-row:last-child { border-bottom: none; }
-  .course-row:hover { background: var(--surface2); }
-  .course-name {
-    display: flex; flex-direction: column; gap: 2px;
-  }
-  .course-code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px; color: var(--text3); letter-spacing: 0.05em;
-  }
-  .course-title-text {
-    font-size: 12.5px; font-weight: 500; color: var(--text);
-    line-height: 1.3;
-  }
-  .course-badges { display: flex; gap: 4px; margin-top: 2px; flex-wrap: wrap; }
-  .badge {
-    font-size: 9px; font-weight: 600; letter-spacing: 0.06em;
-    padding: 2px 6px; border-radius: 3px; text-transform: uppercase;
-  }
-  .badge-opt { background: rgba(217,119,6,0.12); color: var(--amber); }
-  .badge-nongpa { background: rgba(234,88,12,0.1); color: var(--accent); }
-  .badge-comp { background: rgba(5,150,105,0.1); color: var(--green); }
+    h1 span {
+      color: var(--accent);
+    }
 
-  .credit-chip {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; font-weight: 600;
-    color: var(--text2);
-    text-align: center;
-  }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-  /* Grade select */
-  .grade-select {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    background: var(--surface3);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    padding: 5px 8px;
-    width: 100%;
-    appearance: none;
-    transition: border-color 0.2s;
-    font-weight: 500;
-  }
-  .grade-select:focus { outline: none; border-color: var(--accent); }
-  .grade-select.graded { border-color: var(--accent); background: var(--accent-glow); }
+    /* Theme toggle */
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text2);
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+    }
 
-  /* Year collapsible */
-  .year-body { transition: all 0.3s; }
-  .year-body.collapsed { display: none; }
+    .theme-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
 
-  /* Progress section */
-  .progress-section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px 26px;
-    margin-bottom: 28px;
-    box-shadow: var(--card-shadow);
-  }
-  .progress-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px; font-weight: 600; color: var(--text);
-    margin-bottom: 16px;
-  }
-  .progress-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-  }
-  .progress-item { display: flex; flex-direction: column; gap: 6px; }
-  .progress-item-label { font-size: 12px; color: var(--text2); font-weight: 500; }
-  .prog-bar-wrap { height: 6px; background: var(--surface3); border-radius: 3px; overflow: hidden; }
-  .prog-bar-fill {
-    height: 100%; border-radius: 3px;
-    transition: width 0.5s cubic-bezier(.4,0,.2,1);
-  }
-  .prog-bar-fill.green { background: var(--green); }
-  .prog-bar-fill.accent { background: linear-gradient(90deg, var(--accent), var(--accent2)); }
-  .prog-bar-fill.amber { background: var(--amber); }
-  .progress-nums {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; color: var(--text3);
-    display: flex; justify-content: space-between;
-  }
+    .primary-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
 
-  /* Legend */
-  .legend {
-    display: flex; gap: 16px; flex-wrap: wrap;
-    padding: 14px 18px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    margin-bottom: 28px;
-  }
-  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text2); }
+    [data-theme="dark"] .primary-btn {
+      color: #07090f;
+    }
 
-  /* Grade table */
-  .ref-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 16px;
-    margin-bottom: 28px;
-  }
-  .grade-ref {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--card-shadow);
-    height: fit-content;
-  }
-  .grade-ref-head {
-    padding: 12px 18px;
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 13px; font-weight: 600; color: var(--text);
-  }
-  .grade-ref-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    padding: 12px 18px; gap: 8px;
-  }
-  .class-ref-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 12px 18px; gap: 8px;
-  }
-  .grade-chip {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 6px 10px;
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px; color: var(--text2);
-  }
-  .grade-chip span { font-weight: 600; color: var(--text); }
+    .primary-btn:hover {
+      background: var(--accent2);
+      border-color: var(--accent2);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
 
-  /* Floating save hint */
-  .bottom-bar {
-    position: sticky; bottom: 20px;
-    display: flex; justify-content: center;
-    pointer-events: none; z-index: 10;
-    margin-top: 20px;
-  }
-  .bottom-pill {
-    pointer-events: all;
-    display: flex; align-items: center; gap: 12px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 40px;
-    padding: 10px 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-    font-size: 13px; color: var(--text2); font-weight: 500;
-    transition: all 0.2s;
-  }
-  .bottom-pill:hover { border-color: var(--accent); color: var(--accent); }
-  .pill-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--green);
-    flex-shrink: 0;
-  }
+    /* Department selector */
+    .dept-section {
+      margin-bottom: 32px;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text3);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .dept-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Custom Dropdown */
+    .custom-select {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      user-select: none;
+    }
+
+    .select-selected {
+      padding: 12px 40px 12px 16px;
+      background-color: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5080' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+    }
+
+    .custom-select.open .select-selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .select-items {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      z-index: 99;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.2s;
+    }
+
+    .custom-select.open .select-items {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .custom-option {
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      border-bottom: 1px solid var(--border);
+      pointer-events: auto !important;
+    }
+    
+    .custom-option:last-child {
+      border-bottom: none;
+    }
+
+    .custom-option:hover {
+      background: rgba(234, 88, 12, 0.15);
+      color: var(--accent);
+    }
+    
+    .custom-option.selected {
+      color: var(--accent);
+      font-weight: 600;
+      background: rgba(234, 88, 12, 0.05);
+    }
+
+    .select-items {
+      pointer-events: auto !important;
+    }
+
+    [data-theme="dark"] .select-selected,
+    [data-theme="dark"] .select-items {
+      background-color: rgba(15, 17, 35, 0.4);
+    }
+    
+    [data-theme="dark"] .select-selected {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239099c8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    }
+    
+    [data-theme="dark"] .select-items {
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }    /* Dashboard Redesign */
+    .dashboard-glass {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 24px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .gpa-hero {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .dash-divider {
+      height: 1px;
+      background: var(--border);
+      width: 100%;
+    }
+
+    .dashboard-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-split { grid-template-columns: 1fr; }
+    }
+
+    .summary-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 20px;
+    }
+
+    .stat-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text2);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .stat-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    } 
+
+    .stat-val.green {
+      color: var(--green);
+    }
+
+    .stat-val.amber {
+      color: var(--amber);
+    }
+
+    .stat-val.accent {
+      color: var(--accent);
+    }
+
+    .stat-sub {
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 4px;
+    }
+
+    /* GPA bar */
+    .gpa-display {
+      /* Removed: merged into dashboard-glass */
+    }
+
+    .gpa-big {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      min-width: 120px;
+    }
+
+    .gpa-info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .gpa-class {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .gpa-bar-wrap {
+      height: 8px;
+      background: var(--surface3);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+
+    .gpa-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 4px;
+      transition: width 0.5s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .gpa-hint {
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    /* Year sections */
+    .year-section {
+      margin-bottom: 28px;
+    }
+
+    .year-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .year-badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--surface3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 12px;
+      color: var(--text2);
+      white-space: nowrap;
+    }
+
+    .year-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .year-credits {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text3);
+      white-space: nowrap;
+    }
+
+    .year-toggle {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 11px;
+      color: var(--text3);
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .year-header:hover .year-toggle {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Semester grid */
+    .sem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 14px;
+    }
+
+    .sem-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: border-color 0.2s;
+    }
+
+    .sem-card:hover {
+      border-color: var(--accent);
+    }
+
+    .sem-head {
+      padding: 12px 18px;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sem-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .sem-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text3);
+    }
+
+    /* Course rows */
+    .course-list {
+      padding: 8px 0;
+    }
+
+    .course-row {
+      display: grid;
+      grid-template-columns: 1fr 52px 130px;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 18px;
+      border-bottom: 1px solid var(--surface3);
+      transition: background 0.15s;
+    }
+
+    .course-row:last-child {
+      border-bottom: none;
+    }
+
+    .course-row:hover {
+      background: var(--surface2);
+    }
+
+    .course-name {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .course-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text3);
+      letter-spacing: 0.05em;
+    }
+
+    .course-title-text {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .course-badges {
+      display: flex;
+      gap: 4px;
+      margin-top: 2px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .badge-opt {
+      background: rgba(217, 119, 6, 0.12);
+      color: var(--amber);
+    }
+
+    .badge-nongpa {
+      background: rgba(234, 88, 12, 0.1);
+      color: var(--accent);
+    }
+
+    .badge-comp {
+      background: rgba(5, 150, 105, 0.1);
+      color: var(--green);
+    }
+
+    .credit-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      text-align: center;
+    }
+
+    /* Grade select */
+    .grade-select {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      background: var(--surface3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      padding: 5px 8px;
+      width: 100%;
+      appearance: none;
+      transition: border-color 0.2s;
+      font-weight: 500;
+    }
+
+    .grade-select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .grade-select.graded {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+    }
+
+    /* Year collapsible */
+    .year-body {
+      transition: all 0.3s;
+    }
+
+    .year-body.collapsed {
+      display: none;
+    }
+
+    /* Progress section */
+    .progress-section,
+    .analytics-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 26px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .progress-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .progress-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .progress-item-label {
+      font-size: 12px;
+      color: var(--text2);
+      font-weight: 500;
+    }
+
+    .prog-bar-wrap {
+      height: 6px;
+      background: var(--surface3);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .prog-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .prog-bar-fill.green {
+      background: var(--green);
+    }
+
+    .prog-bar-fill.accent {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .prog-bar-fill.amber {
+      background: var(--amber);
+    }
+
+    .progress-nums {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text3);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+      margin-bottom: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text2);
+    }
+
+    /* Analytics Section */
+    .chart-container {
+      position: relative;
+      height: 250px;
+      width: 100%;
+      flex: 1;
+      margin-top: 4px;
+    }
+
+    /* Grade table */
+    .ref-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .grade-ref {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      height: fit-content;
+    }
+
+    .grade-ref-head {
+      padding: 12px 18px;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .grade-ref-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      padding: 12px 18px;
+      gap: 8px;
+    }
+
+    .class-ref-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 12px 18px;
+      gap: 8px;
+    }
+
+    .grade-chip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text2);
+    }
+
+    .grade-chip span {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Floating save hint */
+    .bottom-bar {
+      position: sticky;
+      bottom: 20px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 10;
+      margin-top: 20px;
+    }
+
+    .bottom-pill {
+      pointer-events: all;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 10px 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      font-size: 13px;
+      color: var(--text2);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .bottom-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
 
 
 
-  /* Responsive */
-  @media (max-width: 600px) {
-    h1 { font-size: 20px; }
-    .gpa-big { font-size: 40px; }
-    .sem-grid { grid-template-columns: 1fr; }
-    .course-row { grid-template-columns: 1fr 40px 110px; gap: 6px; padding: 8px 12px; }
-  }
+    /* Responsive */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 20px;
+      }
 
-  /* Advanced Modern Footer */
-  .contribute-section {
-    margin-top: 80px;
-    margin-bottom: 100px;
-  }
-  .contribute-header {
-    display: flex; align-items: center; gap: 12px;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-  .contribute-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 22px; font-weight: 700; color: var(--text);
-    margin: 0;
-  }
-  .advanced-footer {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-  @media(max-width: 900px) {
-    .advanced-footer { grid-template-columns: 1fr; }
-  }
+      .gpa-big {
+        font-size: 40px;
+      }
 
-  /* Brand Card */
-  .footer-brand-card {
-    background: linear-gradient(145deg, var(--surface) 0%, var(--bg) 100%);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: var(--card-shadow);
-  }
-  .footer-glow {
-    position: absolute;
-    top: -50px; left: -50px;
-    width: 150px; height: 150px;
-    background: var(--accent);
-    filter: blur(80px);
-    opacity: 0.15;
-    border-radius: 50%;
-  }
-  .brand-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 24px; font-weight: 700; color: var(--text);
-    line-height: 1.2; margin-bottom: 12px; position: relative; z-index: 1;
-  }
-  .accent-text { color: var(--accent); }
-  .brand-desc {
-    font-size: 13px; color: var(--text2); line-height: 1.5;
-    margin-bottom: 24px; position: relative; z-index: 1;
-  }
-  
-  .creator-badge {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
-  }
-  .creator-avatar {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: var(--surface3); display: flex; align-items: center; justify-content: center;
-    color: var(--text2); font-size: 18px; border: 1px solid var(--border);
-  }
-  .creator-info { display: flex; flex-direction: column; gap: 2px; }
-  .creator-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
-  .creator-name { font-size: 14px; font-weight: 600; color: var(--text); }
+      .sem-grid {
+        grid-template-columns: 1fr;
+      }
 
-  .modern-linkedin-btn {
-    display: inline-flex; align-items: center; justify-content: space-between;
-    background: #0A66C2;
-    color: white; padding: 12px 16px; border-radius: 10px;
-    text-decoration: none; font-weight: 600; font-size: 14px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(255,255,255,0.1);
-    width: 100%; gap: 10px;
-  }
-  .modern-linkedin-btn:hover {
-    background: #004182; color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(10, 102, 194, 0.3);
-  }
-  .modern-linkedin-btn .arrow-icon { transition: transform 0.3s; }
-  .modern-linkedin-btn:hover .arrow-icon { transform: translate(3px, -3px); }
+      .course-row {
+        grid-template-columns: 1fr 40px 110px;
+        gap: 6px;
+        padding: 8px 12px;
+      }
+    }
 
-  /* Interactive Cards */
-  .glass-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    box-shadow: var(--card-shadow);
-    display: flex; flex-direction: column; justify-content: space-between;
-  }
-  
-  .widget-header {
-    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
-  }
-  .widget-icon-wrapper {
-    width: 32px; height: 32px; border-radius: 8px;
-    background: var(--accent-glow); color: var(--accent);
-    display: flex; align-items: center; justify-content: center; font-size: 16px;
-  }
-  .widget-title { font-size: 15px; font-weight: 600; color: var(--text); }
+    /* Advanced Modern Footer */
+    .contribute-section {
+      margin-top: 80px;
+      margin-bottom: 100px;
+    }
 
-  .rating-display { display: flex; align-items: center; gap: 15px; flex-grow: 1; }
-  .rating-big-number { font-size: 42px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; color: var(--text); line-height: 1; }
-  .rating-stars-col { display: flex; flex-direction: column; gap: 6px; }
-  .stars-row { display: flex; gap: 3px; color: #fbbf24; font-size: 15px; }
-  .rating-subtext { font-size: 11px; color: var(--text3); }
-  
-  .divider { height: 1px; background: var(--border); margin: 15px 0; }
-  
-  .user-rating-action { display: flex; align-items: center; justify-content: space-between; }
-  .user-rating-action span { font-size: 13px; font-weight: 500; color: var(--text2); }
-  .interactive-stars-modern { display: flex; gap: 6px; color: #fbbf24; font-size: 20px; cursor: pointer; }
-  .interactive-stars-modern i { transition: transform 0.2s, color 0.2s; }
-  .interactive-stars-modern i:hover { transform: scale(1.2); color: #F59E0B; }
+    .contribute-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
 
-  .modern-textarea {
-    width: 100%; height: 85px; resize: none;
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: 12px; padding: 14px;
-    color: var(--text); font-family: 'Inter', sans-serif; font-size: 13px;
-    transition: all 0.2s; margin-bottom: 12px;
-  }
-  .modern-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
-  
-  .modern-feedback-footer { display: flex; justify-content: space-between; align-items: center; }
-  .char-counter { font-size: 11px; color: var(--text3); font-weight: 500; }
-  .modern-submit-btn {
-    display: flex; align-items: center; gap: 6px;
-    background: var(--surface3); color: var(--text);
-    border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px;
-    font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
-  }
-  .modern-submit-btn:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
-  [data-theme="dark"] .modern-submit-btn:hover { background: white; color: black; }
+    .contribute-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
 
-</style>
+    .advanced-footer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media(max-width: 900px) {
+      .advanced-footer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Brand Card */
+    .footer-brand-card {
+      background: linear-gradient(145deg, var(--surface) 0%, var(--bg) 100%);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--card-shadow);
+    }
+
+    .footer-glow {
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 150px;
+      height: 150px;
+      background: var(--accent);
+      filter: blur(80px);
+      opacity: 0.15;
+      border-radius: 50%;
+    }
+
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .accent-text {
+      color: var(--accent);
+    }
+
+    .brand-desc {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.5;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .creator-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .creator-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text2);
+      font-size: 18px;
+      border: 1px solid var(--border);
+    }
+
+    .creator-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .creator-label {
+      font-size: 10px;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .creator-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .modern-linkedin-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0A66C2;
+      color: white;
+      padding: 12px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+      gap: 10px;
+    }
+
+    .modern-linkedin-btn:hover {
+      background: #004182;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(10, 102, 194, 0.3);
+    }
+
+    .modern-linkedin-btn .arrow-icon {
+      transition: transform 0.3s;
+    }
+
+    .modern-linkedin-btn:hover .arrow-icon {
+      transform: translate(3px, -3px);
+    }
+
+    /* Interactive Cards */
+    .glass-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .widget-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .widget-icon-wrapper {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--accent-glow);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .widget-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .rating-display {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-grow: 1;
+    }
+
+    .rating-big-number {
+      font-size: 42px;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .rating-stars-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .stars-row {
+      display: flex;
+      gap: 3px;
+      color: #fbbf24;
+      font-size: 15px;
+    }
+
+    .rating-subtext {
+      font-size: 11px;
+      color: var(--text3);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 15px 0;
+    }
+
+    .user-rating-action {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .user-rating-action span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text2);
+    }
+
+    .interactive-stars-modern {
+      display: flex;
+      gap: 6px;
+      color: #fbbf24;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .interactive-stars-modern i {
+      transition: transform 0.2s, color 0.2s;
+    }
+
+    .interactive-stars-modern i:hover {
+      transform: scale(1.2);
+      color: #F59E0B;
+    }
+
+    .modern-textarea {
+      width: 100%;
+      height: 85px;
+      resize: none;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      transition: all 0.2s;
+      margin-bottom: 12px;
+    }
+
+    .modern-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .modern-feedback-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .char-counter {
+      font-size: 11px;
+      color: var(--text3);
+      font-weight: 500;
+    }
+
+    .modern-submit-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface3);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .modern-submit-btn:hover {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    [data-theme="dark"] .modern-submit-btn:hover {
+      background: white;
+      color: black;
+    }
+  </style>
 </head>
+
 <body>
 
-<canvas id="mesh-canvas"></canvas>
+  <canvas id="mesh-canvas"></canvas>
 
-<div class="app-wrap">
+  <div class="app-wrap">
 
-  <header>
-    <div class="header-left">
-      <div class="uni-label">Rajarata University of Sri Lanka</div>
-      <h1>Faculty of <span>Technology</span></h1>
-    </div>
-    <div class="header-right">
-      <button class="theme-btn" onclick="window.location.href='careers.html'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        <span>Discover Career Paths</span>
-      </button>
-      <button class="primary-btn" onclick="downloadPDF()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        <span>Download PDF</span>
-      </button>
-      <button class="theme-btn" onclick="resetGrades()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-        <span>Reset</span>
-      </button>
-      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
-        <span id="themeLabel">Dark Mode</span>
-      </button>
-    </div>
-  </header>
-
-  <div class="dept-section">
-    <div class="section-label">Select Department</div>
-    <div class="dept-tabs" id="deptTabs"></div>
-  </div>
-
-  <div class="legend">
-    <div class="legend-item"><span class="badge badge-comp">C</span> Compulsory (counts to GPA)</div>
-    <div class="legend-item"><span class="badge badge-opt">OPT</span> Optional (counts if taken)</div>
-    <div class="legend-item"><span class="badge badge-nongpa">NON-GPA</span> Non-GPA (credits only)</div>
-  </div>
-
-  <div class="gpa-display">
-    <div class="gpa-big" id="gpaVal">—</div>
-    <div class="gpa-info">
-      <div class="gpa-class" id="gpaClass">No grades entered</div>
-      <div class="gpa-bar-wrap"><div class="gpa-bar-fill" id="gpaBarFill" style="width:0%"></div></div>
-      <div class="gpa-hint">GPA scale: 0.0 – 4.0</div>
-    </div>
-  </div>
-
-  <div class="summary-bar" id="summaryBar">
-    <div class="stat-card">
-      <div class="stat-label">Total Credits</div>
-      <div class="stat-val accent" id="totalCredits">—</div>
-      <div class="stat-sub">Required: 120</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">GPA Credits</div>
-      <div class="stat-val" id="gpaCredits">—</div>
-      <div class="stat-sub">Compulsory + Optional taken</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Non-GPA Credits</div>
-      <div class="stat-val" id="nonGpaCredits">—</div>
-      <div class="stat-sub">Excluded from GPA</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Optional Credits</div>
-      <div class="stat-val amber" id="optionalCredits">—</div>
-      <div class="stat-sub">Available</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Graded So Far</div>
-      <div class="stat-val green" id="gradedCredits">0</div>
-      <div class="stat-sub" id="remainCredits">of — GPA credits</div>
-    </div>
-  </div>
-
-
-
-  <div class="progress-section">
-    <div class="progress-title">Credit Progress</div>
-    <div class="progress-grid" id="progressGrid"></div>
-  </div>
-
-  <div class="ref-container">
-    <div class="grade-ref">
-      <div class="grade-ref-head">Grade Reference</div>
-      <div class="grade-ref-grid">
-        <div class="grade-chip">A+ <span>4.0</span></div>
-        <div class="grade-chip">A <span>4.0</span></div>
-        <div class="grade-chip">A- <span>3.7</span></div>
-        <div class="grade-chip">B+ <span>3.3</span></div>
-        <div class="grade-chip">B <span>3.0</span></div>
-        <div class="grade-chip">B- <span>2.7</span></div>
-        <div class="grade-chip">C+ <span>2.3</span></div>
-        <div class="grade-chip">C <span>2.0</span></div>
-        <div class="grade-chip">C- <span>1.7</span></div>
-        <div class="grade-chip">D+ <span>1.3</span></div>
-        <div class="grade-chip">D <span>1.0</span></div>
-        <div class="grade-chip">E / F <span>0.0</span></div>
+    <header>
+      <div class="header-left">
+        <div class="uni-label">Rajarata University of Sri Lanka</div>
+        <h1>Faculty of <span>Technology</span></h1>
       </div>
-    </div>
-
-    <div class="grade-ref">
-      <div class="grade-ref-head">GPA Classifications</div>
-      <div class="class-ref-grid">
-        <div class="grade-chip">First Class Honours <span>3.70 – 4.00</span></div>
-        <div class="grade-chip">Second Class (Upper) <span>3.30 – 3.69</span></div>
-        <div class="grade-chip">Second Class (Lower) <span>3.00 – 3.29</span></div>
-        <div class="grade-chip">Pass <span>2.00 – 2.99</span></div>
+      <div class="header-right">
+        <button class="theme-btn" onclick="window.location.href='careers.html'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+          </svg>
+          <span>Discover Career Paths</span>
+        </button>
+        <button class="primary-btn" onclick="downloadPDF()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+          </svg>
+          <span>Download PDF</span>
+        </button>
+        <button class="theme-btn" onclick="resetGrades()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+            <path d="M3 3v5h5" />
+          </svg>
+          <span>Reset</span>
+        </button>
+        <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5" />
+            <path
+              d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+          </svg>
+          <span id="themeLabel">Dark Mode</span>
+        </button>
       </div>
-    </div>
-  </div>
+    </header>
 
-  <div id="courseContainer"></div>
-
-
-
-  <!-- Advanced Modern Footer Section -->
-  <div class="contribute-section">
-    <div class="contribute-header">
-      <i class="ph-fill ph-rocket-launch" style="font-size: 24px; color: var(--accent);"></i>
-      <h2 class="contribute-title">Contribute to This Project</h2>
+    <div class="dept-section">
+      <div class="section-label">Select Department</div>
+      <div class="dept-tabs" id="deptTabs"></div>
     </div>
 
-    <div class="advanced-footer">
-      <!-- Box 1: Branding & Connect -->
-    <div class="footer-brand-card">
-      <div class="footer-glow"></div>
-      <div>
-        <h3 class="brand-title">Shape the Future of <br><span class="accent-text">Tracker</span></h3>
-        <p class="brand-desc">Have brilliant ideas? Found a bug? Help make this tool better for FOT.</p>
-        
-        <div class="creator-badge">
-          <div class="creator-avatar"><i class="ph-fill ph-code"></i></div>
-          <div class="creator-info">
-            <span class="creator-label">Designed by</span>
-            <span class="creator-name">Diwakara</span>
+    <div class="dashboard-glass">
+      <div class="gpa-hero">
+        <div class="gpa-big" id="gpaVal">—</div>
+        <div class="gpa-info">
+          <div class="gpa-class" id="gpaClass">No grades entered</div>
+          <div class="gpa-bar-wrap">
+            <div class="gpa-bar-fill" id="gpaBarFill" style="width:0%"></div>
           </div>
+          <div class="gpa-hint">GPA scale: 0.0 – 4.0</div>
         </div>
       </div>
 
-      <a href="https://www.linkedin.com/in/pasindu-diwakara-008260290/" target="_blank" class="modern-linkedin-btn">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <i class="ph-fill ph-linkedin-logo" style="font-size: 20px;"></i> Connect on LinkedIn
+      <div class="dash-divider"></div>
+
+      <div class="summary-bar" id="summaryBar">
+        <div class="stat-card">
+          <div class="stat-label">Total Credits</div>
+          <div class="stat-val accent" id="totalCredits">—</div>
+          <div class="stat-sub">Required: 120</div>
         </div>
-        <i class="ph ph-arrow-up-right arrow-icon"></i>
-      </a>
+        <div class="stat-card">
+          <div class="stat-label">GPA Credits</div>
+          <div class="stat-val" id="gpaCredits">—</div>
+          <div class="stat-sub">Compulsory + Optional taken</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Non-GPA Credits</div>
+          <div class="stat-val" id="nonGpaCredits">—</div>
+          <div class="stat-sub">Excluded from GPA</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Optional Credits</div>
+          <div class="stat-val amber" id="optionalCredits">—</div>
+          <div class="stat-sub">Available</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Graded So Far</div>
+          <div class="stat-val green" id="gradedCredits">0</div>
+          <div class="stat-sub" id="remainCredits">of — GPA credits</div>
+        </div>
+      </div>
     </div>
 
-    <!-- Box 2: Rating Widget -->
-    <div class="modern-widget glass-panel">
-      <div>
-        <div class="widget-header">
-          <div class="widget-icon-wrapper"><i class="ph-fill ph-star"></i></div>
-          <span class="widget-title">Rate Your Experience</span>
+    <div class="dashboard-split">
+      <div class="progress-section">
+        <div class="progress-title">Credit Progress</div>
+        <div class="progress-grid" id="progressGrid"></div>
+      </div>
+
+      <div class="analytics-section">
+        <div class="progress-title">Cumulative GPA Progression</div>
+        <div class="chart-container">
+          <canvas id="gpaChart"></canvas>
         </div>
-        <div class="rating-display">
-          <span class="rating-big-number" id="avgRatingDisplay">0.0</span>
-          <div class="rating-stars-col">
-            <div class="stars-row" id="avgStarsDisplay">
-              <i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="badge badge-comp">C</span> Compulsory (counts to GPA)</div>
+      <div class="legend-item"><span class="badge badge-opt">OPT</span> Optional (counts if taken)</div>
+      <div class="legend-item"><span class="badge badge-nongpa">NON-GPA</span> Non-GPA (credits only)</div>
+    </div>
+
+    <div class="ref-container">
+      <div class="grade-ref">
+        <div class="grade-ref-head">Grade Reference</div>
+        <div class="grade-ref-grid">
+          <div class="grade-chip">A+ <span>4.0</span></div>
+          <div class="grade-chip">A <span>4.0</span></div>
+          <div class="grade-chip">A- <span>3.7</span></div>
+          <div class="grade-chip">B+ <span>3.3</span></div>
+          <div class="grade-chip">B <span>3.0</span></div>
+          <div class="grade-chip">B- <span>2.7</span></div>
+          <div class="grade-chip">C+ <span>2.3</span></div>
+          <div class="grade-chip">C <span>2.0</span></div>
+          <div class="grade-chip">C- <span>1.7</span></div>
+          <div class="grade-chip">D+ <span>1.3</span></div>
+          <div class="grade-chip">D <span>1.0</span></div>
+          <div class="grade-chip">E / F <span>0.0</span></div>
+        </div>
+      </div>
+
+      <div class="grade-ref">
+        <div class="grade-ref-head">GPA Classifications</div>
+        <div class="class-ref-grid">
+          <div class="grade-chip">First Class Honours <span>3.70 – 4.00</span></div>
+          <div class="grade-chip">Second Class (Upper) <span>3.30 – 3.69</span></div>
+          <div class="grade-chip">Second Class (Lower) <span>3.00 – 3.29</span></div>
+          <div class="grade-chip">Pass <span>2.00 – 2.99</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="courseContainer"></div>
+
+
+
+    <!-- Advanced Modern Footer Section -->
+    <div class="contribute-section">
+      <div class="contribute-header">
+        <i class="ph-fill ph-rocket-launch" style="font-size: 24px; color: var(--accent);"></i>
+        <h2 class="contribute-title">Contribute to This Project</h2>
+      </div>
+
+      <div class="advanced-footer">
+        <!-- Box 1: Branding & Connect -->
+        <div class="footer-brand-card">
+          <div class="footer-glow"></div>
+          <div>
+            <h3 class="brand-title">Shape the Future of <br><span class="accent-text">Tracker</span></h3>
+            <p class="brand-desc">Have brilliant ideas? Found a bug? Help make this tool better for FOT.</p>
+
+            <div class="creator-badge">
+              <div class="creator-avatar"><i class="ph-fill ph-code"></i></div>
+              <div class="creator-info">
+                <span class="creator-label">Designed by</span>
+                <span class="creator-name">Diwakara</span>
+              </div>
             </div>
-            <span class="rating-subtext" id="reviewCountDisplay">No reviews yet</span>
+          </div>
+
+          <a href="https://www.linkedin.com/in/pasindu-diwakara-008260290/" target="_blank" class="modern-linkedin-btn">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <i class="ph-fill ph-linkedin-logo" style="font-size: 20px;"></i> Connect on LinkedIn
+            </div>
+            <i class="ph ph-arrow-up-right arrow-icon"></i>
+          </a>
+        </div>
+
+        <!-- Box 2: Rating Widget -->
+        <div class="modern-widget glass-panel">
+          <div>
+            <div class="widget-header">
+              <div class="widget-icon-wrapper"><i class="ph-fill ph-star"></i></div>
+              <span class="widget-title">Rate Your Experience</span>
+            </div>
+            <div class="rating-display">
+              <span class="rating-big-number" id="avgRatingDisplay">0.0</span>
+              <div class="rating-stars-col">
+                <div class="stars-row" id="avgStarsDisplay">
+                  <i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i><i class="ph ph-star"></i>
+                </div>
+                <span class="rating-subtext" id="reviewCountDisplay">No reviews yet</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="divider"></div>
+            <div class="user-rating-action">
+              <span>Your Rating:</span>
+              <div class="interactive-stars-modern" id="interactiveStars">
+                <i class="ph ph-star" data-rating="1"></i>
+                <i class="ph ph-star" data-rating="2"></i>
+                <i class="ph ph-star" data-rating="3"></i>
+                <i class="ph ph-star" data-rating="4"></i>
+                <i class="ph ph-star" data-rating="5"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Box 3: Feedback Widget -->
+        <div class="modern-widget glass-panel feedback-panel">
+          <div class="widget-header">
+            <div class="widget-icon-wrapper" style="color:#10b981; background:rgba(16, 185, 129, 0.15);"><i
+                class="ph-fill ph-chat-circle-text"></i></div>
+            <span class="widget-title">Feature Requests</span>
+          </div>
+          <div class="modern-feedback">
+            <textarea class="modern-textarea" id="feedbackInput" placeholder="Tell me what you'd like to see next..."
+              maxlength="500"
+              oninput="document.getElementById('feedbackCount').innerText = this.value.length + '/500'"></textarea>
+            <div class="modern-feedback-footer">
+              <span class="char-counter" id="feedbackCount">0/500</span>
+              <button class="modern-submit-btn" onclick="alert('Thank you! Your request has been sent to Diwakara.')">
+                Submit <i class="ph ph-paper-plane-tilt"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div>
-        <div class="divider"></div>
-        <div class="user-rating-action">
-          <span>Your Rating:</span>
-          <div class="interactive-stars-modern" id="interactiveStars">
-            <i class="ph ph-star" data-rating="1"></i>
-            <i class="ph ph-star" data-rating="2"></i>
-            <i class="ph ph-star" data-rating="3"></i>
-            <i class="ph ph-star" data-rating="4"></i>
-            <i class="ph ph-star" data-rating="5"></i>
-          </div>
-        </div>
-      </div>
+
     </div>
 
-    <!-- Box 3: Feedback Widget -->
-    <div class="modern-widget glass-panel feedback-panel">
-      <div class="widget-header">
-        <div class="widget-icon-wrapper" style="color:#10b981; background:rgba(16, 185, 129, 0.15);"><i class="ph-fill ph-chat-circle-text"></i></div>
-        <span class="widget-title">Feature Requests</span>
-      </div>
-      <div class="modern-feedback">
-        <textarea class="modern-textarea" id="feedbackInput" placeholder="Tell me what you'd like to see next..." maxlength="500" oninput="document.getElementById('feedbackCount').innerText = this.value.length + '/500'"></textarea>
-        <div class="modern-feedback-footer">
-          <span class="char-counter" id="feedbackCount">0/500</span>
-          <button class="modern-submit-btn" onclick="alert('Thank you! Your request has been sent to Diwakara.')">
-            Submit <i class="ph ph-paper-plane-tilt"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+  </div>
   </div>
 
-</div>
-
-</div>
-</div>
-
-<script>
-// ─── DATA ───────────────────────────────────────────────────────────────────
+  <script>
+    // ─── DATA ───────────────────────────────────────────────────────────────────
 
 
 
-const GRADE_MAP = {
-  'A+': 4.0, 'A': 4.0, 'A-': 3.7,
-  'B+': 3.3, 'B': 3.0, 'B-': 2.7,
-  'C+': 2.3, 'C': 2.0, 'C-': 1.7,
-  'D+': 1.3, 'D': 1.0,
-  'E': 0.0, 'F': 0.0
-};
-const GRADE_OPTIONS = ['', 'A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'E', 'F'];
+    const GRADE_MAP = {
+      'A+': 4.0, 'A': 4.0, 'A-': 3.7,
+      'B+': 3.3, 'B': 3.0, 'B-': 2.7,
+      'C+': 2.3, 'C': 2.0, 'C-': 1.7,
+      'D+': 1.3, 'D': 1.0,
+      'E': 0.0, 'F': 0.0
+    };
+    const GRADE_OPTIONS = ['', 'A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-', 'D+', 'D', 'E', 'F'];
 
-// Course flags: '' = compulsory GPA, 'OPT' = optional GPA, 'NONGPA' = non-GPA compulsory
-const DEPARTMENTS = {
-  ICT: {
-    name: 'ICT',
-    fullName: 'Information & Communication Technology',
-    years: [
-      { year: 'Year 1', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'ICT 1111', title: 'Productivity and Collaborative Tools', credits: 1, flag: '' },
-          { code: 'ICT 1202', title: 'Electronic Circuits', credits: 2, flag: '' },
-          { code: 'ICT 1305', title: 'Program Designing and Programming', credits: 3, flag: '' },
-          { code: 'CMT 1301', title: 'Fundamentals of Physics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1303', title: 'Fundamentals of Mathematics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1205', title: 'Communication Skills I', credits: 2, flag: 'NONGPA' },
-          { code: 'CML 1201', title: 'Personality Development', credits: 2, flag: '' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'ICT 1207', title: 'Human Computer Interaction', credits: 2, flag: '' },
-          { code: 'ICT 1108', title: 'Skill Development Project I', credits: 1, flag: '' },
-          { code: 'ICT 1209', title: 'Web Technologies', credits: 2, flag: '' },
-          { code: 'ICT 1210', title: 'Introduction to Multimedia', credits: 2, flag: '' },
-          { code: 'CMT 1307', title: 'Mathematics For Technology I', credits: 3, flag: '' },
-          { code: 'CMT 1209', title: 'Communication Skills II', credits: 2, flag: 'NONGPA' },
-          { code: 'CML 1203', title: 'Principles of Management', credits: 2, flag: '' },
-          { code: 'CML 1204', title: 'Health and Wellbeing', credits: 2, flag: '' },
-          { code: 'ENT 1302', title: 'Fundamentals of Electricity and Magnetism', credits: 3, flag: 'OPT' },
-        ]},
-      ]},
-      { year: 'Year 2', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'ICT 2202', title: 'Operating Systems', credits: 2, flag: '' },
-          { code: 'ICT 2303', title: 'Data Structures and Algorithms', credits: 3, flag: '' },
-          { code: 'ICT 2304', title: 'Object Oriented Programming', credits: 3, flag: '' },
-          { code: 'ICT 2207', title: 'Software System Design', credits: 2, flag: '' },
-          { code: 'ICT 2212', title: 'Skill Development Project II', credits: 2, flag: '' },
-          { code: 'CML 2202', title: 'Engineering Economics', credits: 2, flag: '' },
-          { code: 'CMT 2202', title: 'Communication Skills III', credits: 2, flag: 'NONGPA' },
-          { code: 'CMT 2306', title: 'Mathematics for Technology II', credits: 3, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'ICT 2305', title: 'Computational Mathematics', credits: 3, flag: '' },
-          { code: 'ICT 2308', title: 'Database Systems', credits: 3, flag: '' },
-          { code: 'ICT 2109', title: 'Communication and Learning Skills', credits: 1, flag: '' },
-          { code: 'ICT 2211', title: 'Fundamentals of Statistics', credits: 2, flag: '' },
-          { code: 'ICT 2213', title: 'Data Communication and Networking', credits: 2, flag: '' },
-          { code: 'ICT 2214', title: 'Introduction to Information Systems', credits: 2, flag: '' },
-          { code: 'CML 2204', title: 'Foreign Language', credits: 2, flag: '' },
-          { code: 'CML 2205', title: 'Ethics in Science and Technology', credits: 2, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 3', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'ICT 3201', title: 'Software Project Management', credits: 2, flag: '' },
-          { code: 'ICT 3203', title: 'Scientific Computer Applications', credits: 2, flag: '' },
-          { code: 'ICT 3206', title: 'Skill Development Project III', credits: 2, flag: '' },
-          { code: 'ICT 3307', title: 'Computational Statistics', credits: 3, flag: 'OPT' },
-          { code: 'ICT 3208', title: 'Design and Analysis of Algorithms', credits: 2, flag: '' },
-          { code: 'ICT 3312', title: 'Software Verification and Validation', credits: 3, flag: '' },
-          { code: 'ICT 3315', title: 'Internet of Things', credits: 3, flag: 'OPT' },
-          { code: 'ICT 3217', title: 'Advance Computer Networks', credits: 2, flag: 'OPT' },
-          { code: 'ICT 3218', title: 'Basics of Virtual Reality', credits: 2, flag: 'OPT' },
-          { code: 'CML 3101', title: 'Legal and Patent Aspects', credits: 1, flag: '' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'ICT 3204', title: 'E-Business Systems', credits: 2, flag: '' },
-          { code: 'ICT 3209', title: 'Computer Organization and Architecture', credits: 2, flag: '' },
-          { code: 'ICT 3310', title: 'Information Security', credits: 3, flag: '' },
-          { code: 'ICT 3311', title: 'Robotics', credits: 3, flag: 'OPT' },
-          { code: 'ICT 3314', title: 'Embedded Systems', credits: 3, flag: '' },
-          { code: 'ICT 3213', title: 'Advanced Software System Design', credits: 2, flag: 'OPT' },
-          { code: 'ICT 3216', title: 'Research Methodology', credits: 2, flag: '' },
-          { code: 'ICT 3219', title: 'Mobile Application Development', credits: 2, flag: 'OPT' },
-          { code: 'ICT 3220', title: 'Basics of Game Development', credits: 2, flag: 'OPT' },
-          { code: 'CML 3203', title: 'Basics of Accountancy', credits: 2, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 4', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'ICT 4301', title: 'Mobile Computing', credits: 3, flag: '' },
-          { code: 'ICT 4202', title: 'Internet Applications', credits: 2, flag: '' },
-          { code: 'ICT 4203', title: 'Software Engineering', credits: 2, flag: '' },
-          { code: 'ICT 4205', title: 'Current Topics in Information Technology', credits: 2, flag: '' },
-          { code: 'ICT 4306', title: 'Data Science', credits: 3, flag: 'OPT' },
-          { code: 'ICT 4207', title: 'Artificial Intelligence', credits: 2, flag: 'OPT' },
-          { code: 'ICT 4210', title: 'Digital Image Processing', credits: 2, flag: 'OPT' },
-          { code: 'ICT 4211', title: 'Computer Graphics and Visualization', credits: 2, flag: 'OPT' },
-          { code: 'CML 4201', title: 'Entrepreneurship', credits: 2, flag: '' },
-          { code: 'CML 4202', title: 'Human Resource Management', credits: 2, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'ICT 4808', title: 'Research Project', credits: 8, flag: '' },
-          { code: 'ICT 4609', title: 'Industrial Training', credits: 6, flag: 'NONGPA' },
-        ]},
-      ]},
-    ]
-  },
+    // Course flags: '' = compulsory GPA, 'OPT' = optional GPA, 'NONGPA' = non-GPA compulsory
+    const DEPARTMENTS = {
+      ICT: {
+        name: 'ICT',
+        fullName: 'Information & Communication Technology',
+        years: [
+          {
+            year: 'Year 1', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'ICT 1111', title: 'Productivity and Collaborative Tools', credits: 1, flag: '' },
+                  { code: 'ICT 1202', title: 'Electronic Circuits', credits: 2, flag: '' },
+                  { code: 'ICT 1305', title: 'Program Designing and Programming', credits: 3, flag: '' },
+                  { code: 'CMT 1301', title: 'Fundamentals of Physics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1303', title: 'Fundamentals of Mathematics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1205', title: 'Communication Skills I', credits: 2, flag: 'NONGPA' },
+                  { code: 'CML 1201', title: 'Personality Development', credits: 2, flag: '' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'ICT 1207', title: 'Human Computer Interaction', credits: 2, flag: '' },
+                  { code: 'ICT 1108', title: 'Skill Development Project I', credits: 1, flag: '' },
+                  { code: 'ICT 1209', title: 'Web Technologies', credits: 2, flag: '' },
+                  { code: 'ICT 1210', title: 'Introduction to Multimedia', credits: 2, flag: '' },
+                  { code: 'CMT 1307', title: 'Mathematics For Technology I', credits: 3, flag: '' },
+                  { code: 'CMT 1209', title: 'Communication Skills II', credits: 2, flag: 'NONGPA' },
+                  { code: 'CML 1203', title: 'Principles of Management', credits: 2, flag: '' },
+                  { code: 'CML 1204', title: 'Health and Wellbeing', credits: 2, flag: '' },
+                  { code: 'ENT 1302', title: 'Fundamentals of Electricity and Magnetism', credits: 3, flag: 'OPT' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 2', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'ICT 2202', title: 'Operating Systems', credits: 2, flag: '' },
+                  { code: 'ICT 2303', title: 'Data Structures and Algorithms', credits: 3, flag: '' },
+                  { code: 'ICT 2304', title: 'Object Oriented Programming', credits: 3, flag: '' },
+                  { code: 'ICT 2207', title: 'Software System Design', credits: 2, flag: '' },
+                  { code: 'ICT 2212', title: 'Skill Development Project II', credits: 2, flag: '' },
+                  { code: 'CML 2202', title: 'Engineering Economics', credits: 2, flag: '' },
+                  { code: 'CMT 2202', title: 'Communication Skills III', credits: 2, flag: 'NONGPA' },
+                  { code: 'CMT 2306', title: 'Mathematics for Technology II', credits: 3, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'ICT 2305', title: 'Computational Mathematics', credits: 3, flag: '' },
+                  { code: 'ICT 2308', title: 'Database Systems', credits: 3, flag: '' },
+                  { code: 'ICT 2109', title: 'Communication and Learning Skills', credits: 1, flag: '' },
+                  { code: 'ICT 2211', title: 'Fundamentals of Statistics', credits: 2, flag: '' },
+                  { code: 'ICT 2213', title: 'Data Communication and Networking', credits: 2, flag: '' },
+                  { code: 'ICT 2214', title: 'Introduction to Information Systems', credits: 2, flag: '' },
+                  { code: 'CML 2204', title: 'Foreign Language', credits: 2, flag: '' },
+                  { code: 'CML 2205', title: 'Ethics in Science and Technology', credits: 2, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 3', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'ICT 3201', title: 'Software Project Management', credits: 2, flag: '' },
+                  { code: 'ICT 3203', title: 'Scientific Computer Applications', credits: 2, flag: '' },
+                  { code: 'ICT 3206', title: 'Skill Development Project III', credits: 2, flag: '' },
+                  { code: 'ICT 3307', title: 'Computational Statistics', credits: 3, flag: 'OPT' },
+                  { code: 'ICT 3208', title: 'Design and Analysis of Algorithms', credits: 2, flag: '' },
+                  { code: 'ICT 3312', title: 'Software Verification and Validation', credits: 3, flag: '' },
+                  { code: 'ICT 3315', title: 'Internet of Things', credits: 3, flag: 'OPT' },
+                  { code: 'ICT 3217', title: 'Advance Computer Networks', credits: 2, flag: 'OPT' },
+                  { code: 'ICT 3218', title: 'Basics of Virtual Reality', credits: 2, flag: 'OPT' },
+                  { code: 'CML 3101', title: 'Legal and Patent Aspects', credits: 1, flag: '' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'ICT 3204', title: 'E-Business Systems', credits: 2, flag: '' },
+                  { code: 'ICT 3209', title: 'Computer Organization and Architecture', credits: 2, flag: '' },
+                  { code: 'ICT 3310', title: 'Information Security', credits: 3, flag: '' },
+                  { code: 'ICT 3311', title: 'Robotics', credits: 3, flag: 'OPT' },
+                  { code: 'ICT 3314', title: 'Embedded Systems', credits: 3, flag: '' },
+                  { code: 'ICT 3213', title: 'Advanced Software System Design', credits: 2, flag: 'OPT' },
+                  { code: 'ICT 3216', title: 'Research Methodology', credits: 2, flag: '' },
+                  { code: 'ICT 3219', title: 'Mobile Application Development', credits: 2, flag: 'OPT' },
+                  { code: 'ICT 3220', title: 'Basics of Game Development', credits: 2, flag: 'OPT' },
+                  { code: 'CML 3203', title: 'Basics of Accountancy', credits: 2, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 4', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'ICT 4301', title: 'Mobile Computing', credits: 3, flag: '' },
+                  { code: 'ICT 4202', title: 'Internet Applications', credits: 2, flag: '' },
+                  { code: 'ICT 4203', title: 'Software Engineering', credits: 2, flag: '' },
+                  { code: 'ICT 4205', title: 'Current Topics in Information Technology', credits: 2, flag: '' },
+                  { code: 'ICT 4306', title: 'Data Science', credits: 3, flag: 'OPT' },
+                  { code: 'ICT 4207', title: 'Artificial Intelligence', credits: 2, flag: 'OPT' },
+                  { code: 'ICT 4210', title: 'Digital Image Processing', credits: 2, flag: 'OPT' },
+                  { code: 'ICT 4211', title: 'Computer Graphics and Visualization', credits: 2, flag: 'OPT' },
+                  { code: 'CML 4201', title: 'Entrepreneurship', credits: 2, flag: '' },
+                  { code: 'CML 4202', title: 'Human Resource Management', credits: 2, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'ICT 4808', title: 'Research Project', credits: 8, flag: '' },
+                  { code: 'ICT 4609', title: 'Industrial Training', credits: 6, flag: 'NONGPA' },
+                ]
+              },
+            ]
+          },
+        ]
+      },
 
-  BPT: {
-    name: 'BPT',
-    fullName: 'Bioprocess Technology',
-    years: [
-      { year: 'Year 1', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'CMT 1301', title: 'Fundamentals of Physics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1302', title: 'Fundamentals of Chemistry for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1303', title: 'Fundamentals of Mathematics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1304', title: 'Fundamentals of Computers for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1205', title: 'Communication Skills I (English)', credits: 2, flag: 'NONGPA' },
-          { code: 'CMT 1306', title: 'Fundamentals of Biology for Technology', credits: 3, flag: '' },
-          { code: 'CML 1201', title: 'Personality Development', credits: 2, flag: '' },
-          { code: 'CML 1202', title: 'Presentation Skills', credits: 2, flag: '' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'BPT 1201', title: 'General Microbiology', credits: 2, flag: '' },
-          { code: 'BPT 1202', title: 'Cell Biology', credits: 2, flag: '' },
-          { code: 'FDT 1201', title: 'Organic Chemistry', credits: 2, flag: '' },
-          { code: 'CMT 1307', title: 'Mathematics for Technology I', credits: 3, flag: '' },
-          { code: 'CMT 1208', title: 'Computer Programming for Technology', credits: 2, flag: '' },
-          { code: 'CMT 1209', title: 'Communication Skills II', credits: 2, flag: 'NONGPA' },
-          { code: 'CML 1203', title: 'Principles of Management', credits: 2, flag: '' },
-          { code: 'CML 1204', title: 'Health and Wellbeing', credits: 2, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 2', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'BPT 2201', title: 'Quality Management', credits: 2, flag: '' },
-          { code: 'BPT 2202', title: 'Introduction to Bioprocess Technology', credits: 2, flag: '' },
-          { code: 'BPT 2203', title: 'Genetics and Evolution', credits: 2, flag: 'OPT' },
-          { code: 'BPT 2204', title: 'Plant Tissue Culture', credits: 2, flag: '' },
-          { code: 'BPT 2205', title: 'Molecular Biology', credits: 2, flag: '' },
-          { code: 'FDT 2202', title: 'Basic Biochemistry', credits: 2, flag: '' },
-          { code: 'CMT 2301', title: 'Fundamentals of Statistics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 2306', title: 'Mathematics for Technology II', credits: 3, flag: 'OPT' },
-          { code: 'CMT 2202', title: 'Communication Skills III', credits: 2, flag: 'NONGPA' },
-          { code: 'CML 2201', title: 'Social Sciences and Humanities', credits: 2, flag: 'OPT' },
-          { code: 'CML 2202', title: 'Engineering Economics', credits: 2, flag: '' },
-          { code: 'CML 2206', title: 'Indigenous Technology', credits: 2, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'BPT 2206', title: 'Bioreactor Operation and Design', credits: 2, flag: '' },
-          { code: 'BPT 2207', title: 'Basic Immunology', credits: 2, flag: '' },
-          { code: 'BPT 2108', title: 'Quality Assurance and Safety of Bioprocessed Products', credits: 1, flag: '' },
-          { code: 'BPT 2209', title: 'Molecular Biotechnology', credits: 2, flag: '' },
-          { code: 'FDT 2305', title: 'Analytical Chemistry', credits: 3, flag: '' },
-          { code: 'CMT 2203', title: 'Computational Mathematics', credits: 2, flag: '' },
-          { code: 'CML 2204', title: 'Foreign Language', credits: 2, flag: 'OPT' },
-          { code: 'CML 2205', title: 'Ethics in Science and Technology', credits: 2, flag: 'OPT' },
-          { code: 'CML 2208', title: 'Introduction to Marketing', credits: 2, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 3', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'BPT 3201', title: 'Molecular Microbiology', credits: 2, flag: '' },
-          { code: 'BPT 3302', title: 'Bioinformatics', credits: 3, flag: '' },
-          { code: 'BPT 3203', title: 'Bioprocess Instrumentation and Control', credits: 2, flag: '' },
-          { code: 'BPT 3304', title: 'Molecular Modelling', credits: 3, flag: '' },
-          { code: 'BPT 3205', title: 'Bioprocess Optimization and Simulation', credits: 2, flag: '' },
-          { code: 'BPT 3206', title: 'Molecular Immunology and Current Applications', credits: 2, flag: '' },
-          { code: 'BPT 3207', title: 'Enzyme Technology', credits: 2, flag: '' },
-          { code: 'BPT 3208', title: 'Industrial Microbiology', credits: 2, flag: '' },
-          { code: 'CML 3101', title: 'Legal and Patent Aspects', credits: 1, flag: '' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'BPT 3108', title: 'Seminar', credits: 1, flag: '' },
-          { code: 'BPT 3209', title: 'Scientific Writing', credits: 2, flag: '' },
-          { code: 'BPT 3610', title: 'Internship', credits: 6, flag: 'NONGPA' },
-          { code: 'CML 3102', title: 'Industrial Safety', credits: 1, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 4', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'BPT 4301', title: 'Drug Designing', credits: 3, flag: '' },
-          { code: 'BPT 4302', title: 'Downstream Process Technology', credits: 3, flag: '' },
-          { code: 'BPT 4303', title: 'Bioremediation and Waste Management', credits: 3, flag: '' },
-          { code: 'BPT 4204', title: 'Molecular Virology', credits: 2, flag: '' },
-          { code: 'BPT 4205', title: 'Plant Cell Culture', credits: 2, flag: '' },
-          { code: 'BPT 4206', title: 'Pharmaceutical Biotechnology', credits: 2, flag: '' },
-          { code: 'BPT 4207', title: 'Bioproduct Development', credits: 2, flag: '' },
-          { code: 'CML 4201', title: 'Entrepreneurship', credits: 2, flag: '' },
-          { code: 'CML 4202', title: 'Human Resource Management', credits: 2, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'BPT 4808', title: 'Bioprocess Technology Project', credits: 8, flag: '' },
-        ]},
-      ]},
-    ]
-  },
+      BPT: {
+        name: 'BPT',
+        fullName: 'Bioprocess Technology',
+        years: [
+          {
+            year: 'Year 1', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'CMT 1301', title: 'Fundamentals of Physics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1302', title: 'Fundamentals of Chemistry for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1303', title: 'Fundamentals of Mathematics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1304', title: 'Fundamentals of Computers for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1205', title: 'Communication Skills I (English)', credits: 2, flag: 'NONGPA' },
+                  { code: 'CMT 1306', title: 'Fundamentals of Biology for Technology', credits: 3, flag: '' },
+                  { code: 'CML 1201', title: 'Personality Development', credits: 2, flag: '' },
+                  { code: 'CML 1202', title: 'Presentation Skills', credits: 2, flag: '' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'BPT 1201', title: 'General Microbiology', credits: 2, flag: '' },
+                  { code: 'BPT 1202', title: 'Cell Biology', credits: 2, flag: '' },
+                  { code: 'FDT 1201', title: 'Organic Chemistry', credits: 2, flag: '' },
+                  { code: 'CMT 1307', title: 'Mathematics for Technology I', credits: 3, flag: '' },
+                  { code: 'CMT 1208', title: 'Computer Programming for Technology', credits: 2, flag: '' },
+                  { code: 'CMT 1209', title: 'Communication Skills II', credits: 2, flag: 'NONGPA' },
+                  { code: 'CML 1203', title: 'Principles of Management', credits: 2, flag: '' },
+                  { code: 'CML 1204', title: 'Health and Wellbeing', credits: 2, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 2', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'BPT 2201', title: 'Quality Management', credits: 2, flag: '' },
+                  { code: 'BPT 2202', title: 'Introduction to Bioprocess Technology', credits: 2, flag: '' },
+                  { code: 'BPT 2203', title: 'Genetics and Evolution', credits: 2, flag: 'OPT' },
+                  { code: 'BPT 2204', title: 'Plant Tissue Culture', credits: 2, flag: '' },
+                  { code: 'BPT 2205', title: 'Molecular Biology', credits: 2, flag: '' },
+                  { code: 'FDT 2202', title: 'Basic Biochemistry', credits: 2, flag: '' },
+                  { code: 'CMT 2301', title: 'Fundamentals of Statistics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 2306', title: 'Mathematics for Technology II', credits: 3, flag: 'OPT' },
+                  { code: 'CMT 2202', title: 'Communication Skills III', credits: 2, flag: 'NONGPA' },
+                  { code: 'CML 2201', title: 'Social Sciences and Humanities', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2202', title: 'Engineering Economics', credits: 2, flag: '' },
+                  { code: 'CML 2206', title: 'Indigenous Technology', credits: 2, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'BPT 2206', title: 'Bioreactor Operation and Design', credits: 2, flag: '' },
+                  { code: 'BPT 2207', title: 'Basic Immunology', credits: 2, flag: '' },
+                  { code: 'BPT 2108', title: 'Quality Assurance and Safety of Bioprocessed Products', credits: 1, flag: '' },
+                  { code: 'BPT 2209', title: 'Molecular Biotechnology', credits: 2, flag: '' },
+                  { code: 'FDT 2305', title: 'Analytical Chemistry', credits: 3, flag: '' },
+                  { code: 'CMT 2203', title: 'Computational Mathematics', credits: 2, flag: '' },
+                  { code: 'CML 2204', title: 'Foreign Language', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2205', title: 'Ethics in Science and Technology', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2208', title: 'Introduction to Marketing', credits: 2, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 3', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'BPT 3201', title: 'Molecular Microbiology', credits: 2, flag: '' },
+                  { code: 'BPT 3302', title: 'Bioinformatics', credits: 3, flag: '' },
+                  { code: 'BPT 3203', title: 'Bioprocess Instrumentation and Control', credits: 2, flag: '' },
+                  { code: 'BPT 3304', title: 'Molecular Modelling', credits: 3, flag: '' },
+                  { code: 'BPT 3205', title: 'Bioprocess Optimization and Simulation', credits: 2, flag: '' },
+                  { code: 'BPT 3206', title: 'Molecular Immunology and Current Applications', credits: 2, flag: '' },
+                  { code: 'BPT 3207', title: 'Enzyme Technology', credits: 2, flag: '' },
+                  { code: 'BPT 3208', title: 'Industrial Microbiology', credits: 2, flag: '' },
+                  { code: 'CML 3101', title: 'Legal and Patent Aspects', credits: 1, flag: '' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'BPT 3108', title: 'Seminar', credits: 1, flag: '' },
+                  { code: 'BPT 3209', title: 'Scientific Writing', credits: 2, flag: '' },
+                  { code: 'BPT 3610', title: 'Internship', credits: 6, flag: 'NONGPA' },
+                  { code: 'CML 3102', title: 'Industrial Safety', credits: 1, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 4', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'BPT 4301', title: 'Drug Designing', credits: 3, flag: '' },
+                  { code: 'BPT 4302', title: 'Downstream Process Technology', credits: 3, flag: '' },
+                  { code: 'BPT 4303', title: 'Bioremediation and Waste Management', credits: 3, flag: '' },
+                  { code: 'BPT 4204', title: 'Molecular Virology', credits: 2, flag: '' },
+                  { code: 'BPT 4205', title: 'Plant Cell Culture', credits: 2, flag: '' },
+                  { code: 'BPT 4206', title: 'Pharmaceutical Biotechnology', credits: 2, flag: '' },
+                  { code: 'BPT 4207', title: 'Bioproduct Development', credits: 2, flag: '' },
+                  { code: 'CML 4201', title: 'Entrepreneurship', credits: 2, flag: '' },
+                  { code: 'CML 4202', title: 'Human Resource Management', credits: 2, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'BPT 4808', title: 'Bioprocess Technology Project', credits: 8, flag: '' },
+                ]
+              },
+            ]
+          },
+        ]
+      },
 
-  FDT: {
-    name: 'FDT',
-    fullName: 'Food Technology',
-    years: [
-      { year: 'Year 1', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'CMT 1301', title: 'Fundamentals of Physics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1302', title: 'Fundamentals of Chemistry for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1303', title: 'Fundamentals of Mathematics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1304', title: 'Fundamentals of Computer for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1306', title: 'Fundamentals of Biology for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1205', title: 'Communication Skills I (English)', credits: 2, flag: 'NONGPA' },
-          { code: 'CML 1201', title: 'Personality Development', credits: 2, flag: '' },
-          { code: 'CML 1202', title: 'Presentation Skills', credits: 2, flag: '' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'BPT 1201', title: 'General Microbiology', credits: 2, flag: '' },
-          { code: 'BPT 1202', title: 'Cell Biology', credits: 2, flag: '' },
-          { code: 'FDT 1201', title: 'Organic Chemistry', credits: 2, flag: '' },
-          { code: 'CMT 1307', title: 'Mathematics for Technology I', credits: 3, flag: '' },
-          { code: 'CMT 1208', title: 'Computer Programming for Technology', credits: 2, flag: '' },
-          { code: 'CMT 1209', title: 'Communication Skills II', credits: 2, flag: 'NONGPA' },
-          { code: 'CML 1203', title: 'Principles of Management', credits: 2, flag: '' },
-          { code: 'CML 1204', title: 'Health and Wellbeing', credits: 2, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 2', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'FDT 2201', title: 'Physical Chemistry', credits: 2, flag: '' },
-          { code: 'FDT 2202', title: 'Basic Biochemistry', credits: 2, flag: '' },
-          { code: 'FDT 2203', title: 'Introduction to Food Industry', credits: 2, flag: '' },
-          { code: 'FDT 2204', title: 'Food Preservation', credits: 2, flag: '' },
-          { code: 'CMT 2301', title: 'Fundamental of Statistics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 2306', title: 'Mathematics for Technology II', credits: 3, flag: '' },
-          { code: 'CMT 2202', title: 'Communication Skills III', credits: 2, flag: 'NONGPA' },
-          { code: 'CML 2201', title: 'Social Sciences and Humanities', credits: 2, flag: '' },
-          { code: 'CML 2206', title: 'Indigenous Technology', credits: 2, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'FDT 2305', title: 'Analytical Chemistry', credits: 3, flag: '' },
-          { code: 'FDT 2206', title: 'Food Physics', credits: 2, flag: '' },
-          { code: 'FDT 2207', title: 'Food Chemistry', credits: 2, flag: '' },
-          { code: 'FDT 2208', title: 'Food Microbiology', credits: 2, flag: '' },
-          { code: 'FDT 2209', title: 'Introduction to Human Nutrition', credits: 2, flag: '' },
-          { code: 'FDT 2210', title: 'Food Biotechnology', credits: 2, flag: '' },
-          { code: 'CMT 2203', title: 'Computational Mathematics', credits: 2, flag: '' },
-          { code: 'CML 2204', title: 'Foreign Language', credits: 2, flag: 'OPT' },
-          { code: 'CML 2205', title: 'Ethics in Science and Technology', credits: 2, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 3', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'FDT 3201', title: 'Fruits & Vegetables Processing Technology', credits: 2, flag: '' },
-          { code: 'FDT 3202', title: 'Food Engineering', credits: 2, flag: '' },
-          { code: 'FDT 3203', title: 'Food Analysis', credits: 2, flag: '' },
-          { code: 'FDT 3204', title: 'Meat and Fish Processing Technology', credits: 2, flag: '' },
-          { code: 'FDT 3205', title: 'Functional Food and Food Toxicology', credits: 2, flag: '' },
-          { code: 'FDT 3206', title: 'Dairy Product Technology', credits: 2, flag: '' },
-          { code: 'FDT 3207', title: 'Confectionary and Beverage Technology', credits: 2, flag: 'OPT' },
-          { code: 'FDT 3108', title: 'Current Topics in Food Industry', credits: 1, flag: '' },
-          { code: 'FDT 3209', title: 'Cereals and Pulses Processing Technology', credits: 2, flag: '' },
-          { code: 'CML 3101', title: 'Legal and Patent Aspects', credits: 1, flag: '' },
-          { code: 'BPT 3207', title: 'Enzyme Technology', credits: 2, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'FDT 3212', title: 'Spices and Oil Processing Technology', credits: 2, flag: '' },
-          { code: 'FDT 3614', title: 'Industrial Training', credits: 6, flag: 'NONGPA' },
-          { code: 'FDT 3215', title: 'Food Packaging Technology', credits: 2, flag: '' },
-          { code: 'CML 3102', title: 'Industrial Safety', credits: 1, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 4', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'FDT 4302', title: 'Food Product Development', credits: 3, flag: '' },
-          { code: 'FDT 4203', title: 'Water Science and Technology', credits: 2, flag: 'OPT' },
-          { code: 'FDT 4206', title: 'Supply Chain Analysis', credits: 2, flag: '' },
-          { code: 'FDT 4107', title: 'Scientific Writing', credits: 1, flag: '' },
-          { code: 'FDT 4208', title: 'Cleaner Production', credits: 2, flag: 'OPT' },
-          { code: 'FDT 4209', title: 'Sensory Evaluation', credits: 2, flag: '' },
-          { code: 'CML 4201', title: 'Entrepreneurship', credits: 2, flag: '' },
-          { code: 'CML 4202', title: 'Human Resource Management', credits: 2, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'FDT 4801', title: 'Research Project', credits: 8, flag: '' },
-          { code: 'FDT 4204', title: 'Quality Assurance, Safety and Standards in Food Industry', credits: 2, flag: '' },
-          { code: 'FDT 4205', title: 'Food Marketing', credits: 2, flag: '' },
-          { code: 'FDT 4207', title: 'Nanotechnology', credits: 2, flag: 'OPT' },
-        ]},
-      ]},
-    ]
-  },
+      FDT: {
+        name: 'FDT',
+        fullName: 'Food Technology',
+        years: [
+          {
+            year: 'Year 1', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'CMT 1301', title: 'Fundamentals of Physics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1302', title: 'Fundamentals of Chemistry for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1303', title: 'Fundamentals of Mathematics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1304', title: 'Fundamentals of Computer for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1306', title: 'Fundamentals of Biology for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1205', title: 'Communication Skills I (English)', credits: 2, flag: 'NONGPA' },
+                  { code: 'CML 1201', title: 'Personality Development', credits: 2, flag: '' },
+                  { code: 'CML 1202', title: 'Presentation Skills', credits: 2, flag: '' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'BPT 1201', title: 'General Microbiology', credits: 2, flag: '' },
+                  { code: 'BPT 1202', title: 'Cell Biology', credits: 2, flag: '' },
+                  { code: 'FDT 1201', title: 'Organic Chemistry', credits: 2, flag: '' },
+                  { code: 'CMT 1307', title: 'Mathematics for Technology I', credits: 3, flag: '' },
+                  { code: 'CMT 1208', title: 'Computer Programming for Technology', credits: 2, flag: '' },
+                  { code: 'CMT 1209', title: 'Communication Skills II', credits: 2, flag: 'NONGPA' },
+                  { code: 'CML 1203', title: 'Principles of Management', credits: 2, flag: '' },
+                  { code: 'CML 1204', title: 'Health and Wellbeing', credits: 2, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 2', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'FDT 2201', title: 'Physical Chemistry', credits: 2, flag: '' },
+                  { code: 'FDT 2202', title: 'Basic Biochemistry', credits: 2, flag: '' },
+                  { code: 'FDT 2203', title: 'Introduction to Food Industry', credits: 2, flag: '' },
+                  { code: 'FDT 2204', title: 'Food Preservation', credits: 2, flag: '' },
+                  { code: 'CMT 2301', title: 'Fundamental of Statistics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 2306', title: 'Mathematics for Technology II', credits: 3, flag: '' },
+                  { code: 'CMT 2202', title: 'Communication Skills III', credits: 2, flag: 'NONGPA' },
+                  { code: 'CML 2201', title: 'Social Sciences and Humanities', credits: 2, flag: '' },
+                  { code: 'CML 2206', title: 'Indigenous Technology', credits: 2, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'FDT 2305', title: 'Analytical Chemistry', credits: 3, flag: '' },
+                  { code: 'FDT 2206', title: 'Food Physics', credits: 2, flag: '' },
+                  { code: 'FDT 2207', title: 'Food Chemistry', credits: 2, flag: '' },
+                  { code: 'FDT 2208', title: 'Food Microbiology', credits: 2, flag: '' },
+                  { code: 'FDT 2209', title: 'Introduction to Human Nutrition', credits: 2, flag: '' },
+                  { code: 'FDT 2210', title: 'Food Biotechnology', credits: 2, flag: '' },
+                  { code: 'CMT 2203', title: 'Computational Mathematics', credits: 2, flag: '' },
+                  { code: 'CML 2204', title: 'Foreign Language', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2205', title: 'Ethics in Science and Technology', credits: 2, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 3', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'FDT 3201', title: 'Fruits & Vegetables Processing Technology', credits: 2, flag: '' },
+                  { code: 'FDT 3202', title: 'Food Engineering', credits: 2, flag: '' },
+                  { code: 'FDT 3203', title: 'Food Analysis', credits: 2, flag: '' },
+                  { code: 'FDT 3204', title: 'Meat and Fish Processing Technology', credits: 2, flag: '' },
+                  { code: 'FDT 3205', title: 'Functional Food and Food Toxicology', credits: 2, flag: '' },
+                  { code: 'FDT 3206', title: 'Dairy Product Technology', credits: 2, flag: '' },
+                  { code: 'FDT 3207', title: 'Confectionary and Beverage Technology', credits: 2, flag: 'OPT' },
+                  { code: 'FDT 3108', title: 'Current Topics in Food Industry', credits: 1, flag: '' },
+                  { code: 'FDT 3209', title: 'Cereals and Pulses Processing Technology', credits: 2, flag: '' },
+                  { code: 'CML 3101', title: 'Legal and Patent Aspects', credits: 1, flag: '' },
+                  { code: 'BPT 3207', title: 'Enzyme Technology', credits: 2, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'FDT 3212', title: 'Spices and Oil Processing Technology', credits: 2, flag: '' },
+                  { code: 'FDT 3614', title: 'Industrial Training', credits: 6, flag: 'NONGPA' },
+                  { code: 'FDT 3215', title: 'Food Packaging Technology', credits: 2, flag: '' },
+                  { code: 'CML 3102', title: 'Industrial Safety', credits: 1, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 4', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'FDT 4302', title: 'Food Product Development', credits: 3, flag: '' },
+                  { code: 'FDT 4203', title: 'Water Science and Technology', credits: 2, flag: 'OPT' },
+                  { code: 'FDT 4206', title: 'Supply Chain Analysis', credits: 2, flag: '' },
+                  { code: 'FDT 4107', title: 'Scientific Writing', credits: 1, flag: '' },
+                  { code: 'FDT 4208', title: 'Cleaner Production', credits: 2, flag: 'OPT' },
+                  { code: 'FDT 4209', title: 'Sensory Evaluation', credits: 2, flag: '' },
+                  { code: 'CML 4201', title: 'Entrepreneurship', credits: 2, flag: '' },
+                  { code: 'CML 4202', title: 'Human Resource Management', credits: 2, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'FDT 4801', title: 'Research Project', credits: 8, flag: '' },
+                  { code: 'FDT 4204', title: 'Quality Assurance, Safety and Standards in Food Industry', credits: 2, flag: '' },
+                  { code: 'FDT 4205', title: 'Food Marketing', credits: 2, flag: '' },
+                  { code: 'FDT 4207', title: 'Nanotechnology', credits: 2, flag: 'OPT' },
+                ]
+              },
+            ]
+          },
+        ]
+      },
 
-  EET: {
-    name: 'EET',
-    fullName: 'Electrical & Electronic Technology',
-    years: [
-      { year: 'Year 1', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'CML 1201', title: 'Personality Development', credits: 2, flag: '' },
-          { code: 'CML 1202', title: 'Presentation Skills', credits: 2, flag: '' },
-          { code: 'CMT 1205', title: 'Communication Skills I (English)', credits: 2, flag: 'NONGPA' },
-          { code: 'CMT 1301', title: 'Fundamentals of Physics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1302', title: 'Fundamentals of Chemistry for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1303', title: 'Fundamentals of Mathematics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1304', title: 'Fundamentals of Computer for Technology', credits: 3, flag: '' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'CML 1203', title: 'Principles of Management', credits: 2, flag: '' },
-          { code: 'CML 1204', title: 'Health and Wellbeing', credits: 2, flag: '' },
-          { code: 'CMT 1208', title: 'Computer Programming for Technology', credits: 2, flag: '' },
-          { code: 'CMT 1209', title: 'Communication Skills II', credits: 2, flag: 'NONGPA' },
-          { code: 'CMT 1307', title: 'Mathematics for Technology I', credits: 3, flag: '' },
-          { code: 'ENT 1203', title: 'Engineering Drawing', credits: 2, flag: '' },
-          { code: 'ENT 1204', title: 'Workshop Technology I', credits: 2, flag: '' },
-          { code: 'ENT 1301', title: 'Introduction to Basic Electronics', credits: 3, flag: '' },
-          { code: 'ENT 1302', title: 'Fundamentals of Electricity and Magnetism', credits: 3, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 2', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'CML 2201', title: 'Social Sciences and Humanity', credits: 2, flag: 'OPT' },
-          { code: 'CML 2202', title: 'Engineering Economics', credits: 2, flag: '' },
-          { code: 'CML 2206', title: 'Indigenous Technology', credits: 2, flag: 'OPT' },
-          { code: 'CMT 2202', title: 'Communication Skills III', credits: 2, flag: 'NONGPA' },
-          { code: 'CMT 2301', title: 'Fundamentals of Statistics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 2306', title: 'Mathematics for Technology II', credits: 3, flag: '' },
-          { code: 'EET 2202', title: 'Electricity Network', credits: 2, flag: '' },
-          { code: 'EET 2208', title: 'Introduction to Electrical Power', credits: 2, flag: '' },
-          { code: 'EET 2301', title: 'Digital & Analog Electronics', credits: 3, flag: '' },
-          { code: 'ICT 2202', title: 'Operating Systems', credits: 2, flag: 'OPT' },
-          { code: 'ICT 2303', title: 'Data Structures and Algorithms', credits: 3, flag: 'OPT' },
-          { code: 'ICT 2304', title: 'Object Oriented Programming', credits: 3, flag: 'OPT' },
-          { code: 'EET 2204', title: 'Computer Aided Design (CAD)', credits: 2, flag: 'OPT' },
-          { code: 'CML 2204', title: 'Foreign Language', credits: 2, flag: 'OPT' },
-          { code: 'CML 2205', title: 'Ethics in Science and Technology', credits: 2, flag: '' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'CML 2208', title: 'Introduction to Marketing', credits: 2, flag: 'OPT' },
-          { code: 'CMT 2203', title: 'Computational Mathematics', credits: 2, flag: '' },
-          { code: 'EET 2203', title: 'Electronic Devices and Circuits', credits: 2, flag: '' },
-          { code: 'EET 2204', title: 'Electrical Measurements and Instrumentation', credits: 2, flag: '' },
-          { code: 'EET 2206', title: 'Signals and Systems', credits: 2, flag: '' },
-          { code: 'EET 2305', title: 'Electrical Machines', credits: 3, flag: '' },
-          { code: 'ICT 2213', title: 'Data Communication and Networking', credits: 2, flag: 'OPT' },
-        ]},
-      ]},
-      { year: 'Year 3', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'CML 3101', title: 'Legal and Patent Aspects', credits: 1, flag: '' },
-          { code: 'EET 3202', title: 'Communication Systems', credits: 2, flag: '' },
-          { code: 'EET 3203', title: 'Computer Systems', credits: 2, flag: '' },
-          { code: 'EET 3206', title: 'Automation Technology I', credits: 2, flag: 'OPT' },
-          { code: 'EET 3209', title: 'Automobile Electrical Systems', credits: 2, flag: 'OPT' },
-          { code: 'EET 3210', title: 'Electrical Installations', credits: 2, flag: '' },
-          { code: 'EET 3211', title: 'Machine Element Design', credits: 2, flag: 'OPT' },
-          { code: 'EET 3301', title: 'Electrical Power Systems', credits: 3, flag: '' },
-          { code: 'EET 3304', title: 'Digital Signal Processing', credits: 3, flag: '' },
-          { code: 'EET 3305', title: 'Control Systems', credits: 3, flag: '' },
-          { code: 'ICT 3217', title: 'Advanced Computer Networking', credits: 2, flag: 'OPT' },
-          { code: 'ICT 3315', title: 'Internet of Things', credits: 3, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'CML 3102', title: 'Industrial Safety', credits: 1, flag: '' },
-          { code: 'EET 3607', title: 'Industrial Training', credits: 6, flag: 'NONGPA' },
-        ]},
-      ]},
-      { year: 'Year 4', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'CML 4201', title: 'Entrepreneurship', credits: 2, flag: 'OPT' },
-          { code: 'CML 4202', title: 'Human Resources Management', credits: 2, flag: '' },
-          { code: 'EET 4202', title: 'Embedded System Design', credits: 2, flag: 'OPT' },
-          { code: 'EET 4206', title: 'Automation Technology II', credits: 2, flag: '' },
-          { code: 'EET 4207', title: 'Telecommunication Systems', credits: 2, flag: 'OPT' },
-          { code: 'EET 4208', title: 'Fiber Optics Techniques', credits: 2, flag: 'OPT' },
-          { code: 'EET 4216', title: 'Energy and Environment', credits: 2, flag: 'OPT' },
-          { code: 'EET 4301', title: 'Electronic Circuit Design and Simulations', credits: 3, flag: '' },
-          { code: 'EET 4303', title: 'Electrical Energy Utilization', credits: 3, flag: 'OPT' },
-          { code: 'EET 4304', title: 'Power Electronics', credits: 3, flag: '' },
-          { code: 'EET 4305', title: 'Digital Communication', credits: 3, flag: 'OPT' },
-          { code: 'EET 4818', title: 'Undergraduate Project', credits: 4, flag: '' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'EET 4209', title: 'High Voltage Engineering', credits: 2, flag: 'OPT' },
-          { code: 'EET 4210', title: 'Electronic Product Design', credits: 2, flag: '' },
-          { code: 'EET 4213', title: 'Antenna and Propagation', credits: 2, flag: 'OPT' },
-          { code: 'EET 4214', title: 'Wireless Communication', credits: 2, flag: 'OPT' },
-          { code: 'EET 4215', title: 'Mechatronics', credits: 2, flag: 'OPT' },
-          { code: 'EET 4217', title: 'Electrical Machines and Drives', credits: 2, flag: 'OPT' },
-          { code: 'EET 4219', title: 'Green Energy and Zero Emission Concepts', credits: 2, flag: '' },
-          { code: 'EET 4220', title: 'Graphical Programming and Data Acquisition', credits: 2, flag: '' },
-          { code: 'EET 4311', title: 'Internet Technology and Applications', credits: 3, flag: '' },
-          { code: 'EET 4312', title: 'Power System Analysis', credits: 3, flag: '' },
-          { code: 'EET 4818', title: 'Undergraduate Project (Continued)', credits: 4, flag: '' },
-        ]},
-      ]},
-    ]
-  },
+      EET: {
+        name: 'EET',
+        fullName: 'Electrical & Electronic Technology',
+        years: [
+          {
+            year: 'Year 1', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'CML 1201', title: 'Personality Development', credits: 2, flag: '' },
+                  { code: 'CML 1202', title: 'Presentation Skills', credits: 2, flag: '' },
+                  { code: 'CMT 1205', title: 'Communication Skills I (English)', credits: 2, flag: 'NONGPA' },
+                  { code: 'CMT 1301', title: 'Fundamentals of Physics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1302', title: 'Fundamentals of Chemistry for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1303', title: 'Fundamentals of Mathematics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1304', title: 'Fundamentals of Computer for Technology', credits: 3, flag: '' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'CML 1203', title: 'Principles of Management', credits: 2, flag: '' },
+                  { code: 'CML 1204', title: 'Health and Wellbeing', credits: 2, flag: '' },
+                  { code: 'CMT 1208', title: 'Computer Programming for Technology', credits: 2, flag: '' },
+                  { code: 'CMT 1209', title: 'Communication Skills II', credits: 2, flag: 'NONGPA' },
+                  { code: 'CMT 1307', title: 'Mathematics for Technology I', credits: 3, flag: '' },
+                  { code: 'ENT 1203', title: 'Engineering Drawing', credits: 2, flag: '' },
+                  { code: 'ENT 1204', title: 'Workshop Technology I', credits: 2, flag: '' },
+                  { code: 'ENT 1301', title: 'Introduction to Basic Electronics', credits: 3, flag: '' },
+                  { code: 'ENT 1302', title: 'Fundamentals of Electricity and Magnetism', credits: 3, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 2', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'CML 2201', title: 'Social Sciences and Humanity', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2202', title: 'Engineering Economics', credits: 2, flag: '' },
+                  { code: 'CML 2206', title: 'Indigenous Technology', credits: 2, flag: 'OPT' },
+                  { code: 'CMT 2202', title: 'Communication Skills III', credits: 2, flag: 'NONGPA' },
+                  { code: 'CMT 2301', title: 'Fundamentals of Statistics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 2306', title: 'Mathematics for Technology II', credits: 3, flag: '' },
+                  { code: 'EET 2202', title: 'Electricity Network', credits: 2, flag: '' },
+                  { code: 'EET 2208', title: 'Introduction to Electrical Power', credits: 2, flag: '' },
+                  { code: 'EET 2301', title: 'Digital & Analog Electronics', credits: 3, flag: '' },
+                  { code: 'ICT 2202', title: 'Operating Systems', credits: 2, flag: 'OPT' },
+                  { code: 'ICT 2303', title: 'Data Structures and Algorithms', credits: 3, flag: 'OPT' },
+                  { code: 'ICT 2304', title: 'Object Oriented Programming', credits: 3, flag: 'OPT' },
+                  { code: 'EET 2204', title: 'Computer Aided Design (CAD)', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2204', title: 'Foreign Language', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2205', title: 'Ethics in Science and Technology', credits: 2, flag: '' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'CML 2208', title: 'Introduction to Marketing', credits: 2, flag: 'OPT' },
+                  { code: 'CMT 2203', title: 'Computational Mathematics', credits: 2, flag: '' },
+                  { code: 'EET 2203', title: 'Electronic Devices and Circuits', credits: 2, flag: '' },
+                  { code: 'EET 2204', title: 'Electrical Measurements and Instrumentation', credits: 2, flag: '' },
+                  { code: 'EET 2206', title: 'Signals and Systems', credits: 2, flag: '' },
+                  { code: 'EET 2305', title: 'Electrical Machines', credits: 3, flag: '' },
+                  { code: 'ICT 2213', title: 'Data Communication and Networking', credits: 2, flag: 'OPT' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 3', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'CML 3101', title: 'Legal and Patent Aspects', credits: 1, flag: '' },
+                  { code: 'EET 3202', title: 'Communication Systems', credits: 2, flag: '' },
+                  { code: 'EET 3203', title: 'Computer Systems', credits: 2, flag: '' },
+                  { code: 'EET 3206', title: 'Automation Technology I', credits: 2, flag: 'OPT' },
+                  { code: 'EET 3209', title: 'Automobile Electrical Systems', credits: 2, flag: 'OPT' },
+                  { code: 'EET 3210', title: 'Electrical Installations', credits: 2, flag: '' },
+                  { code: 'EET 3211', title: 'Machine Element Design', credits: 2, flag: 'OPT' },
+                  { code: 'EET 3301', title: 'Electrical Power Systems', credits: 3, flag: '' },
+                  { code: 'EET 3304', title: 'Digital Signal Processing', credits: 3, flag: '' },
+                  { code: 'EET 3305', title: 'Control Systems', credits: 3, flag: '' },
+                  { code: 'ICT 3217', title: 'Advanced Computer Networking', credits: 2, flag: 'OPT' },
+                  { code: 'ICT 3315', title: 'Internet of Things', credits: 3, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'CML 3102', title: 'Industrial Safety', credits: 1, flag: '' },
+                  { code: 'EET 3607', title: 'Industrial Training', credits: 6, flag: 'NONGPA' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 4', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'CML 4201', title: 'Entrepreneurship', credits: 2, flag: 'OPT' },
+                  { code: 'CML 4202', title: 'Human Resources Management', credits: 2, flag: '' },
+                  { code: 'EET 4202', title: 'Embedded System Design', credits: 2, flag: 'OPT' },
+                  { code: 'EET 4206', title: 'Automation Technology II', credits: 2, flag: '' },
+                  { code: 'EET 4207', title: 'Telecommunication Systems', credits: 2, flag: 'OPT' },
+                  { code: 'EET 4208', title: 'Fiber Optics Techniques', credits: 2, flag: 'OPT' },
+                  { code: 'EET 4216', title: 'Energy and Environment', credits: 2, flag: 'OPT' },
+                  { code: 'EET 4301', title: 'Electronic Circuit Design and Simulations', credits: 3, flag: '' },
+                  { code: 'EET 4303', title: 'Electrical Energy Utilization', credits: 3, flag: 'OPT' },
+                  { code: 'EET 4304', title: 'Power Electronics', credits: 3, flag: '' },
+                  { code: 'EET 4305', title: 'Digital Communication', credits: 3, flag: 'OPT' },
+                  { code: 'EET 4818', title: 'Undergraduate Project', credits: 4, flag: '' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'EET 4209', title: 'High Voltage Engineering', credits: 2, flag: 'OPT' },
+                  { code: 'EET 4210', title: 'Electronic Product Design', credits: 2, flag: '' },
+                  { code: 'EET 4213', title: 'Antenna and Propagation', credits: 2, flag: 'OPT' },
+                  { code: 'EET 4214', title: 'Wireless Communication', credits: 2, flag: 'OPT' },
+                  { code: 'EET 4215', title: 'Mechatronics', credits: 2, flag: 'OPT' },
+                  { code: 'EET 4217', title: 'Electrical Machines and Drives', credits: 2, flag: 'OPT' },
+                  { code: 'EET 4219', title: 'Green Energy and Zero Emission Concepts', credits: 2, flag: '' },
+                  { code: 'EET 4220', title: 'Graphical Programming and Data Acquisition', credits: 2, flag: '' },
+                  { code: 'EET 4311', title: 'Internet Technology and Applications', credits: 3, flag: '' },
+                  { code: 'EET 4312', title: 'Power System Analysis', credits: 3, flag: '' },
+                  { code: 'EET 4818', title: 'Undergraduate Project (Continued)', credits: 4, flag: '' },
+                ]
+              },
+            ]
+          },
+        ]
+      },
 
-  MTT: {
-    name: 'MTT',
-    fullName: 'Materials Technology',
-    years: [
-      { year: 'Year 1', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'CMT 1301', title: 'Fundamentals of Physics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1302', title: 'Fundamentals of Chemistry for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1303', title: 'Fundamentals of Mathematics for Technology', credits: 3, flag: '' },
-          { code: 'CMT 1304', title: 'Fundamentals of Computer for Technology', credits: 3, flag: '' },
-          { code: 'CML 1201', title: 'Personality Development', credits: 2, flag: '' },
-          { code: 'CML 1202', title: 'Presentation Skills', credits: 2, flag: '' },
-          { code: 'CMT 1205', title: 'Communication Skills I (English)', credits: 2, flag: 'NONGPA' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'ENT 1301', title: 'Introduction to Basic Electronics', credits: 3, flag: '' },
-          { code: 'ENT 1302', title: 'Fundamentals of Electricity and Magnetism', credits: 3, flag: '' },
-          { code: 'CMT 1307', title: 'Mathematics for Technology I', credits: 3, flag: '' },
-          { code: 'CMT 1208', title: 'Computer Programming for Technology', credits: 2, flag: '' },
-          { code: 'ENT 1204', title: 'Workshop Technology I', credits: 2, flag: '' },
-          { code: 'CML 1203', title: 'Principles of Management', credits: 2, flag: '' },
-          { code: 'CML 1204', title: 'Health and Wellbeing', credits: 2, flag: '' },
-          { code: 'CMT 1209', title: 'Communication Skills II', credits: 2, flag: 'NONGPA' },
-          { code: 'ENT 1203', title: 'Engineering Drawing', credits: 2, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 2', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'MTT 2201', title: 'Fundamentals of Solid-State Physics', credits: 2, flag: '' },
-          { code: 'MTT 2202', title: 'Chemistry for Materials Technology', credits: 2, flag: '' },
-          { code: 'MTT 2203', title: 'Introduction to Ceramic Technology', credits: 2, flag: '' },
-          { code: 'MTT 2204', title: 'Computer Aided Design (CAD)', credits: 2, flag: '' },
-          { code: 'CMT 2306', title: 'Mathematics for Technology II', credits: 3, flag: '' },
-          { code: 'CMT 2301', title: 'Fundamentals of Statistics for Technology', credits: 3, flag: '' },
-          { code: 'CML 2201', title: 'Social Sciences and Humanities', credits: 2, flag: 'OPT' },
-          { code: 'CML 2206', title: 'Indigenous Technology', credits: 2, flag: 'OPT' },
-          { code: 'CML 2202', title: 'Engineering Economics', credits: 2, flag: '' },
-          { code: 'CMT 2202', title: 'Communication Skills III', credits: 2, flag: 'NONGPA' },
-          { code: 'ICT 2304', title: 'Object Oriented Programming', credits: 3, flag: 'OPT' },
-          { code: 'MTT 2206', title: 'Graphical Programming', credits: 2, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'MTT 2210', title: 'Mechanical Behavior of Materials', credits: 2, flag: '' },
-          { code: 'MTT 2311', title: 'Ceramic Technology I', credits: 3, flag: '' },
-          { code: 'MTT 2205', title: 'Introduction to Metallurgy', credits: 2, flag: '' },
-          { code: 'MTT 2207', title: 'Measurements, Error Analysis and Instrumentation', credits: 2, flag: '' },
-          { code: 'MTT 2108', title: 'Chemical Engineering Sciences', credits: 1, flag: '' },
-          { code: 'MTT 2209', title: 'Introduction to Polymer Technology', credits: 2, flag: '' },
-          { code: 'MTT 2110', title: 'Introduction to Thermodynamics', credits: 1, flag: '' },
-          { code: 'CMT 2203', title: 'Computational Mathematics', credits: 2, flag: '' },
-          { code: 'CML 2204', title: 'Foreign Language', credits: 2, flag: 'OPT' },
-          { code: 'CML 2208', title: 'Introduction to Marketing', credits: 2, flag: 'OPT' },
-          { code: 'CML 2205', title: 'Ethics in Science and Technology', credits: 2, flag: 'OPT' },
-          { code: 'ICT 2206', title: 'Multimedia and Web Technology', credits: 2, flag: 'OPT' },
-        ]},
-      ]},
-      { year: 'Year 3', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'MTT 3308', title: 'Polymer Technology I', credits: 3, flag: '' },
-          { code: 'MTT 3307', title: 'Metallurgy I', credits: 3, flag: '' },
-          { code: 'MTT 3306', title: 'Ceramic Technology II', credits: 3, flag: '' },
-          { code: 'MTT 3202', title: 'Degradation of Materials', credits: 2, flag: '' },
-          { code: 'MTT 3103', title: 'Ceramic Pilot Plant Practices', credits: 1, flag: 'OPT' },
-          { code: 'MTT 3204', title: 'Workshop Technology II', credits: 2, flag: '' },
-          { code: 'MTT 3212', title: 'Non-Destructive Testing of Materials', credits: 2, flag: '' },
-          { code: 'MTT 3111', title: 'Thermodynamics for Materials Technology', credits: 1, flag: '' },
-          { code: 'CML 3101', title: 'Legal and Patent aspects', credits: 1, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'CML 3102', title: 'Industrial Safety', credits: 1, flag: '' },
-          { code: 'MTT 3609', title: 'Industrial Training', credits: 6, flag: '' },
-        ]},
-      ]},
-      { year: 'Year 4', sems: [
-        { sem: 'Semester 1', courses: [
-          { code: 'MTT 4201', title: 'Fluid Mechanics', credits: 2, flag: '' },
-          { code: 'MTT 4121', title: 'Research Methodology and Scientific Writing', credits: 1, flag: '' },
-          { code: 'MTT 4303', title: 'Ceramic Technology III', credits: 3, flag: 'OPT' },
-          { code: 'MTT 4219', title: 'Applied Mechanics', credits: 2, flag: '' },
-          { code: 'MTT 4104', title: 'Glass Technology', credits: 1, flag: 'OPT' },
-          { code: 'MTT 4305', title: 'Polymer Technology II', credits: 3, flag: 'OPT' },
-          { code: 'MTT 4206', title: 'Mineral Processing', credits: 2, flag: 'OPT' },
-          { code: 'MTT 4307', title: 'Metallurgy II', credits: 3, flag: 'OPT' },
-          { code: 'MTT 4820', title: 'Research Project (Continue in 4-2)', credits: 0, flag: '' },
-          { code: 'MTT 4108', title: 'Directed Reading', credits: 1, flag: 'OPT' },
-          { code: 'MTT 4109', title: 'Seminar', credits: 1, flag: 'OPT' },
-          { code: 'MTT 4210', title: 'Work Shadowing', credits: 2, flag: 'OPT' },
-          { code: 'CML 4201', title: 'Entrepreneurship', credits: 2, flag: '' },
-          { code: 'CML 4202', title: 'Human Resource Management', credits: 2, flag: 'OPT' },
-        ]},
-        { sem: 'Semester 2', courses: [
-          { code: 'MTT 4820', title: 'Research Project', credits: 8, flag: '' },
-          { code: 'MTT 4311', title: 'Advanced Materials', credits: 3, flag: 'OPT' },
-          { code: 'MTT 4312', title: 'Advanced Instrumental Techniques and Characterization', credits: 3, flag: 'OPT' },
-          { code: 'MTT 4213', title: 'Manufacturing Systems', credits: 2, flag: 'OPT' },
-          { code: 'MTT 4114', title: 'Quality Management', credits: 1, flag: '' },
-          { code: 'MTT 4215', title: 'Cleaner Production', credits: 2, flag: '' },
-          { code: 'MTT 4216', title: 'Industrial Metrology', credits: 2, flag: 'OPT' },
-          { code: 'MTT 4217', title: 'Composite Materials', credits: 2, flag: 'OPT' },
-          { code: 'MTT 4218', title: 'Paint Technology', credits: 2, flag: 'OPT' },
-        ]},
-      ]},
-    ]
-  }
-};
-
-// ─── STATE ───────────────────────────────────────────────────────────────────
-let currentDept = localStorage.getItem('fot_dept_v1') || 'ICT';
-let grades = JSON.parse(localStorage.getItem('fot_grades_v1') || '{}');
-let collapsedYears = {};
-
-// ─── MESH CANVAS ────────────────────────────────────────────────────────────
-const canvas = document.getElementById('mesh-canvas');
-const ctx = canvas.getContext('2d');
-let mouseX = -9999, mouseY = -9999;
-const CELL = 38;
-let cols, rows;
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  cols = Math.ceil(canvas.width / CELL) + 1;
-  rows = Math.ceil(canvas.height / CELL) + 1;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-document.addEventListener('mousemove', e => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
-
-function drawMesh() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  const baseAlpha = isDark ? 0.09 : 0.12;
-  const glowAlpha = isDark ? 0.55 : 0.45;
-  const glowColor = isDark ? '251,146,60' : '234,88,12';
-  const GLOW_RADIUS = 120;
-
-  for (let c = 0; c < cols; c++) {
-    for (let r = 0; r < rows; r++) {
-      const x = c * CELL;
-      const y = r * CELL;
-      const dx = x - mouseX;
-      const dy = y - mouseY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const glow = Math.max(0, 1 - dist / GLOW_RADIUS);
-      const alpha = baseAlpha + glow * (glowAlpha - baseAlpha);
-      ctx.fillStyle = `rgba(${glowColor},${alpha})`;
-      ctx.beginPath();
-      ctx.arc(x, y, 1.5, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  requestAnimationFrame(drawMesh);
-}
-drawMesh();
-
-
-
-// ─── THEME ───────────────────────────────────────────────────────────────────
-let isDark = localStorage.getItem('fot_theme_v1') !== 'light';
-if (isDark) {
-  document.documentElement.setAttribute('data-theme', 'dark');
-}
-
-function toggleTheme() {
-  isDark = !isDark;
-  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : '');
-  localStorage.setItem('fot_theme_v1', isDark ? 'dark' : 'light');
-  const label = document.getElementById('themeLabel');
-  if (label) label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
-}
-
-// Ensure label is correct on load
-window.addEventListener('DOMContentLoaded', () => {
-  const label = document.getElementById('themeLabel');
-  if (label) label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
-});
-
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
-function gradeKey(dept, code) { return `${dept}_${code.replace(/\s/g, '_')}`; }
-
-function calcCredits(dept) {
-  const data = DEPARTMENTS[dept];
-  let compulsory = 0, optional = 0, nonGpa = 0;
-  for (const yr of data.years)
-    for (const sem of yr.sems)
-      for (const c of sem.courses) {
-        if (c.flag === 'NONGPA') nonGpa += c.credits;
-        else if (c.flag === 'OPT') optional += c.credits;
-        else compulsory += c.credits;
+      MTT: {
+        name: 'MTT',
+        fullName: 'Materials Technology',
+        years: [
+          {
+            year: 'Year 1', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'CMT 1301', title: 'Fundamentals of Physics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1302', title: 'Fundamentals of Chemistry for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1303', title: 'Fundamentals of Mathematics for Technology', credits: 3, flag: '' },
+                  { code: 'CMT 1304', title: 'Fundamentals of Computer for Technology', credits: 3, flag: '' },
+                  { code: 'CML 1201', title: 'Personality Development', credits: 2, flag: '' },
+                  { code: 'CML 1202', title: 'Presentation Skills', credits: 2, flag: '' },
+                  { code: 'CMT 1205', title: 'Communication Skills I (English)', credits: 2, flag: 'NONGPA' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'ENT 1301', title: 'Introduction to Basic Electronics', credits: 3, flag: '' },
+                  { code: 'ENT 1302', title: 'Fundamentals of Electricity and Magnetism', credits: 3, flag: '' },
+                  { code: 'CMT 1307', title: 'Mathematics for Technology I', credits: 3, flag: '' },
+                  { code: 'CMT 1208', title: 'Computer Programming for Technology', credits: 2, flag: '' },
+                  { code: 'ENT 1204', title: 'Workshop Technology I', credits: 2, flag: '' },
+                  { code: 'CML 1203', title: 'Principles of Management', credits: 2, flag: '' },
+                  { code: 'CML 1204', title: 'Health and Wellbeing', credits: 2, flag: '' },
+                  { code: 'CMT 1209', title: 'Communication Skills II', credits: 2, flag: 'NONGPA' },
+                  { code: 'ENT 1203', title: 'Engineering Drawing', credits: 2, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 2', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'MTT 2201', title: 'Fundamentals of Solid-State Physics', credits: 2, flag: '' },
+                  { code: 'MTT 2202', title: 'Chemistry for Materials Technology', credits: 2, flag: '' },
+                  { code: 'MTT 2203', title: 'Introduction to Ceramic Technology', credits: 2, flag: '' },
+                  { code: 'MTT 2204', title: 'Computer Aided Design (CAD)', credits: 2, flag: '' },
+                  { code: 'CMT 2306', title: 'Mathematics for Technology II', credits: 3, flag: '' },
+                  { code: 'CMT 2301', title: 'Fundamentals of Statistics for Technology', credits: 3, flag: '' },
+                  { code: 'CML 2201', title: 'Social Sciences and Humanities', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2206', title: 'Indigenous Technology', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2202', title: 'Engineering Economics', credits: 2, flag: '' },
+                  { code: 'CMT 2202', title: 'Communication Skills III', credits: 2, flag: 'NONGPA' },
+                  { code: 'ICT 2304', title: 'Object Oriented Programming', credits: 3, flag: 'OPT' },
+                  { code: 'MTT 2206', title: 'Graphical Programming', credits: 2, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'MTT 2210', title: 'Mechanical Behavior of Materials', credits: 2, flag: '' },
+                  { code: 'MTT 2311', title: 'Ceramic Technology I', credits: 3, flag: '' },
+                  { code: 'MTT 2205', title: 'Introduction to Metallurgy', credits: 2, flag: '' },
+                  { code: 'MTT 2207', title: 'Measurements, Error Analysis and Instrumentation', credits: 2, flag: '' },
+                  { code: 'MTT 2108', title: 'Chemical Engineering Sciences', credits: 1, flag: '' },
+                  { code: 'MTT 2209', title: 'Introduction to Polymer Technology', credits: 2, flag: '' },
+                  { code: 'MTT 2110', title: 'Introduction to Thermodynamics', credits: 1, flag: '' },
+                  { code: 'CMT 2203', title: 'Computational Mathematics', credits: 2, flag: '' },
+                  { code: 'CML 2204', title: 'Foreign Language', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2208', title: 'Introduction to Marketing', credits: 2, flag: 'OPT' },
+                  { code: 'CML 2205', title: 'Ethics in Science and Technology', credits: 2, flag: 'OPT' },
+                  { code: 'ICT 2206', title: 'Multimedia and Web Technology', credits: 2, flag: 'OPT' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 3', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'MTT 3308', title: 'Polymer Technology I', credits: 3, flag: '' },
+                  { code: 'MTT 3307', title: 'Metallurgy I', credits: 3, flag: '' },
+                  { code: 'MTT 3306', title: 'Ceramic Technology II', credits: 3, flag: '' },
+                  { code: 'MTT 3202', title: 'Degradation of Materials', credits: 2, flag: '' },
+                  { code: 'MTT 3103', title: 'Ceramic Pilot Plant Practices', credits: 1, flag: 'OPT' },
+                  { code: 'MTT 3204', title: 'Workshop Technology II', credits: 2, flag: '' },
+                  { code: 'MTT 3212', title: 'Non-Destructive Testing of Materials', credits: 2, flag: '' },
+                  { code: 'MTT 3111', title: 'Thermodynamics for Materials Technology', credits: 1, flag: '' },
+                  { code: 'CML 3101', title: 'Legal and Patent aspects', credits: 1, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'CML 3102', title: 'Industrial Safety', credits: 1, flag: '' },
+                  { code: 'MTT 3609', title: 'Industrial Training', credits: 6, flag: '' },
+                ]
+              },
+            ]
+          },
+          {
+            year: 'Year 4', sems: [
+              {
+                sem: 'Semester 1', courses: [
+                  { code: 'MTT 4201', title: 'Fluid Mechanics', credits: 2, flag: '' },
+                  { code: 'MTT 4121', title: 'Research Methodology and Scientific Writing', credits: 1, flag: '' },
+                  { code: 'MTT 4303', title: 'Ceramic Technology III', credits: 3, flag: 'OPT' },
+                  { code: 'MTT 4219', title: 'Applied Mechanics', credits: 2, flag: '' },
+                  { code: 'MTT 4104', title: 'Glass Technology', credits: 1, flag: 'OPT' },
+                  { code: 'MTT 4305', title: 'Polymer Technology II', credits: 3, flag: 'OPT' },
+                  { code: 'MTT 4206', title: 'Mineral Processing', credits: 2, flag: 'OPT' },
+                  { code: 'MTT 4307', title: 'Metallurgy II', credits: 3, flag: 'OPT' },
+                  { code: 'MTT 4820', title: 'Research Project (Continue in 4-2)', credits: 0, flag: '' },
+                  { code: 'MTT 4108', title: 'Directed Reading', credits: 1, flag: 'OPT' },
+                  { code: 'MTT 4109', title: 'Seminar', credits: 1, flag: 'OPT' },
+                  { code: 'MTT 4210', title: 'Work Shadowing', credits: 2, flag: 'OPT' },
+                  { code: 'CML 4201', title: 'Entrepreneurship', credits: 2, flag: '' },
+                  { code: 'CML 4202', title: 'Human Resource Management', credits: 2, flag: 'OPT' },
+                ]
+              },
+              {
+                sem: 'Semester 2', courses: [
+                  { code: 'MTT 4820', title: 'Research Project', credits: 8, flag: '' },
+                  { code: 'MTT 4311', title: 'Advanced Materials', credits: 3, flag: 'OPT' },
+                  { code: 'MTT 4312', title: 'Advanced Instrumental Techniques and Characterization', credits: 3, flag: 'OPT' },
+                  { code: 'MTT 4213', title: 'Manufacturing Systems', credits: 2, flag: 'OPT' },
+                  { code: 'MTT 4114', title: 'Quality Management', credits: 1, flag: '' },
+                  { code: 'MTT 4215', title: 'Cleaner Production', credits: 2, flag: '' },
+                  { code: 'MTT 4216', title: 'Industrial Metrology', credits: 2, flag: 'OPT' },
+                  { code: 'MTT 4217', title: 'Composite Materials', credits: 2, flag: 'OPT' },
+                  { code: 'MTT 4218', title: 'Paint Technology', credits: 2, flag: 'OPT' },
+                ]
+              },
+            ]
+          },
+        ]
       }
-  return { compulsory, optional, nonGpa, total: compulsory + optional + nonGpa };
-}
+    };
 
-function calcGPA(dept) {
-  const data = DEPARTMENTS[dept];
-  let totalPoints = 0, totalCredits = 0, gradedCredits = 0;
-  for (const yr of data.years)
-    for (const sem of yr.sems)
-      for (const c of sem.courses) {
-        if (c.flag === 'NONGPA') continue;
-        const key = gradeKey(dept, c.code);
-        const g = grades[key];
-        if (g && GRADE_MAP[g] !== undefined) {
-          totalPoints += GRADE_MAP[g] * c.credits;
-          totalCredits += c.credits;
-          gradedCredits += c.credits;
+    // ─── STATE ───────────────────────────────────────────────────────────────────
+    let currentDept = localStorage.getItem('fot_dept_v1') || 'ICT';
+    let grades = JSON.parse(localStorage.getItem('fot_grades_v1') || '{}');
+    let collapsedYears = {};
+
+    // ─── MESH CANVAS ────────────────────────────────────────────────────────────
+    const canvas = document.getElementById('mesh-canvas');
+    const ctx = canvas.getContext('2d');
+    let mouseX = -9999, mouseY = -9999;
+    const CELL = 38;
+    let cols, rows;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      cols = Math.ceil(canvas.width / CELL) + 1;
+      rows = Math.ceil(canvas.height / CELL) + 1;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function drawMesh() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const baseAlpha = isDark ? 0.09 : 0.12;
+      const glowAlpha = isDark ? 0.55 : 0.45;
+      const glowColor = isDark ? '251,146,60' : '234,88,12';
+      const GLOW_RADIUS = 120;
+
+      for (let c = 0; c < cols; c++) {
+        for (let r = 0; r < rows; r++) {
+          const x = c * CELL;
+          const y = r * CELL;
+          const dx = x - mouseX;
+          const dy = y - mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const glow = Math.max(0, 1 - dist / GLOW_RADIUS);
+          const alpha = baseAlpha + glow * (glowAlpha - baseAlpha);
+          ctx.fillStyle = `rgba(${glowColor},${alpha})`;
+          ctx.beginPath();
+          ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+          ctx.fill();
         }
       }
-  return { gpa: totalCredits > 0 ? totalPoints / totalCredits : null, gradedCredits };
-}
 
-function gpaClass(gpa) {
-  if (gpa === null) return 'No grades entered';
-  if (gpa >= 3.70) return 'First Class Honours';
-  if (gpa >= 3.30) return 'Second Class (Upper)';
-  if (gpa >= 3.00) return 'Second Class (Lower)';
-  if (gpa >= 2.00) return 'Pass';
-  return 'Below Pass';
-}
+      requestAnimationFrame(drawMesh);
+    }
+    drawMesh();
 
-// ─── RENDER ──────────────────────────────────────────────────────────────────
-function renderDeptTabs() {
-  const el = document.getElementById('deptTabs');
-  el.innerHTML = Object.values(DEPARTMENTS).map(d =>
-    `<button class="dept-tab ${d.name === currentDept ? 'active' : ''}" onclick="switchDept('${d.name}')">${d.fullName}</button>`
-  ).join('');
-}
 
-function renderSummary() {
-  const c = calcCredits(currentDept);
-  const { gpa, gradedCredits } = calcGPA(currentDept);
-  const gpaCreditsTotal = c.compulsory + c.optional;
 
-  document.getElementById('totalCredits').textContent = c.total;
-  document.getElementById('gpaCredits').textContent = c.compulsory + ' comp + ' + c.optional + ' opt';
-  document.getElementById('nonGpaCredits').textContent = c.nonGpa;
-  document.getElementById('optionalCredits').textContent = c.optional;
-  document.getElementById('gradedCredits').textContent = gradedCredits;
-  document.getElementById('remainCredits').textContent = `of ${gpaCreditsTotal} GPA credits`;
+    // ─── THEME ───────────────────────────────────────────────────────────────────
+    let isDark = localStorage.getItem('fot_theme_v1') !== 'light';
+    if (isDark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
 
-  const gpaVal = gpa !== null ? gpa.toFixed(2) : '—';
-  document.getElementById('gpaVal').textContent = gpaVal;
-  document.getElementById('gpaClass').textContent = gpaClass(gpa);
-  document.getElementById('gpaBarFill').style.width = gpa !== null ? (gpa / 4.0 * 100) + '%' : '0%';
+    function toggleTheme() {
+      isDark = !isDark;
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : '');
+      localStorage.setItem('fot_theme_v1', isDark ? 'dark' : 'light');
+      const label = document.getElementById('themeLabel');
+      if (label) label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    }
 
-  // Progress
-  const need = Math.max(0, 120 - c.total);
-  document.getElementById('progressGrid').innerHTML = `
+    // Ensure label is correct on load
+    window.addEventListener('DOMContentLoaded', () => {
+      const label = document.getElementById('themeLabel');
+      if (label) label.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+    });
+
+    // ─── HELPERS ─────────────────────────────────────────────────────────────────
+    function gradeKey(dept, code) { return `${dept}_${code.replace(/\s/g, '_')}`; }
+
+    function calcCredits(dept) {
+      const data = DEPARTMENTS[dept];
+      let compulsory = 0, optional = 0, nonGpa = 0;
+      for (const yr of data.years)
+        for (const sem of yr.sems)
+          for (const c of sem.courses) {
+            if (c.flag === 'NONGPA') nonGpa += c.credits;
+            else if (c.flag === 'OPT') optional += c.credits;
+            else compulsory += c.credits;
+          }
+      return { compulsory, optional, nonGpa, total: compulsory + optional + nonGpa };
+    }
+
+    function calcGPA(dept) {
+      const data = DEPARTMENTS[dept];
+      let totalPoints = 0, totalCredits = 0, gradedCredits = 0;
+      for (const yr of data.years)
+        for (const sem of yr.sems)
+          for (const c of sem.courses) {
+            if (c.flag === 'NONGPA') continue;
+            const key = gradeKey(dept, c.code);
+            const g = grades[key];
+            if (g && GRADE_MAP[g] !== undefined) {
+              totalPoints += GRADE_MAP[g] * c.credits;
+              totalCredits += c.credits;
+              gradedCredits += c.credits;
+            }
+          }
+      return { gpa: totalCredits > 0 ? totalPoints / totalCredits : null, gradedCredits };
+    }
+
+    function gpaClass(gpa) {
+      if (gpa === null) return 'No grades entered';
+      if (gpa >= 3.70) return 'First Class Honours';
+      if (gpa >= 3.30) return 'Second Class (Upper)';
+      if (gpa >= 3.00) return 'Second Class (Lower)';
+      if (gpa >= 2.00) return 'Pass';
+      return 'Below Pass';
+    }
+
+    // ─── RENDER ──────────────────────────────────────────────────────────────────
+    function renderDeptTabs() {
+      const el = document.getElementById('deptTabs');
+      
+      let optionsHtml = '';
+      let selectedText = '';
+      
+      Object.values(DEPARTMENTS).forEach(d => {
+        if (d.name === currentDept) selectedText = d.fullName;
+        optionsHtml += `<div class="custom-option ${d.name === currentDept ? 'selected' : ''}" data-dept="${d.name}">${d.fullName}</div>`;
+      });
+
+      el.innerHTML = `
+        <div class="custom-select" id="deptCustomSelect">
+          <div class="select-selected" id="deptSelectTrigger">${selectedText}</div>
+          <div class="select-items" id="deptSelectItems">
+            ${optionsHtml}
+          </div>
+        </div>
+      `;
+
+      // Toggle dropdown on trigger click
+      document.getElementById('deptSelectTrigger').addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.getElementById('deptCustomSelect').classList.toggle('open');
+      });
+
+      // Handle option clicks
+      document.querySelectorAll('#deptSelectItems .custom-option').forEach(function(opt) {
+        opt.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const dept = this.getAttribute('data-dept');
+          switchDept(dept);
+        });
+      });
+    }
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      const select = document.querySelector('.custom-select');
+      if (select && !select.contains(e.target)) {
+        select.classList.remove('open');
+      }
+    });
+
+    function renderSummary() {
+      const c = calcCredits(currentDept);
+      const { gpa, gradedCredits } = calcGPA(currentDept);
+      const gpaCreditsTotal = c.compulsory + c.optional;
+
+      document.getElementById('totalCredits').textContent = c.total;
+      document.getElementById('gpaCredits').textContent = c.compulsory + ' comp + ' + c.optional + ' opt';
+      document.getElementById('nonGpaCredits').textContent = c.nonGpa;
+      document.getElementById('optionalCredits').textContent = c.optional;
+      document.getElementById('gradedCredits').textContent = gradedCredits;
+      document.getElementById('remainCredits').textContent = `of ${gpaCreditsTotal} GPA credits`;
+
+      const gpaVal = gpa !== null ? gpa.toFixed(2) : '—';
+      document.getElementById('gpaVal').textContent = gpaVal;
+      document.getElementById('gpaClass').textContent = gpaClass(gpa);
+      document.getElementById('gpaBarFill').style.width = gpa !== null ? (gpa / 4.0 * 100) + '%' : '0%';
+
+      // Progress
+      const need = Math.max(0, 120 - c.total);
+      document.getElementById('progressGrid').innerHTML = `
     <div class="progress-item">
       <div class="progress-item-label">Compulsory GPA credits — ${c.compulsory}</div>
-      <div class="prog-bar-wrap"><div class="prog-bar-fill accent" style="width:${Math.min(100,c.compulsory/120*100)}%"></div></div>
+      <div class="prog-bar-wrap"><div class="prog-bar-fill accent" style="width:${Math.min(100, c.compulsory / 120 * 100)}%"></div></div>
       <div class="progress-nums"><span>0</span><span>120 target</span></div>
     </div>
     <div class="progress-item">
       <div class="progress-item-label">Non-GPA credits — ${c.nonGpa}</div>
-      <div class="prog-bar-wrap"><div class="prog-bar-fill amber" style="width:${Math.min(100,c.nonGpa/30*100)}%"></div></div>
+      <div class="prog-bar-wrap"><div class="prog-bar-fill amber" style="width:${Math.min(100, c.nonGpa / 30 * 100)}%"></div></div>
       <div class="progress-nums"><span>Non-GPA</span><span>excluded from GPA calc</span></div>
     </div>
     <div class="progress-item">
       <div class="progress-item-label">GPA progress — ${gradedCredits} graded</div>
-      <div class="prog-bar-wrap"><div class="prog-bar-fill green" style="width:${gpaCreditsTotal>0?Math.min(100,gradedCredits/gpaCreditsTotal*100):0}%"></div></div>
+      <div class="prog-bar-wrap"><div class="prog-bar-fill green" style="width:${gpaCreditsTotal > 0 ? Math.min(100, gradedCredits / gpaCreditsTotal * 100) : 0}%"></div></div>
       <div class="progress-nums"><span>Graded: ${gradedCredits}</span><span>Total GPA: ${gpaCreditsTotal}</span></div>
     </div>
     <div class="progress-item">
       <div class="progress-item-label">Total credits vs 120 requirement</div>
-      <div class="prog-bar-wrap"><div class="prog-bar-fill accent" style="width:${Math.min(100,c.total/120*100)}%"></div></div>
-      <div class="progress-nums"><span>Have: ${c.total}</span><span>${need > 0 ? 'Need ~'+need+' more' : 'Target reached'}</span></div>
+      <div class="prog-bar-wrap"><div class="prog-bar-fill accent" style="width:${Math.min(100, c.total / 120 * 100)}%"></div></div>
+      <div class="progress-nums"><span>Have: ${c.total}</span><span>${need > 0 ? 'Need ~' + need + ' more' : 'Target reached'}</span></div>
     </div>
   `;
-}
 
-function renderCourses() {
-  const data = DEPARTMENTS[currentDept];
-  let html = '';
-  for (const yr of data.years) {
-    const yKey = `${currentDept}_${yr.year}`;
-    const collapsed = collapsedYears[yKey];
-    let yComp = 0, yOpt = 0, yNon = 0;
-    for (const sem of yr.sems)
-      for (const c of sem.courses) {
-        if (c.flag === 'NONGPA') yNon += c.credits;
-        else if (c.flag === 'OPT') yOpt += c.credits;
-        else yComp += c.credits;
+      // Safely render chart without breaking subjects
+      try {
+        if (typeof renderChart === 'function') renderChart();
+      } catch (e) {
+        console.error("Chart error:", e);
       }
-    html += `
+    }
+
+    function renderCourses() {
+      const data = DEPARTMENTS[currentDept];
+      let html = '';
+      for (const yr of data.years) {
+        const yKey = `${currentDept}_${yr.year}`;
+        const collapsed = collapsedYears[yKey];
+        let yComp = 0, yOpt = 0, yNon = 0;
+        for (const sem of yr.sems)
+          for (const c of sem.courses) {
+            if (c.flag === 'NONGPA') yNon += c.credits;
+            else if (c.flag === 'OPT') yOpt += c.credits;
+            else yComp += c.credits;
+          }
+        html += `
     <div class="year-section">
       <div class="year-header" onclick="toggleYear('${yKey}')">
         <div class="year-badge">${yr.year}</div>
@@ -1551,32 +2327,32 @@ function renderCourses() {
       </div>
       <div class="year-body ${collapsed ? 'collapsed' : ''}">
         <div class="sem-grid">`;
-    for (const sem of yr.sems) {
-      let semComp = 0, semOpt = 0;
-      for (const c of sem.courses) {
-        if (c.flag === '') semComp += c.credits;
-        else if (c.flag === 'OPT') semOpt += c.credits;
-      }
-      html += `
+        for (const sem of yr.sems) {
+          let semComp = 0, semOpt = 0;
+          for (const c of sem.courses) {
+            if (c.flag === '') semComp += c.credits;
+            else if (c.flag === 'OPT') semOpt += c.credits;
+          }
+          html += `
           <div class="sem-card">
             <div class="sem-head">
               <div class="sem-title">${sem.sem}</div>
               <div class="sem-meta">${semComp}c + ${semOpt}c opt</div>
             </div>
             <div class="course-list">`;
-      for (const c of sem.courses) {
-        const key = gradeKey(currentDept, c.code);
-        const g = grades[key] || '';
-        const isGraded = g !== '';
-        let badges = '';
-        if (c.flag === 'NONGPA') badges += `<span class="badge badge-nongpa">Non-GPA</span>`;
-        else if (c.flag === 'OPT') badges += `<span class="badge badge-opt">OPT</span>`;
-        else badges += `<span class="badge badge-comp">C</span>`;
-        const opts = GRADE_OPTIONS.map(o => `<option value="${o}" ${o === g ? 'selected' : ''}>${o || '— Grade —'}</option>`).join('');
-        const selectClass = isGraded ? 'grade-select graded' : 'grade-select';
-        const disabledAttr = c.flag === 'NONGPA' ? 'disabled' : '';
-        const disabledStyle = c.flag === 'NONGPA' ? 'style="opacity:0.4;pointer-events:none"' : '';
-        html += `
+          for (const c of sem.courses) {
+            const key = gradeKey(currentDept, c.code);
+            const g = grades[key] || '';
+            const isGraded = g !== '';
+            let badges = '';
+            if (c.flag === 'NONGPA') badges += `<span class="badge badge-nongpa">Non-GPA</span>`;
+            else if (c.flag === 'OPT') badges += `<span class="badge badge-opt">OPT</span>`;
+            else badges += `<span class="badge badge-comp">C</span>`;
+            const opts = GRADE_OPTIONS.map(o => `<option value="${o}" ${o === g ? 'selected' : ''}>${o || '— Grade —'}</option>`).join('');
+            const selectClass = isGraded ? 'grade-select graded' : 'grade-select';
+            const disabledAttr = c.flag === 'NONGPA' ? 'disabled' : '';
+            const disabledStyle = c.flag === 'NONGPA' ? 'style="opacity:0.4;pointer-events:none"' : '';
+            html += `
               <div class="course-row">
                 <div class="course-name">
                   <span class="course-code">${c.code}</span>
@@ -1591,260 +2367,387 @@ function renderCourses() {
                   </select>
                 </div>
               </div>`;
+          }
+          html += `</div></div>`;
+        }
+        html += `</div></div></div>`;
       }
-      html += `</div></div>`;
+      const courseContainer = document.getElementById('courseContainer');
+      if (courseContainer) {
+        courseContainer.innerHTML = html;
+      }
     }
-    html += `</div></div></div>`;
-  }
-  document.getElementById('courseContainer').innerHTML = html;
-}
 
-function setGrade(key, val, el) {
-  grades[key] = val;
-  localStorage.setItem('fot_grades_v1', JSON.stringify(grades));
-  if (val) el.classList.add('graded');
-  else el.classList.remove('graded');
-  renderSummary();
-}
+    // ─── ANALYTICS ─────────────────────────────────────────────────────────────
+    let gpaChartInstance = null;
 
-function resetGrades() {
-  if (confirm("Are you sure you want to reset all your grades? This cannot be undone.")) {
-    grades = {};
-    localStorage.removeItem('fot_grades_v1');
-    renderSummary();
-    renderCourses();
-  }
-}
-
-function toggleYear(yKey) {
-  collapsedYears[yKey] = !collapsedYears[yKey];
-  renderCourses();
-}
-
-function switchDept(d) {
-  currentDept = d;
-  localStorage.setItem('fot_dept_v1', d);
-  renderDeptTabs();
-  renderSummary();
-  renderCourses();
-}
-
-function downloadPDF() {
-  const data = DEPARTMENTS[currentDept];
-  const { gpa, gradedCredits } = calcGPA(currentDept);
-  
-  // Initialize jsPDF
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.getHeight();
-  
-  // 1. Accent Bar
-  doc.setFillColor(234, 88, 12);
-  doc.rect(0, 0, pageWidth, 6, 'F');
-  
-  // 2. Header
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(15, 17, 35);
-  doc.setFontSize(22);
-  doc.text('Rajarata University of Sri Lanka', pageWidth / 2, 22, { align: 'center' });
-  
-  doc.setFontSize(14);
-  doc.setTextColor(234, 88, 12);
-  doc.text('FACULTY OF TECHNOLOGY', pageWidth / 2, 30, { align: 'center' });
-  
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(11);
-  doc.setTextColor(80, 80, 80);
-  doc.text(`Academic Transcript Preview — ${data.fullName}`, pageWidth / 2, 38, { align: 'center' });
-  
-  doc.setDrawColor(220, 225, 240);
-  doc.line(14, 44, pageWidth - 14, 44);
-  
-  // 3. Summary Block
-  let startY = 52;
-  doc.setFillColor(247, 248, 252);
-  doc.setDrawColor(221, 225, 240);
-  doc.roundedRect(14, startY, pageWidth - 28, 22, 2, 2, 'FD');
-  
-  const gpaText = gpa !== null ? gpa.toFixed(2) : 'N/A';
-  const classText = gpaClass(gpa) || 'No grades entered';
-  
-  doc.setFontSize(16);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(234, 88, 12);
-  doc.text(gpaText, pageWidth * 0.25, startY + 10, { align: 'center' });
-  doc.text(classText, pageWidth * 0.5, startY + 10, { align: 'center' });
-  doc.text(gradedCredits.toString(), pageWidth * 0.75, startY + 10, { align: 'center' });
-  
-  doc.setFontSize(8);
-  doc.setTextColor(100, 100, 100);
-  doc.text('OVERALL GPA', pageWidth * 0.25, startY + 16, { align: 'center' });
-  doc.text('CLASSIFICATION', pageWidth * 0.5, startY + 16, { align: 'center' });
-  doc.text('GRADED CREDITS', pageWidth * 0.75, startY + 16, { align: 'center' });
-  
-  startY += 34;
-  
-  // 4. Semesters (AutoTable)
-  let hasAnyGrades = false;
-  
-  for (const yr of data.years) {
-    for (const sem of yr.sems) {
-      let semRows = [];
-      for (const c of sem.courses) {
-        if (c.flag === 'NONGPA') continue;
-        const key = gradeKey(currentDept, c.code);
-        const g = grades[key];
-        if (g && g !== '') {
-          semRows.push([c.code, c.title, c.credits.toString(), g]);
-          hasAnyGrades = true;
+    function renderChart() {
+      const data = DEPARTMENTS[currentDept]; // FIXED: previously used undefined window.DEPARTMENTS
+      const labels = [];
+      const gpaData = [];
+      
+      let cumulativeCredits = 0;
+      let cumulativePoints = 0;
+      
+      let semCount = 1;
+      for (const yr of data.years) {
+        for (const sem of yr.sems) {
+          let semCredits = 0;
+          let semPoints = 0;
+          
+          for (const c of sem.courses) {
+            if (c.flag === 'NONGPA') continue;
+            const key = gradeKey(currentDept, c.code);
+            const g = grades[key];
+            if (g && GRADE_MAP[g] !== undefined) {
+              semCredits += c.credits;
+              semPoints += GRADE_MAP[g] * c.credits;
+            }
+          }
+          
+          cumulativeCredits += semCredits;
+          cumulativePoints += semPoints;
+          
+          labels.push(`Sem ${semCount}`);
+          
+          if (cumulativeCredits > 0) {
+            gpaData.push(parseFloat((cumulativePoints / cumulativeCredits).toFixed(2)));
+          } else {
+            if (gpaData.length > 0) {
+              gpaData.push(gpaData[gpaData.length - 1]);
+            } else {
+              gpaData.push(null);
+            }
+          }
+          semCount++;
         }
       }
+
+      const ctxChart = document.getElementById('gpaChart').getContext('2d');
       
-      if (semRows.length > 0) {
-        doc.autoTable({
-          startY: startY,
-          head: [[`${yr.year} — ${sem.sem}`, 'Course Title', 'Credits', 'Grade']],
-          body: semRows,
-          theme: 'grid',
-          headStyles: { fillColor: [234, 88, 12], textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 10, halign: 'left' },
-          styles: { fontSize: 10, cellPadding: 4, textColor: [40, 40, 40] },
-          columnStyles: {
-            0: { cellWidth: 35, fontStyle: 'bold', halign: 'left' },
-            1: { cellWidth: 'auto', halign: 'left' },
-            2: { cellWidth: 20, halign: 'center' },
-            3: { cellWidth: 20, halign: 'center', fontStyle: 'bold', textColor: [234, 88, 12] }
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+      const textColor = isDark ? '#9099c8' : '#4a5080';
+      const lineColor = '#ea580c';
+      
+      const gradient = ctxChart.createLinearGradient(0, 0, 0, 300);
+      gradient.addColorStop(0, 'rgba(234, 88, 12, 0.4)');
+      gradient.addColorStop(1, 'rgba(234, 88, 12, 0.0)');
+
+      if (gpaChartInstance) {
+        gpaChartInstance.data.labels = labels;
+        gpaChartInstance.data.datasets[0].data = gpaData;
+        gpaChartInstance.options.scales.x.grid.color = gridColor;
+        gpaChartInstance.options.scales.y.grid.color = gridColor;
+        gpaChartInstance.options.scales.x.ticks.color = textColor;
+        gpaChartInstance.options.scales.y.ticks.color = textColor;
+        gpaChartInstance.options.plugins.legend.labels.color = textColor;
+        gpaChartInstance.data.datasets[0].backgroundColor = gradient;
+        gpaChartInstance.update();
+      } else {
+        gpaChartInstance = new Chart(ctxChart, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Cumulative GPA',
+              data: gpaData,
+              borderColor: lineColor,
+              backgroundColor: gradient,
+              borderWidth: 3,
+              pointBackgroundColor: '#fff',
+              pointBorderColor: lineColor,
+              pointBorderWidth: 2,
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              fill: true,
+              tension: 0.3
+            }]
           },
-          alternateRowStyles: { fillColor: [250, 250, 250] },
-          margin: { left: 14, right: 14 }
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                min: 0,
+                max: 4.0,
+                grid: { color: gridColor },
+                ticks: { color: textColor, stepSize: 1.0 }
+              },
+              x: {
+                grid: { color: gridColor, display: false },
+                ticks: { color: textColor }
+              }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: isDark ? '#1a1d36' : '#fff',
+                titleColor: isDark ? '#fff' : '#000',
+                bodyColor: isDark ? '#fff' : '#000',
+                borderColor: lineColor,
+                borderWidth: 1,
+                displayColors: false,
+                callbacks: {
+                  label: function(context) {
+                    return `GPA: ${context.parsed.y}`;
+                  }
+                }
+              }
+            },
+            interaction: { mode: 'index', intersect: false }
+          }
         });
-        startY = doc.lastAutoTable.finalY + 12;
       }
     }
-  }
-  
-  if (!hasAnyGrades) {
-    doc.setFont('helvetica', 'italic');
-    doc.setFontSize(12);
-    doc.setTextColor(150, 150, 150);
-    doc.text('No graded courses yet.', pageWidth / 2, startY + 10, { align: 'center' });
-  }
-  
-  // Footer
-  const pageCount = doc.internal.getNumberOfPages();
-  for (let i = 1; i <= pageCount; i++) {
-    doc.setPage(i);
-    doc.setFontSize(8);
-    doc.setTextColor(150, 150, 150);
-    doc.text(`Generated by FOT Credit Tracker • Page ${i} of ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
-  }
-  
-  // Preview
-  const pdfOutput = doc.output('blob');
-  const pdfUrl = URL.createObjectURL(pdfOutput);
-  const pdfWindow = window.open('', '_blank');
-  if (pdfWindow) {
-    pdfWindow.document.write('<div style="font-family:sans-serif; text-align:center; margin-top:50px;">Generating your Academic Transcript preview...</div>');
-    pdfWindow.location.href = pdfUrl;
-  } else {
-    alert('Please allow pop-ups to preview the PDF.');
-  }
-}
 
-// Interactive Stars Logic
-const stars = document.querySelectorAll('#interactiveStars i');
-let currentRating = 0;
-let baseReviewCount = 0;
-let baseTotalRating = 0;
-
-// Load previous user rating if it exists
-const storedUserRating = localStorage.getItem('fot_user_rating');
-if (storedUserRating) {
-  currentRating = parseInt(storedUserRating);
-  updateStarsUI(currentRating);
-  updateOverallRating(currentRating, false); // false means don't increment base count twice
-}
-
-stars.forEach(star => {
-  star.addEventListener('mouseenter', () => {
-    updateStarsUI(star.getAttribute('data-rating'));
-  });
-  
-  star.addEventListener('mouseleave', () => {
-    updateStarsUI(currentRating);
-  });
-  
-  star.addEventListener('click', () => {
-    const newRating = parseInt(star.getAttribute('data-rating'));
-    const isUpdate = !!storedUserRating || currentRating > 0;
-    currentRating = newRating;
-    
-    updateStarsUI(currentRating);
-    updateOverallRating(currentRating, !isUpdate);
-    
-    localStorage.setItem('fot_user_rating', currentRating);
-  });
-});
-
-function updateOverallRating(userRating, isNewReview) {
-  let totalReviews = baseReviewCount;
-  let totalRatingSum = baseTotalRating;
-  
-  const savedRating = localStorage.getItem('fot_user_rating');
-  
-  if (savedRating || !isNewReview) {
-    totalReviews = baseReviewCount + 1;
-    const oldRatingToSubtract = savedRating ? parseInt(savedRating) : 0;
-    totalRatingSum = baseTotalRating + userRating; 
-  } else if (isNewReview) {
-    totalReviews = baseReviewCount + 1;
-    totalRatingSum = baseTotalRating + userRating;
-  }
-  
-  const newAvg = totalReviews > 0 ? (totalRatingSum / totalReviews).toFixed(1) : "0.0";
-  
-  document.getElementById('avgRatingDisplay').innerText = newAvg;
-  
-  if (totalReviews === 0) {
-    document.getElementById('reviewCountDisplay').innerText = 'No reviews yet';
-  } else if (totalReviews === 1) {
-    document.getElementById('reviewCountDisplay').innerText = 'Based on 1 review';
-  } else {
-    document.getElementById('reviewCountDisplay').innerText = `Based on ${totalReviews} reviews`;
-  }
-
-  // Update visual average stars
-  const avgStarsContainer = document.getElementById('avgStarsDisplay');
-  avgStarsContainer.innerHTML = '';
-  const avgNumber = parseFloat(newAvg);
-  for (let i = 1; i <= 5; i++) {
-    if (avgNumber >= i) {
-      avgStarsContainer.innerHTML += '<i class="ph-fill ph-star"></i>';
-    } else if (avgNumber >= i - 0.5) {
-      avgStarsContainer.innerHTML += '<i class="ph-half ph-star"></i>';
-    } else {
-      avgStarsContainer.innerHTML += '<i class="ph ph-star"></i>';
+    function setGrade(key, val, el) {
+      grades[key] = val;
+      localStorage.setItem('fot_grades_v1', JSON.stringify(grades));
+      if (val) el.classList.add('graded');
+      else el.classList.remove('graded');
+      renderSummary();
     }
-  }
-}
 
-function updateStarsUI(rating) {
-  stars.forEach(s => {
-    if (parseInt(s.getAttribute('data-rating')) <= rating) {
-      s.classList.remove('ph');
-      s.classList.add('ph-fill');
-    } else {
-      s.classList.remove('ph-fill');
-      s.classList.add('ph');
+    function resetGrades() {
+      if (confirm("Are you sure you want to reset all your grades? This cannot be undone.")) {
+        grades = {};
+        localStorage.removeItem('fot_grades_v1');
+        renderSummary();
+        renderCourses();
+      }
     }
-  });
-}
 
-// ─── INIT ────────────────────────────────────────────────────────────────────
-renderDeptTabs();
-renderSummary();
-renderCourses();
-</script>
-<script src="chatbot.js?v=3"></script>
+    function toggleYear(yKey) {
+      collapsedYears[yKey] = !collapsedYears[yKey];
+      renderCourses();
+    }
+
+    function switchDept(d) {
+      currentDept = d;
+      localStorage.setItem('fot_dept_v1', d);
+      renderDeptTabs();
+      renderSummary();
+      renderCourses();
+    }
+
+    function downloadPDF() {
+      const data = DEPARTMENTS[currentDept];
+      const { gpa, gradedCredits } = calcGPA(currentDept);
+
+      // Initialize jsPDF
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+
+      // 1. Accent Bar
+      doc.setFillColor(234, 88, 12);
+      doc.rect(0, 0, pageWidth, 6, 'F');
+
+      // 2. Header
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(15, 17, 35);
+      doc.setFontSize(22);
+      doc.text('Rajarata University of Sri Lanka', pageWidth / 2, 22, { align: 'center' });
+
+      doc.setFontSize(14);
+      doc.setTextColor(234, 88, 12);
+      doc.text('FACULTY OF TECHNOLOGY', pageWidth / 2, 30, { align: 'center' });
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11);
+      doc.setTextColor(80, 80, 80);
+      doc.text(`Academic Transcript Preview — ${data.fullName}`, pageWidth / 2, 38, { align: 'center' });
+
+      doc.setDrawColor(220, 225, 240);
+      doc.line(14, 44, pageWidth - 14, 44);
+
+      // 3. Summary Block
+      let startY = 52;
+      doc.setFillColor(247, 248, 252);
+      doc.setDrawColor(221, 225, 240);
+      doc.roundedRect(14, startY, pageWidth - 28, 22, 2, 2, 'FD');
+
+      const gpaText = gpa !== null ? gpa.toFixed(2) : 'N/A';
+      const classText = gpaClass(gpa) || 'No grades entered';
+
+      doc.setFontSize(16);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(234, 88, 12);
+      doc.text(gpaText, pageWidth * 0.25, startY + 10, { align: 'center' });
+      doc.text(classText, pageWidth * 0.5, startY + 10, { align: 'center' });
+      doc.text(gradedCredits.toString(), pageWidth * 0.75, startY + 10, { align: 'center' });
+
+      doc.setFontSize(8);
+      doc.setTextColor(100, 100, 100);
+      doc.text('OVERALL GPA', pageWidth * 0.25, startY + 16, { align: 'center' });
+      doc.text('CLASSIFICATION', pageWidth * 0.5, startY + 16, { align: 'center' });
+      doc.text('GRADED CREDITS', pageWidth * 0.75, startY + 16, { align: 'center' });
+
+      startY += 34;
+
+      // 4. Semesters (AutoTable)
+      let hasAnyGrades = false;
+
+      for (const yr of data.years) {
+        for (const sem of yr.sems) {
+          let semRows = [];
+          for (const c of sem.courses) {
+            if (c.flag === 'NONGPA') continue;
+            const key = gradeKey(currentDept, c.code);
+            const g = grades[key];
+            if (g && g !== '') {
+              semRows.push([c.code, c.title, c.credits.toString(), g]);
+              hasAnyGrades = true;
+            }
+          }
+
+          if (semRows.length > 0) {
+            doc.autoTable({
+              startY: startY,
+              head: [[`${yr.year} — ${sem.sem}`, 'Course Title', 'Credits', 'Grade']],
+              body: semRows,
+              theme: 'grid',
+              headStyles: { fillColor: [234, 88, 12], textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 10, halign: 'left' },
+              styles: { fontSize: 10, cellPadding: 4, textColor: [40, 40, 40] },
+              columnStyles: {
+                0: { cellWidth: 35, fontStyle: 'bold', halign: 'left' },
+                1: { cellWidth: 'auto', halign: 'left' },
+                2: { cellWidth: 20, halign: 'center' },
+                3: { cellWidth: 20, halign: 'center', fontStyle: 'bold', textColor: [234, 88, 12] }
+              },
+              alternateRowStyles: { fillColor: [250, 250, 250] },
+              margin: { left: 14, right: 14 }
+            });
+            startY = doc.lastAutoTable.finalY + 12;
+          }
+        }
+      }
+
+      if (!hasAnyGrades) {
+        doc.setFont('helvetica', 'italic');
+        doc.setFontSize(12);
+        doc.setTextColor(150, 150, 150);
+        doc.text('No graded courses yet.', pageWidth / 2, startY + 10, { align: 'center' });
+      }
+
+      // Footer
+      const pageCount = doc.internal.getNumberOfPages();
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.setTextColor(150, 150, 150);
+        doc.text(`Generated by FOT Credit Tracker • Page ${i} of ${pageCount}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+      }
+
+      // Preview
+      const pdfOutput = doc.output('blob');
+      const pdfUrl = URL.createObjectURL(pdfOutput);
+      const pdfWindow = window.open('', '_blank');
+      if (pdfWindow) {
+        pdfWindow.document.write('<div style="font-family:sans-serif; text-align:center; margin-top:50px;">Generating your Academic Transcript preview...</div>');
+        pdfWindow.location.href = pdfUrl;
+      } else {
+        alert('Please allow pop-ups to preview the PDF.');
+      }
+    }
+
+    // Interactive Stars Logic
+    const stars = document.querySelectorAll('#interactiveStars i');
+    let currentRating = 0;
+    let baseReviewCount = 0;
+    let baseTotalRating = 0;
+
+    // Load previous user rating if it exists
+    const storedUserRating = localStorage.getItem('fot_user_rating');
+    if (storedUserRating) {
+      currentRating = parseInt(storedUserRating);
+      updateStarsUI(currentRating);
+      updateOverallRating(currentRating, false);
+    }
+
+    stars.forEach(star => {
+      star.addEventListener('mouseenter', () => {
+        updateStarsUI(star.getAttribute('data-rating'));
+      });
+
+      star.addEventListener('mouseleave', () => {
+        updateStarsUI(currentRating);
+      });
+
+      star.addEventListener('click', () => {
+        const newRating = parseInt(star.getAttribute('data-rating'));
+        const isUpdate = !!storedUserRating || currentRating > 0;
+        currentRating = newRating;
+
+        updateStarsUI(currentRating);
+        updateOverallRating(currentRating, !isUpdate);
+
+        localStorage.setItem('fot_user_rating', currentRating);
+      });
+    });
+
+    function updateOverallRating(userRating, isNewReview) {
+      let totalReviews = baseReviewCount;
+      let totalRatingSum = baseTotalRating;
+
+      const savedRating = localStorage.getItem('fot_user_rating');
+
+      if (savedRating || !isNewReview) {
+        totalReviews = baseReviewCount + 1;
+        const oldRatingToSubtract = savedRating ? parseInt(savedRating) : 0;
+        totalRatingSum = baseTotalRating + userRating;
+      } else if (isNewReview) {
+        totalReviews = baseReviewCount + 1;
+        totalRatingSum = baseTotalRating + userRating;
+      }
+
+      const newAvg = totalReviews > 0 ? (totalRatingSum / totalReviews).toFixed(1) : "0.0";
+
+      document.getElementById('avgRatingDisplay').innerText = newAvg;
+
+      if (totalReviews === 0) {
+        document.getElementById('reviewCountDisplay').innerText = 'No reviews yet';
+      } else if (totalReviews === 1) {
+        document.getElementById('reviewCountDisplay').innerText = 'Based on 1 review';
+      } else {
+        document.getElementById('reviewCountDisplay').innerText = `Based on ${totalReviews} reviews`;
+      }
+
+      // Update visual average stars
+      const avgStarsContainer = document.getElementById('avgStarsDisplay');
+      avgStarsContainer.innerHTML = '';
+      const avgNumber = parseFloat(newAvg);
+      for (let i = 1; i <= 5; i++) {
+        if (avgNumber >= i) {
+          avgStarsContainer.innerHTML += '<i class="ph-fill ph-star"></i>';
+        } else if (avgNumber >= i - 0.5) {
+          avgStarsContainer.innerHTML += '<i class="ph-half ph-star"></i>';
+        } else {
+          avgStarsContainer.innerHTML += '<i class="ph ph-star"></i>';
+        }
+      }
+    }
+
+    function updateStarsUI(rating) {
+      stars.forEach(s => {
+        if (parseInt(s.getAttribute('data-rating')) <= rating) {
+          s.classList.remove('ph');
+          s.classList.add('ph-fill');
+        } else {
+          s.classList.remove('ph-fill');
+          s.classList.add('ph');
+        }
+      });
+    }
+
+    // ─── INIT ────────────────────────────────────────────────────────────────────
+    renderDeptTabs();
+    renderSummary();
+    renderCourses();
+  </script>
+  <script src="chatbot.js?v=3"></script>
 </body>
+
 </html>
