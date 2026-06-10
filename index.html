@@ -10,7 +10,21 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet">
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web">
+    window.addEventListener('scroll', () => {
+      const dashboard = document.querySelector('.dashboard-glass');
+      const floatingGpa = document.getElementById('floatingGpa');
+      if (dashboard && floatingGpa) {
+        const rect = dashboard.getBoundingClientRect();
+        if (rect.bottom < 50) {
+          floatingGpa.classList.add('visible');
+        } else {
+          floatingGpa.classList.remove('visible');
+        }
+      }
+    });
+
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
@@ -1292,10 +1306,55 @@
       background: white;
       color: black;
     }
+
+    .floating-gpa {
+      position: fixed;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 24px;
+      border-radius: 30px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    [data-theme="dark"] .floating-gpa {
+      background: rgba(15, 17, 35, 0.7);
+    }
+    .floating-gpa.visible {
+      top: 24px;
+      border-color: var(--accent);
+    }
+    .floating-gpa-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .floating-gpa-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+    }
   </style>
 </head>
 
 <body>
+
+  <div id="floatingGpa" class="floating-gpa">
+    <div class="floating-gpa-label">Current GPA</div>
+    <div class="floating-gpa-val" id="floatingGpaVal">—</div>
+  </div>
+
 
   <canvas id="mesh-canvas"></canvas>
 
@@ -1765,6 +1824,7 @@
 
       const gpaVal = gpa !== null ? gpa.toFixed(2) : '—';
       document.getElementById('gpaVal').textContent = gpaVal;
+      document.getElementById('floatingGpaVal').textContent = gpaVal;
       document.getElementById('gpaClass').textContent = gpaClass(gpa);
       document.getElementById('gpaBarFill').style.width = gpa !== null ? (gpa / 4.0 * 100) + '%' : '0%';
 
