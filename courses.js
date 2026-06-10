@@ -1,4 +1,454 @@
 const DEPARTMENTS = {
+  "ICT": {
+    "name": "ICT",
+    "fullName": "Information & Communication Technology",
+    "years": [
+      {
+        "year": "Year 1",
+        "sems": [
+          {
+            "sem": "Semester 1",
+            "courses": [
+              {
+                "code": "ICT 1202",
+                "title": "Electronic Circuits",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 1305",
+                "title": "Program Designing and Programming",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "ICT 1111",
+                "title": "Productivity and Collaborative Tools",
+                "credits": 1,
+                "flag": ""
+              },
+              {
+                "code": "CMT 1301",
+                "title": "Fundamentals of Physics for Technology",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "CMT 1303",
+                "title": "Fundamentals of Mathematics for Technology",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "CMT 1205",
+                "title": "Communication Skills I",
+                "credits": 2,
+                "flag": "NONGPA"
+              },
+              {
+                "code": "CML 1201",
+                "title": "Personality Development",
+                "credits": 2,
+                "flag": ""
+              }
+            ]
+          },
+          {
+            "sem": "Semester 2",
+            "courses": [
+              {
+                "code": "ICT 1207",
+                "title": "Human Computer Interaction",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 1108",
+                "title": "Skill Development Project I",
+                "credits": 1,
+                "flag": ""
+              },
+              {
+                "code": "ICT 1209",
+                "title": "Web Technologies",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 1210",
+                "title": "Introduction to Multimedia",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "CMT 1307",
+                "title": "Mathematics For Technology I",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "CMT 1209",
+                "title": "Communication Skills II",
+                "credits": 2,
+                "flag": "NONGPA"
+              },
+              {
+                "code": "CML 1203",
+                "title": "Principles of Management",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "CML 1204",
+                "title": "Health and Wellbeing",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ENT 1302",
+                "title": "Fundamentals of Electricity and Magnetism",
+                "credits": 3,
+                "flag": "OPT"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": "Year 2",
+        "sems": [
+          {
+            "sem": "Semester 1",
+            "courses": [
+              {
+                "code": "ICT 2202",
+                "title": "Operating Systems",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 2303",
+                "title": "Data Structures and Algorithms",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "ICT 2304",
+                "title": "Object Oriented Programming",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "ICT 2207",
+                "title": "Software System Design",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 2212",
+                "title": "Skill Development Project II",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "CML 2202",
+                "title": "Engineering Economics",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "CMT 2202",
+                "title": "Communication Skills III",
+                "credits": 2,
+                "flag": "NONGPA"
+              },
+              {
+                "code": "CMT 2306",
+                "title": "Mathematics for Technology II",
+                "credits": 3,
+                "flag": "OPT"
+              }
+            ]
+          },
+          {
+            "sem": "Semester 2",
+            "courses": [
+              {
+                "code": "ICT 2305",
+                "title": "Computational Mathematics",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "ICT 2308",
+                "title": "Database Systems",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "ICT 2109",
+                "title": "Communication and Learning Skills",
+                "credits": 1,
+                "flag": ""
+              },
+              {
+                "code": "ICT 2211",
+                "title": "Fundamentals of Statistics",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 2213",
+                "title": "Data Communication and Networking",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 2214",
+                "title": "Introduction to Information Systems",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "CML 2204",
+                "title": "Foreign Language",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "CML 2205",
+                "title": "Ethics in Science and Technology",
+                "credits": 2,
+                "flag": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": "Year 3",
+        "sems": [
+          {
+            "sem": "Semester 1",
+            "courses": [
+              {
+                "code": "ICT 3201",
+                "title": "Software Project Management",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 3203",
+                "title": "Scientific Computer Applications",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 3206",
+                "title": "Skill Development Project III",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 3307",
+                "title": "Computational Statistics",
+                "credits": 3,
+                "flag": "OPT"
+              },
+              {
+                "code": "ICT 3208",
+                "title": "Design and Analysis of Algorithms",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 3312",
+                "title": "Software Verification and Validation",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "ICT 3315",
+                "title": "Internet of Things",
+                "credits": 3,
+                "flag": "OPT"
+              },
+              {
+                "code": "ICT 3217",
+                "title": "Advance Computer Networks",
+                "credits": 2,
+                "flag": "OPT"
+              },
+              {
+                "code": "ICT 3218",
+                "title": "Basics of Virtual Reality",
+                "credits": 2,
+                "flag": "OPT"
+              },
+              {
+                "code": "CML 3101",
+                "title": "Legal and Patent Aspects",
+                "credits": 1,
+                "flag": ""
+              }
+            ]
+          },
+          {
+            "sem": "Semester 2",
+            "courses": [
+              {
+                "code": "ICT 3204",
+                "title": "E-Business Systems",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 3209",
+                "title": "Computer Organization and Architecture",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 3310",
+                "title": "Information Security",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "ICT 3311",
+                "title": "Robotics",
+                "credits": 3,
+                "flag": "OPT"
+              },
+              {
+                "code": "ICT 3213",
+                "title": "Advanced Software System Design",
+                "credits": 2,
+                "flag": "OPT"
+              },
+              {
+                "code": "ICT 3314",
+                "title": "Embedded Systems",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "ICT 3216",
+                "title": "Research Methodology",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 3219",
+                "title": "Mobile Application Development",
+                "credits": 2,
+                "flag": "OPT"
+              },
+              {
+                "code": "ICT 3220",
+                "title": "Basics of Game Development",
+                "credits": 2,
+                "flag": "OPT"
+              },
+              {
+                "code": "CML 3203",
+                "title": "Basics of Accountancy",
+                "credits": 2,
+                "flag": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "year": "Year 4",
+        "sems": [
+          {
+            "sem": "Semester 1",
+            "courses": [
+              {
+                "code": "ICT 4301",
+                "title": "Mobile Computing",
+                "credits": 3,
+                "flag": ""
+              },
+              {
+                "code": "ICT 4202",
+                "title": "Internet Applications",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 4203",
+                "title": "Software Engineering",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 4205",
+                "title": "Current Topics in Information Technology",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 4306",
+                "title": "Data Science",
+                "credits": 3,
+                "flag": "OPT"
+              },
+              {
+                "code": "ICT 4207",
+                "title": "Artificial Intelligence",
+                "credits": 2,
+                "flag": "OPT"
+              },
+              {
+                "code": "ICT 4210",
+                "title": "Digital Image Processing",
+                "credits": 2,
+                "flag": "OPT"
+              },
+              {
+                "code": "ICT 4211",
+                "title": "Computer Graphics and Visualization",
+                "credits": 2,
+                "flag": "OPT"
+              },
+              {
+                "code": "CML 4201",
+                "title": "Entrepreneurship",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "CML 4202",
+                "title": "Human Resource Management",
+                "credits": 2,
+                "flag": "OPT"
+              }
+            ]
+          },
+          {
+            "sem": "Semester 2",
+            "courses": [
+              {
+                "code": "ICT 4808",
+                "title": "Research Project",
+                "credits": 8,
+                "flag": ""
+              },
+              {
+                "code": "ICT 4609",
+                "title": "Industrial Training",
+                "credits": 6,
+                "flag": ""
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "BPT": {
     "name": "BPT",
     "fullName": "Bioprocess Technology",
@@ -1876,456 +2326,6 @@ const DEPARTMENTS = {
                 "title": "Paint Technology",
                 "credits": 2,
                 "flag": "OPT"
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  "ICT": {
-    "name": "ICT",
-    "fullName": "Information & Communication Technology",
-    "years": [
-      {
-        "year": "Year 1",
-        "sems": [
-          {
-            "sem": "Semester 1",
-            "courses": [
-              {
-                "code": "ICT 1202",
-                "title": "Electronic Circuits",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 1305",
-                "title": "Program Designing and Programming",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "ICT 1111",
-                "title": "Productivity and Collaborative Tools",
-                "credits": 1,
-                "flag": ""
-              },
-              {
-                "code": "CMT 1301",
-                "title": "Fundamentals of Physics for Technology",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "CMT 1303",
-                "title": "Fundamentals of Mathematics for Technology",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "CMT 1205",
-                "title": "Communication Skills I",
-                "credits": 2,
-                "flag": "NONGPA"
-              },
-              {
-                "code": "CML 1201",
-                "title": "Personality Development",
-                "credits": 2,
-                "flag": ""
-              }
-            ]
-          },
-          {
-            "sem": "Semester 2",
-            "courses": [
-              {
-                "code": "ICT 1207",
-                "title": "Human Computer Interaction",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 1108",
-                "title": "Skill Development Project I",
-                "credits": 1,
-                "flag": ""
-              },
-              {
-                "code": "ICT 1209",
-                "title": "Web Technologies",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 1210",
-                "title": "Introduction to Multimedia",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "CMT 1307",
-                "title": "Mathematics For Technology I",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "CMT 1209",
-                "title": "Communication Skills II",
-                "credits": 2,
-                "flag": "NONGPA"
-              },
-              {
-                "code": "CML 1203",
-                "title": "Principles of Management",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "CML 1204",
-                "title": "Health and Wellbeing",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ENT 1302",
-                "title": "Fundamentals of Electricity and Magnetism",
-                "credits": 3,
-                "flag": "OPT"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "year": "Year 2",
-        "sems": [
-          {
-            "sem": "Semester 1",
-            "courses": [
-              {
-                "code": "ICT 2202",
-                "title": "Operating Systems",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 2303",
-                "title": "Data Structures and Algorithms",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "ICT 2304",
-                "title": "Object Oriented Programming",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "ICT 2207",
-                "title": "Software System Design",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 2212",
-                "title": "Skill Development Project II",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "CML 2202",
-                "title": "Engineering Economics",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "CMT 2202",
-                "title": "Communication Skills III",
-                "credits": 2,
-                "flag": "NONGPA"
-              },
-              {
-                "code": "CMT 2306",
-                "title": "Mathematics for Technology II",
-                "credits": 3,
-                "flag": "OPT"
-              }
-            ]
-          },
-          {
-            "sem": "Semester 2",
-            "courses": [
-              {
-                "code": "ICT 2305",
-                "title": "Computational Mathematics",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "ICT 2308",
-                "title": "Database Systems",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "ICT 2109",
-                "title": "Communication and Learning Skills",
-                "credits": 1,
-                "flag": ""
-              },
-              {
-                "code": "ICT 2211",
-                "title": "Fundamentals of Statistics",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 2213",
-                "title": "Data Communication and Networking",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 2214",
-                "title": "Introduction to Information Systems",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "CML 2204",
-                "title": "Foreign Language",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "CML 2205",
-                "title": "Ethics in Science and Technology",
-                "credits": 2,
-                "flag": ""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "year": "Year 3",
-        "sems": [
-          {
-            "sem": "Semester 1",
-            "courses": [
-              {
-                "code": "ICT 3201",
-                "title": "Software Project Management",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 3203",
-                "title": "Scientific Computer Applications",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 3206",
-                "title": "Skill Development Project III",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 3307",
-                "title": "Computational Statistics",
-                "credits": 3,
-                "flag": "OPT"
-              },
-              {
-                "code": "ICT 3208",
-                "title": "Design and Analysis of Algorithms",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 3312",
-                "title": "Software Verification and Validation",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "ICT 3315",
-                "title": "Internet of Things",
-                "credits": 3,
-                "flag": "OPT"
-              },
-              {
-                "code": "ICT 3217",
-                "title": "Advance Computer Networks",
-                "credits": 2,
-                "flag": "OPT"
-              },
-              {
-                "code": "ICT 3218",
-                "title": "Basics of Virtual Reality",
-                "credits": 2,
-                "flag": "OPT"
-              },
-              {
-                "code": "CML 3101",
-                "title": "Legal and Patent Aspects",
-                "credits": 1,
-                "flag": ""
-              }
-            ]
-          },
-          {
-            "sem": "Semester 2",
-            "courses": [
-              {
-                "code": "ICT 3204",
-                "title": "E-Business Systems",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 3209",
-                "title": "Computer Organization and Architecture",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 3310",
-                "title": "Information Security",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "ICT 3311",
-                "title": "Robotics",
-                "credits": 3,
-                "flag": "OPT"
-              },
-              {
-                "code": "ICT 3213",
-                "title": "Advanced Software System Design",
-                "credits": 2,
-                "flag": "OPT"
-              },
-              {
-                "code": "ICT 3314",
-                "title": "Embedded Systems",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "ICT 3216",
-                "title": "Research Methodology",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 3219",
-                "title": "Mobile Application Development",
-                "credits": 2,
-                "flag": "OPT"
-              },
-              {
-                "code": "ICT 3220",
-                "title": "Basics of Game Development",
-                "credits": 2,
-                "flag": "OPT"
-              },
-              {
-                "code": "CML 3203",
-                "title": "Basics of Accountancy",
-                "credits": 2,
-                "flag": ""
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "year": "Year 4",
-        "sems": [
-          {
-            "sem": "Semester 1",
-            "courses": [
-              {
-                "code": "ICT 4301",
-                "title": "Mobile Computing",
-                "credits": 3,
-                "flag": ""
-              },
-              {
-                "code": "ICT 4202",
-                "title": "Internet Applications",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 4203",
-                "title": "Software Engineering",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 4205",
-                "title": "Current Topics in Information Technology",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "ICT 4306",
-                "title": "Data Science",
-                "credits": 3,
-                "flag": "OPT"
-              },
-              {
-                "code": "ICT 4207",
-                "title": "Artificial Intelligence",
-                "credits": 2,
-                "flag": "OPT"
-              },
-              {
-                "code": "ICT 4210",
-                "title": "Digital Image Processing",
-                "credits": 2,
-                "flag": "OPT"
-              },
-              {
-                "code": "ICT 4211",
-                "title": "Computer Graphics and Visualization",
-                "credits": 2,
-                "flag": "OPT"
-              },
-              {
-                "code": "CML 4201",
-                "title": "Entrepreneurship",
-                "credits": 2,
-                "flag": ""
-              },
-              {
-                "code": "CML 4202",
-                "title": "Human Resource Management",
-                "credits": 2,
-                "flag": "OPT"
-              }
-            ]
-          },
-          {
-            "sem": "Semester 2",
-            "courses": [
-              {
-                "code": "ICT 4808",
-                "title": "Research Project",
-                "credits": 8,
-                "flag": ""
-              },
-              {
-                "code": "ICT 4609",
-                "title": "Industrial Training",
-                "credits": 6,
-                "flag": ""
               }
             ]
           }
