@@ -707,7 +707,7 @@
     const dept = getCurrentDept();
     const deptInfo = getDeptInfo(dept);
     const name = deptInfo ? deptInfo.fullName : dept;
-    addMessage(`Hi! ${icon('bot')} I'm the **FOT Assistant**.\n\nI have all the info about your **${name}** courses, grades, credits, and career paths built right in. No internet needed!\n\nWhat can I help you with?`, 'ai');
+    addMessage(`Hi! ${icon('bot')} I'm the **FOT Assistant**.\n\nI have all the info about your **${name}** courses, grades, credits, and career paths built right in.\n\nWhat can I help you with?`, 'ai');
     addQuickActions(['My GPA', 'Career paths', 'Credit summary', 'Help']);
   }
 
