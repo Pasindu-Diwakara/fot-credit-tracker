@@ -310,13 +310,19 @@
       });
 
       if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
         if (response.status === 429) {
           throw new Error('RateLimit');
         }
-        throw new Error('API Error: ' + response.statusText);
+        throw new Error(errData.error || 'API Error: ' + response.status + ' ' + response.statusText);
       }
 
       const data = await response.json();
+      
+      if (!data.candidates || !data.candidates[0]) {
+        throw new Error('No response from AI. The API key may be invalid.');
+      }
+      
       const reply = data.candidates[0].content.parts[0].text;
       
       messageHistory.push({ role: 'model', parts: [{ text: reply }] });
@@ -325,7 +331,7 @@
 
     } catch (e) {
       removeTyping();
-      let errorMsg = "I'm having trouble connecting right now. Please try again in a moment.";
+      let errorMsg = "Error: " + e.message;
       if (e.message === 'RateLimit') {
         errorMsg = "You've reached the API rate limit. Please wait about a minute and try again!";
       }
