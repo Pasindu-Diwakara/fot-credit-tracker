@@ -272,9 +272,6 @@
   async function handleSend() {
     const text = chatInput.value.trim();
     if (!text) return;
-    
-    // Decode API key at runtime to bypass GitHub secret scanning
-    const key = atob('QVEuQWI4Uk42SW1ESUY0Q0xNaEJ0Y0oxb1R1OEJlUFVnZGVIaUh5em41S3RoazRoN3JsdlE=');
 
     // Add user msg to UI and History
     addMessage(text, 'user');
@@ -287,30 +284,23 @@
     let grades = {};
     try { grades = JSON.parse(gradesRaw); } catch(e){}
     
-    const deptInfo = window.DEPARTMENTS ? window.DEPARTMENTS[dept] : null;
+    // Access DEPARTMENTS from the page's global scope
+    const allDepts = typeof DEPARTMENTS !== 'undefined' ? DEPARTMENTS : (window.DEPARTMENTS || null);
+    const deptInfo = allDepts ? allDepts[dept] : null;
     let coursesStr = "";
     if (deptInfo) {
       coursesStr = "Courses available: " + deptInfo.years.map(y => y.sems.map(s => s.courses.map(c => `${c.code}: ${c.title}`).join(", ")).join("; ")).join(" | ");
     }
-    
-    let careersContext = "";
-    try {
-      const res = await fetch('careers.html');
-      const htmlText = await res.text();
-      const match = htmlText.match(/const CAREER_PATHS = (\{[\s\S]*?\n\});/);
-      if (match) {
-        careersContext = "Career Paths data: " + match[0];
-      }
-    } catch(e) {}
 
-    const contextStr = `You represent the Faculty of Technology (FOT) at Rajarata University of Sri Lanka. If asked who built or created you, state professionally that you were developed by H. M. Pasindu Diwakara from the Department of ICT. The user is a student in the ${dept} department. Their current academic grades are: ${JSON.stringify(grades)}. ${coursesStr} ${careersContext} Respond concisely and directly.`;
+    const contextStr = `You represent the Faculty of Technology (FOT) at Rajarata University of Sri Lanka. If asked who built or created you, state professionally that you were developed by H. M. Pasindu Diwakara from the Department of ICT. The user is a student in the ${dept} department. Their current academic grades are: ${JSON.stringify(grades)}. ${coursesStr} Respond concisely and directly.`;
 
     messageHistory.push({ role: 'user', parts: [{ text: text }] });
 
     addTyping();
 
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+      // Call the Vercel serverless proxy — API key is kept server-side
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -335,12 +325,12 @@
 
     } catch (e) {
       removeTyping();
-      let errorMsg = "I'm having trouble connecting to the AI. Your API key might be invalid or expired.";
+      let errorMsg = "I'm having trouble connecting right now. Please try again in a moment.";
       if (e.message === 'RateLimit') {
-        errorMsg = "You've reached the free API rate limit. Please wait about a minute and try sending your message again!";
+        errorMsg = "You've reached the API rate limit. Please wait about a minute and try again!";
       }
       addMessage(errorMsg, 'ai');
-      messageHistory.pop(); // remove the user message from history if it failed
+      messageHistory.pop();
     }
 
     sendBtn.disabled = false;
