@@ -23,7 +23,7 @@ An all-in-one web application built specifically for students at the Faculty of 
 
 ## 🚀 Live Preview
 
-Check out the live application here: [View Dashboard on Vercel]
+Check out the live application here: [https://fot-credit-tracker.vercel.app/]
 
 ---
 
