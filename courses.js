@@ -145,12 +145,6 @@ const DEPARTMENTS = {
                 "flag": ""
               },
               {
-                "code": "ICT 2212",
-                "title": "Skill Development Project II",
-                "credits": 2,
-                "flag": ""
-              },
-              {
                 "code": "CML 2202",
                 "title": "Engineering Economics",
                 "credits": 2,
@@ -194,6 +188,12 @@ const DEPARTMENTS = {
               {
                 "code": "ICT 2211",
                 "title": "Fundamentals of Statistics",
+                "credits": 2,
+                "flag": ""
+              },
+              {
+                "code": "ICT 2212",
+                "title": "Skill Development Project II",
                 "credits": 2,
                 "flag": ""
               },

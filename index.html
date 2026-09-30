@@ -1911,18 +1911,13 @@
             const opts = GRADE_OPTIONS.map(o => `<div class="custom-option ${o === g ? 'selected' : ''}" data-val="${o}" onclick="selectGrade(event, '${key}', '${o}', this)">${o || '— Grade —'}</div>`).join('');
             const selectClass = isGraded ? 'custom-select grade-custom-select graded' : 'custom-select grade-custom-select';
             
-            let dropdownHtml = '';
-            if (c.flag === 'NONGPA') {
-              dropdownHtml = `<div style="opacity:0.4; font-size:12px; font-weight:500; text-align:center; padding: 8px;">— Grade —</div>`;
-            } else {
-              dropdownHtml = `
-                <div class="${selectClass}" id="gradeContainer_${key}">
-                  <div class="select-selected grade-trigger" onclick="toggleGradeDropdown(event, '${key}')">${g || '— Grade —'}</div>
-                  <div class="select-items" id="gradeItems_${key}">
-                    ${opts}
-                  </div>
-                </div>`;
-            }
+            const dropdownHtml = `
+              <div class="${selectClass}" id="gradeContainer_${key}">
+                <div class="select-selected grade-trigger" onclick="toggleGradeDropdown(event, '${key}')">${g || '— Grade —'}</div>
+                <div class="select-items" id="gradeItems_${key}">
+                  ${opts}
+                </div>
+              </div>`;
 
             html += `
               <div class="course-row">
@@ -2163,7 +2158,6 @@
         for (const sem of yr.sems) {
           let semRows = [];
           for (const c of sem.courses) {
-            if (c.flag === 'NONGPA') continue;
             const key = gradeKey(currentDept, c.code);
             const g = grades[key];
             if (g && g !== '') {
